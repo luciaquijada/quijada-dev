@@ -8,7 +8,7 @@ const projects = [
     id: 1,
     title: "E-commerce Platform",
     description:
-      "Plataforma de comercio electrónico con carrito de compras, pasarela de pagos y panel de administración. Diseño moderno y experiencia de usuario optimizada.",
+      "E-commerce platform with shopping cart, payment gateway, and admin panel. Modern design and optimized user experience.",
     tags: ["Next.js", "TypeScript", "Stripe", "Prisma"],
     link: "#",
     github: "#",
@@ -18,7 +18,7 @@ const projects = [
     id: 2,
     title: "Dashboard Analytics",
     description:
-      "Panel de control interactivo para visualización de datos en tiempo real. Gráficos dinámicos, filtros avanzados y exportación de reportes.",
+      "Interactive dashboard for real-time data visualization. Dynamic charts, advanced filters, and report exporting.",
     tags: ["React", "D3.js", "Tailwind", "Node.js"],
     link: "#",
     github: "#",
@@ -28,7 +28,7 @@ const projects = [
     id: 3,
     title: "Social App UI",
     description:
-      "Rediseño completo de interfaz para aplicación social. Focus en accesibilidad, animaciones fluidas y optimización de rendimiento.",
+      "Complete interface redesign for a social application. Focus on accessibility, smooth animations, and performance optimization.",
     tags: ["React Native", "Reanimated", "Firebase"],
     link: "#",
     github: "#",
@@ -38,7 +38,7 @@ const projects = [
     id: 4,
     title: "Portfolio Template",
     description:
-      "Template de portfolio minimalista y personalizable. Animaciones suaves, diseño responsive y fácil configuración.",
+      "Minimalist and customizable portfolio template. Smooth animations, responsive design, and easy configuration.",
     tags: ["Next.js", "Framer Motion", "MDX"],
     link: "#",
     github: "#",
@@ -59,12 +59,11 @@ export default function Projects() {
           className="mb-16"
         >
           <h2 className="mb-4 text-4xl font-bold tracking-tight text-stone-900 dark:text-stone-100 sm:text-5xl md:text-6xl">
-            Proyectos
+            Projects
           </h2>
           <p className="max-w-2xl text-lg text-stone-500 dark:text-stone-400">
-            Una selección de mis trabajos más recientes. Cada proyecto es una
-            oportunidad para explorar nuevas tecnologías y resolver problemas
-            creativamente.
+            A selection of my most recent work. Each project is an opportunity
+            to explore new technologies and solve problems creatively.
           </p>
         </motion.div>
 
@@ -119,14 +118,14 @@ export default function Projects() {
                   <a
                     href={project.link}
                     className="flex h-12 w-12 items-center justify-center rounded-full bg-stone-900 text-white transition-all hover:scale-105 hover:bg-stone-800 hover:shadow-lg hover:shadow-stone-900/20 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200"
-                    aria-label={`Ver proyecto ${project.title}`}
+                    aria-label={`View project ${project.title}`}
                   >
                     <ArrowUpRight className="h-5 w-5" />
                   </a>
                   <a
                     href={project.github}
                     className="flex h-12 w-12 items-center justify-center rounded-full border border-stone-300 bg-white text-stone-600 transition-all hover:border-stone-400 hover:text-stone-900 dark:border-stone-800 dark:bg-black dark:text-stone-400 dark:hover:border-stone-700 dark:hover:text-stone-100"
-                    aria-label={`Ver código de ${project.title}`}
+                    aria-label={`View code of ${project.title}`}
                   >
                     <Github className="h-5 w-5" />
                   </a>
@@ -151,7 +150,7 @@ export default function Projects() {
             href="#"
             className="inline-flex items-center gap-2 rounded-full border border-stone-300 bg-white px-6 py-3 text-sm font-medium text-stone-900 transition-all hover:border-stone-400 hover:shadow-lg hover:shadow-stone-900/5 dark:border-stone-800 dark:bg-black dark:text-stone-100 dark:hover:border-stone-700"
           >
-            Ver todos los proyectos
+            View all projects
             <ExternalLink className="h-4 w-4" />
           </a>
         </motion.div>

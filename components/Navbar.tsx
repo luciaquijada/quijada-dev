@@ -6,10 +6,10 @@ import { Menu, X } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 
 const navItems = [
-  { name: "Inicio", href: "#" },
-  { name: "Sobre mí", href: "#about" },
-  { name: "Proyectos", href: "#projects" },
-  { name: "Contacto", href: "#contact" },
+  { name: "Home", href: "#" },
+  { name: "About", href: "#about" },
+  { name: "Projects", href: "#projects" },
+  { name: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
@@ -74,7 +74,7 @@ export default function Navbar() {
             href="#contact"
             className="hidden rounded-full bg-stone-900 px-5 py-2 text-sm font-medium text-white transition-all hover:bg-stone-800 hover:shadow-lg hover:shadow-stone-900/20 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200 md:block"
           >
-            Hablemos
+            Let's talk
           </motion.a>
 
           {/* Mobile Menu Button */}
@@ -126,7 +126,7 @@ export default function Navbar() {
                 transition={{ duration: 0.3, delay: 0.35 }}
                 className="mt-4 rounded-full bg-stone-900 px-8 py-3 text-lg font-medium text-white transition-all hover:bg-stone-800 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200"
               >
-                Hablemos
+                Let's talk
               </motion.a>
             </motion.nav>
           </motion.div>

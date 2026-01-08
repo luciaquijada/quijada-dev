@@ -7,23 +7,23 @@ const timeline = [
   {
     type: "work",
     title: "Frontend Developer",
-    company: "Tech Company",
-    period: "2023 - Presente",
-    description: "Desarrollo de aplicaciones web con React y Next.js.",
+    company: "Bisite Research Group",
+    period: "2024 - Present",
+    description: "Development of dynamic, responsive, and optimized web interfaces with Vue.js, TypeScript, and Bootstrap. API integration and continuous learning in AI and dataspaces.",
   },
   {
     type: "education",
-    title: "Grado en Ingeniería Informática",
-    company: "Universidad Complutense",
-    period: "2019 - 2023",
-    description: "Especialización en desarrollo de software.",
+    title: "Psychology Degree",
+    company: "University of La Rioja",
+    period: "2025 - Present",
+    description: "Studies focused on understanding human behavior.",
   },
   {
     type: "work",
-    title: "Junior Developer",
-    company: "Startup",
-    period: "2022 - 2023",
-    description: "Desarrollo frontend y colaboración en proyectos ágiles.",
+    title: "Junior Web Developer",
+    company: "FGUSAL",
+    period: "2023 - 2023",
+    description: "Development and optimization of web page design. Implementation of solutions with Laravel and Bootstrap, ensuring scalability and visual consistency.",
   },
 ];
 
@@ -55,7 +55,7 @@ export default function About() {
           className="mb-16"
         >
           <h2 className="mb-4 text-4xl font-bold tracking-tight text-stone-900 dark:text-stone-100 sm:text-5xl md:text-6xl">
-            Sobre mí
+            About me
           </h2>
           <div className="h-1 w-16 rounded-full bg-stone-900 dark:bg-stone-100" />
         </motion.div>
@@ -93,7 +93,7 @@ export default function About() {
             {/* Skills */}
             <div className="pt-4">
               <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-stone-400 dark:text-stone-500">
-                Tecnologías
+                Technologies
               </h3>
               <div className="flex flex-wrap gap-2">
                 {skills.map((skill, index) => (
@@ -125,7 +125,7 @@ export default function About() {
             className="space-y-6"
           >
             <h3 className="mb-6 text-sm font-semibold uppercase tracking-wider text-stone-400 dark:text-stone-500">
-              Experiencia & Educación
+              Experience & Education
             </h3>
 
             <div className="space-y-6">

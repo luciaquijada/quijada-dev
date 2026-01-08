@@ -16,7 +16,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           className="mb-4 text-lg text-stone-500 dark:text-stone-400 md:text-xl"
         >
-          Hola, soy
+          Hi, I'm
         </motion.p>
 
         {/* Name */}
@@ -53,9 +53,10 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
           className="max-w-2xl text-lg leading-relaxed text-stone-500 dark:text-stone-400 md:text-xl"
         >
-          Creo experiencias digitales que combinan diseño minimalista con
-          funcionalidad impecable. Especializada en React, Next.js y todo lo que
-          hace que la web sea hermosa.
+          Specialized in building websites and mobile applications. I have 2 years of
+          experience designing, developing, and optimizing digital solutions focused on efficiency, scalability, and
+          user experience. I'm passionate about programming and problem-solving, and I aim to contribute to a
+          high-performance team, driving innovative and impactful technology projects.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -69,14 +70,14 @@ export default function Hero() {
             href="#projects"
             className="inline-flex items-center gap-2 rounded-full bg-stone-900 px-6 py-3 text-sm font-medium text-white transition-all hover:bg-stone-800 hover:shadow-lg hover:shadow-stone-900/20 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200 sm:px-8 sm:py-4 sm:text-base"
           >
-            Ver proyectos
+            View projects
             <ArrowDown className="h-4 w-4" />
           </a>
           <a
             href="#contact"
             className="inline-flex items-center rounded-full border border-stone-300 bg-white px-6 py-3 text-sm font-medium text-stone-900 transition-all hover:border-stone-400 hover:shadow-lg hover:shadow-stone-900/5 dark:border-stone-800 dark:bg-black dark:text-stone-100 dark:hover:border-stone-700 sm:px-8 sm:py-4 sm:text-base"
           >
-            Contactar
+            Contact
           </a>
         </motion.div>
       </div>
