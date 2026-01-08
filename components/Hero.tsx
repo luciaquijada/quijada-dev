@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 
-const roles = ["Frontend Developer", "UI/UX Enthusiast", "Creative Coder"];
+const roles = ["Fullstack Developer", "Web & Mobile Apps", "Game Developer"];
 
 export default function Hero() {
   return (

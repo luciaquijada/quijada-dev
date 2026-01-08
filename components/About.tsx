@@ -28,14 +28,18 @@ const timeline = [
 ];
 
 const skills = [
-  "React",
+  "HTML",
   "Next.js",
   "TypeScript",
   "Tailwind CSS",
-  "Framer Motion",
-  "Node.js",
+  "Python",
+  "Astro",
+  "React",
+  "Notion",
+  "CSS",
   "Git",
-  "Figma",
+  "JavaScript",
+  "Unity",
 ];
 
 export default function About() {
@@ -67,20 +71,23 @@ export default function About() {
             className="space-y-6"
           >
             <p className="text-lg leading-relaxed text-stone-600 dark:text-stone-400">
-              Soy una desarrolladora frontend con pasión por crear interfaces
-              elegantes y experiencias de usuario excepcionales. Me especializo
-              en transformar diseños complejos en código limpio y eficiente.
+              Hi, I'm Lucía Quijada, a frontend and web/mobile application developer. I
+              currently apply my vision at the Bisite Research Group, exploring how
+              technology can improve the way we learn and communicate. I've always been
+              fascinated by how a single line of code can completely change the user
+              interaction, transforming ideas into experiences that work well and look
+              even better.
             </p>
             <p className="text-lg leading-relaxed text-stone-600 dark:text-stone-400">
-              Creo firmemente en el poder del diseño minimalista y la atención
-              al detalle. Cada proyecto es una oportunidad para crear algo que
-              no solo funcione perfectamente, sino que también sea un placer
-              usar.
+              What defines my profile is the blend of technical skills and the
+              humanities: while developing, I'm also studying Psychology. I strive for a
+              balance between the organized side of me—structuring work and logic—and the
+              creative side that needs space for visual improvisation. I'm convinced that
+              understanding people is just as important as understanding a good system.
             </p>
             <p className="text-lg leading-relaxed text-stone-600 dark:text-stone-400">
-              Cuando no estoy codificando, me encontrarás explorando nuevas
-              tecnologías, contribuyendo a proyectos open source o disfrutando
-              de un buen café mientras leo sobre diseño y tendencias web.
+              I'm naturally curious and passionate about combining creativity and technology to build
+              meaningful products that truly connect with people.
             </p>
 
             {/* Skills */}

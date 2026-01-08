@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 import { Mail, ArrowUpRight, MapPin, Github, Linkedin } from "lucide-react";
 
 const socialLinks = [
-  { name: "LinkedIn", href: "#", icon: Linkedin },
-  { name: "GitHub", href: "#", icon: Github },
-  { name: "Email", href: "mailto:hola@ejemplo.com", icon: Mail },
+  { name: "LinkedIn", href: "https://www.linkedin.com/in/luciaquijada/", icon: Linkedin },
+  { name: "GitHub", href: "https://github.com/luciaquijada", icon: Github },
+  { name: "Email", href: "mailto:lquijadagordo17@gmail.com", icon: Mail },
 ];
 
 export default function Footer() {
@@ -56,7 +56,7 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-1 text-sm text-stone-400 dark:text-stone-500">
               <MapPin className="h-3.5 w-3.5" />
-              Madrid, España
+              Salamanca, España
             </div>
           </div>
 
