@@ -3,12 +3,13 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
 
 const navItems = [
-  { name: "Inicio", href: "#" },
-  { name: "Sobre mí", href: "#about" },
-  { name: "Proyectos", href: "#projects" },
-  { name: "Contacto", href: "#contact" },
+  { name: "Home", href: "#" },
+  { name: "About", href: "#about" },
+  { name: "Projects", href: "#projects" },
+  { name: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
@@ -35,8 +36,8 @@ export default function Navbar() {
         <nav
           className={`flex items-center gap-1 rounded-full border px-2 py-2 transition-all duration-500 ${
             isScrolled
-              ? "border-stone-200 bg-white/80 shadow-lg shadow-stone-900/5 backdrop-blur-md"
-              : "border-stone-200/50 bg-white/50 backdrop-blur-sm"
+              ? "border-stone-200 bg-white/80 shadow-lg shadow-stone-900/5 backdrop-blur-md dark:border-stone-800 dark:bg-black/80 dark:shadow-black/20"
+              : "border-stone-200/50 bg-white/50 backdrop-blur-sm dark:border-stone-800/50 dark:bg-black/50"
           }`}
         >
           {/* Desktop Navigation */}
@@ -54,7 +55,7 @@ export default function Navbar() {
               >
                 <a
                   href={item.href}
-                  className="relative rounded-full px-4 py-2 text-sm font-medium text-stone-600 transition-colors hover:text-stone-900"
+                  className="relative rounded-full px-4 py-2 text-sm font-medium text-stone-600 transition-colors hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100"
                 >
                   {item.name}
                 </a>
@@ -62,21 +63,24 @@ export default function Navbar() {
             ))}
           </ul>
 
+          {/* Theme Toggle */}
+          <ThemeToggle />
+
           {/* CTA Button */}
           <motion.a
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
             href="#contact"
-            className="hidden rounded-full bg-stone-900 px-5 py-2 text-sm font-medium text-white transition-all hover:bg-stone-800 hover:shadow-lg hover:shadow-stone-900/20 md:block"
+            className="hidden rounded-full bg-stone-900 px-5 py-2 text-sm font-medium text-white transition-all hover:bg-stone-800 hover:shadow-lg hover:shadow-stone-900/20 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200 md:block"
           >
-            Hablemos
+            Let's talk
           </motion.a>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="flex h-10 w-10 items-center justify-center rounded-full text-stone-600 transition-colors hover:bg-stone-100 hover:text-stone-900 md:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-full text-stone-600 transition-colors hover:bg-stone-100 hover:text-stone-900 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-100 md:hidden"
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -92,7 +96,7 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-stone-50/95 backdrop-blur-sm md:hidden"
+            className="fixed inset-0 z-40 bg-stone-50/95 backdrop-blur-sm dark:bg-black/95 md:hidden"
           >
             <motion.nav
               initial={{ opacity: 0, y: 20 }}
@@ -109,7 +113,7 @@ export default function Navbar() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: 0.1 + index * 0.05 }}
-                  className="text-2xl font-medium text-stone-900 transition-colors hover:text-stone-600"
+                  className="text-2xl font-medium text-stone-900 transition-colors hover:text-stone-600 dark:text-stone-100 dark:hover:text-stone-400"
                 >
                   {item.name}
                 </motion.a>
@@ -120,9 +124,9 @@ export default function Navbar() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: 0.35 }}
-                className="mt-4 rounded-full bg-stone-900 px-8 py-3 text-lg font-medium text-white transition-all hover:bg-stone-800"
+                className="mt-4 rounded-full bg-stone-900 px-8 py-3 text-lg font-medium text-white transition-all hover:bg-stone-800 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200"
               >
-                Hablemos
+                Let's talk
               </motion.a>
             </motion.nav>
           </motion.div>

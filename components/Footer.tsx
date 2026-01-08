@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 import { Mail, ArrowUpRight, MapPin, Github, Linkedin } from "lucide-react";
 
 const socialLinks = [
-  { name: "LinkedIn", href: "#", icon: Linkedin },
-  { name: "GitHub", href: "#", icon: Github },
-  { name: "Email", href: "mailto:hola@ejemplo.com", icon: Mail },
+  { name: "LinkedIn", href: "https://www.linkedin.com/in/luciaquijada/", icon: Linkedin },
+  { name: "GitHub", href: "https://github.com/luciaquijada", icon: Github },
+  { name: "Email", href: "mailto:lquijadagordo17@gmail.com", icon: Mail },
 ];
 
 export default function Footer() {
@@ -21,22 +21,22 @@ export default function Footer() {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="mb-20 text-center"
         >
-          <h2 className="mb-6 text-4xl font-bold tracking-tight text-stone-900 sm:text-5xl md:text-6xl lg:text-7xl">
-            ¿Tienes un proyecto
+          <h2 className="mb-6 text-4xl font-bold tracking-tight text-stone-900 dark:text-stone-100 sm:text-5xl md:text-6xl lg:text-7xl">
+            Have a project
             <br />
-            en mente?
+            in mind?
           </h2>
-          <p className="mx-auto mb-10 max-w-xl text-lg text-stone-500">
-            Siempre estoy abierta a nuevas oportunidades y colaboraciones
-            interesantes. No dudes en contactarme.
+          <p className="mx-auto mb-10 max-w-xl text-lg text-stone-500 dark:text-stone-400">
+            I'm always open to new opportunities and interesting collaborations.
+            Feel free to reach out.
           </p>
           <motion.a
-            href="mailto:hola@ejemplo.com"
+            href="mailto:lquijadagordo17@gmail.com"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="inline-flex items-center gap-3 rounded-full bg-stone-900 px-8 py-4 text-lg font-medium text-white transition-all hover:bg-stone-800 hover:shadow-xl hover:shadow-stone-900/20"
+            className="inline-flex items-center gap-3 rounded-full bg-stone-900 px-8 py-4 text-lg font-medium text-white transition-all hover:bg-stone-800 hover:shadow-xl hover:shadow-stone-900/20 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200"
           >
-            Hablemos
+            Let's talk
             <ArrowUpRight className="h-5 w-5" />
           </motion.a>
         </motion.div>
@@ -47,16 +47,16 @@ export default function Footer() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="flex flex-col items-center justify-between gap-8 border-t border-stone-200 pt-12 md:flex-row"
+          className="flex flex-col items-center justify-between gap-8 border-t border-stone-200 pt-12 dark:border-stone-800 md:flex-row"
         >
           {/* Left */}
           <div className="flex flex-col items-center gap-2 md:items-start">
-            <p className="text-sm text-stone-500">
-              © 2026 Lucía Quijada. Todos los derechos reservados.
+            <p className="text-sm text-stone-500 dark:text-stone-400">
+              © 2026 Lucía Quijada. All rights reserved.
             </p>
-            <div className="flex items-center gap-1 text-sm text-stone-400">
+            <div className="flex items-center gap-1 text-sm text-stone-400 dark:text-stone-500">
               <MapPin className="h-3.5 w-3.5" />
-              Madrid, España
+              Salamanca, Spain
             </div>
           </div>
 
@@ -66,7 +66,7 @@ export default function Footer() {
               <a
                 key={link.name}
                 href={link.href}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-stone-200 bg-white text-stone-500 transition-all hover:border-stone-300 hover:text-stone-900"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-stone-200 bg-white text-stone-500 transition-all hover:border-stone-300 hover:text-stone-900 dark:border-stone-800 dark:bg-black dark:text-stone-400 dark:hover:border-stone-700 dark:hover:text-stone-100"
                 aria-label={link.name}
               >
                 <link.icon className="h-4 w-4" />

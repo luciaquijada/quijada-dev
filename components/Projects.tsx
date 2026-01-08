@@ -1,54 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight, Github, ExternalLink } from "lucide-react";
-
-const projects = [
-  {
-    id: 1,
-    title: "E-commerce Platform",
-    description:
-      "Plataforma de comercio electrónico con carrito de compras, pasarela de pagos y panel de administración. Diseño moderno y experiencia de usuario optimizada.",
-    tags: ["Next.js", "TypeScript", "Stripe", "Prisma"],
-    link: "#",
-    github: "#",
-    year: "2024",
-  },
-  {
-    id: 2,
-    title: "Dashboard Analytics",
-    description:
-      "Panel de control interactivo para visualización de datos en tiempo real. Gráficos dinámicos, filtros avanzados y exportación de reportes.",
-    tags: ["React", "D3.js", "Tailwind", "Node.js"],
-    link: "#",
-    github: "#",
-    year: "2024",
-  },
-  {
-    id: 3,
-    title: "Social App UI",
-    description:
-      "Rediseño completo de interfaz para aplicación social. Focus en accesibilidad, animaciones fluidas y optimización de rendimiento.",
-    tags: ["React Native", "Reanimated", "Firebase"],
-    link: "#",
-    github: "#",
-    year: "2023",
-  },
-  {
-    id: 4,
-    title: "Portfolio Template",
-    description:
-      "Template de portfolio minimalista y personalizable. Animaciones suaves, diseño responsive y fácil configuración.",
-    tags: ["Next.js", "Framer Motion", "MDX"],
-    link: "#",
-    github: "#",
-    year: "2023",
-  },
-];
+import { Hammer } from "lucide-react";
 
 export default function Projects() {
   return (
-    <section id="projects" className="bg-white px-6 py-24 md:py-32">
+    <section id="projects" className="bg-white px-6 py-24 dark:bg-black md:py-32">
       <div className="mx-auto max-w-6xl">
         {/* Section Header */}
         <motion.div
@@ -58,102 +15,38 @@ export default function Projects() {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="mb-16"
         >
-          <h2 className="mb-4 text-4xl font-bold tracking-tight text-stone-900 sm:text-5xl md:text-6xl">
-            Proyectos
+          <h2 className="mb-4 text-4xl font-bold tracking-tight text-stone-900 dark:text-stone-100 sm:text-5xl md:text-6xl">
+            Projects
           </h2>
-          <p className="max-w-2xl text-lg text-stone-500">
-            Una selección de mis trabajos más recientes. Cada proyecto es una
-            oportunidad para explorar nuevas tecnologías y resolver problemas
-            creativamente.
+          <p className="max-w-2xl text-lg text-stone-500 dark:text-stone-400">
+            A selection of my most recent work. Each project is an opportunity
+            to explore new technologies and solve problems creatively.
           </p>
         </motion.div>
 
-        {/* Projects List */}
-        <div className="space-y-6">
-          {projects.map((project, index) => (
-            <motion.article
-              key={project.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{
-                duration: 0.8,
-                delay: index * 0.1,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="group relative overflow-hidden rounded-3xl border border-stone-200 bg-stone-50 p-6 transition-all hover:border-stone-300 hover:bg-stone-100/50 sm:p-8 md:p-10"
-            >
-              <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-                {/* Content */}
-                <div className="flex-1 space-y-4">
-                  {/* Year */}
-                  <span className="inline-block text-sm font-medium text-stone-400">
-                    {project.year}
-                  </span>
-
-                  {/* Title */}
-                  <h3 className="text-2xl font-bold text-stone-900 sm:text-3xl md:text-4xl">
-                    {project.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="max-w-xl text-base text-stone-500 sm:text-lg">
-                    {project.description}
-                  </p>
-
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full bg-white px-3 py-1.5 text-xs font-medium text-stone-600 ring-1 ring-stone-200"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Links */}
-                <div className="flex items-center gap-3 lg:flex-col lg:items-end">
-                  <a
-                    href={project.link}
-                    className="flex h-12 w-12 items-center justify-center rounded-full bg-stone-900 text-white transition-all hover:scale-105 hover:bg-stone-800 hover:shadow-lg hover:shadow-stone-900/20"
-                    aria-label={`Ver proyecto ${project.title}`}
-                  >
-                    <ArrowUpRight className="h-5 w-5" />
-                  </a>
-                  <a
-                    href={project.github}
-                    className="flex h-12 w-12 items-center justify-center rounded-full border border-stone-300 bg-white text-stone-600 transition-all hover:border-stone-400 hover:text-stone-900"
-                    aria-label={`Ver código de ${project.title}`}
-                  >
-                    <Github className="h-5 w-5" />
-                  </a>
-                </div>
-              </div>
-
-              {/* Hover gradient */}
-              <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br from-stone-100/0 via-stone-100/0 to-stone-200/50 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-            </motion.article>
-          ))}
-        </div>
-
-        {/* View All Button */}
+        {/* In Build State */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-12 flex justify-center"
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-stone-300 bg-stone-50 px-6 py-20 dark:border-stone-700 dark:bg-stone-950"
         >
-          <a
-            href="#"
-            className="inline-flex items-center gap-2 rounded-full border border-stone-300 bg-white px-6 py-3 text-sm font-medium text-stone-900 transition-all hover:border-stone-400 hover:shadow-lg hover:shadow-stone-900/5"
-          >
-            Ver todos los proyectos
-            <ExternalLink className="h-4 w-4" />
-          </a>
+          <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-stone-200 dark:bg-stone-800">
+            <Hammer className="h-8 w-8 text-stone-500 dark:text-stone-400" />
+          </div>
+          <h3 className="mb-2 text-xl font-semibold text-stone-900 dark:text-stone-100">
+            In Build
+          </h3>
+          <p className="max-w-md text-center text-stone-500 dark:text-stone-400">
+            I'm currently working on some exciting projects. Check back soon!
+          </p>
+          <div className="mt-6 flex items-center gap-2">
+            <span className="h-2 w-2 animate-pulse rounded-full bg-amber-500" />
+            <span className="text-sm font-medium text-amber-600 dark:text-amber-400">
+              Coming soon
+            </span>
+          </div>
         </motion.div>
       </div>
     </section>

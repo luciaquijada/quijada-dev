@@ -16,11 +16,21 @@ body {
   background-color: #fafaf9;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark body {
+  background-color: #000000;
 }
 
 ::selection {
   background-color: #1c1917;
   color: #fafaf9;
+}
+
+.dark ::selection {
+  background-color: #fafaf9;
+  color: #1c1917;
 }
 
 /* Custom scrollbar */
@@ -41,9 +51,72 @@ body {
   background: #a8a29e;
 }
 
+.dark ::-webkit-scrollbar-thumb {
+  background: #44403c;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #57534e;
+}
+
 /* Utility classes */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* View Transition - Theme Toggle Effect */
+::view-transition-group(root) {
+  animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+::view-transition-new(root) {
+  mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><defs><filter id="blur"><feGaussianBlur stdDeviation="2"/></filter></defs><circle cx="0" cy="0" r="18" fill="white" filter="url(%23blur)"/></svg>') top left / 0 no-repeat;
+  mask-origin: content-box;
+  animation: scale 1s;
+  animation-fill-mode: both;
+  transform-origin: top left;
+}
+
+::view-transition-old(root),
+.dark::view-transition-old(root) {
+  animation: none;
+  animation-fill-mode: both;
+  transform-origin: top left;
+  z-index: -1;
+}
+
+@keyframes scale {
+  to {
+    mask-size: 350vmax;
+  }
+}
+
+/* Custom Yellow Cursor */
+* {
+  cursor: none !important;
+}
+
+.cursor {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #facc15;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease-out, width 0.2s ease, height 0.2s ease;
+}
+
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #facc15;
+  position: fixed;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
 }
