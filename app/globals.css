@@ -92,3 +92,31 @@ body {
     mask-size: 350vmax;
   }
 }
+
+/* Custom Yellow Cursor */
+* {
+  cursor: none !important;
+}
+
+.cursor {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #facc15;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease-out, width 0.2s ease, height 0.2s ease;
+}
+
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #facc15;
+  position: fixed;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+}

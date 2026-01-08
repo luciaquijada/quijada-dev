@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import CustomCursor from "@/components/CustomCursor";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -37,6 +38,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange={false}
         >
+          <CustomCursor />
           {children}
         </ThemeProvider>
       </body>
