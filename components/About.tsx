@@ -2,30 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Briefcase, GraduationCap, Calendar } from "lucide-react";
-
-const timeline = [
-  {
-    type: "work",
-    title: "Frontend Developer",
-    company: "Bisite Research Group",
-    period: "2024 - Present",
-    description: "Development of dynamic, responsive, and optimized web interfaces with Vue.js, TypeScript, and Bootstrap. API integration and continuous learning in AI and dataspaces.",
-  },
-  {
-    type: "education",
-    title: "Psychology Degree",
-    company: "University of La Rioja",
-    period: "2025 - Present",
-    description: "Studies focused on understanding human behavior.",
-  },
-  {
-    type: "work",
-    title: "Junior Web Developer",
-    company: "FGUSAL",
-    period: "2023 - 2023",
-    description: "Development and optimization of web page design. Implementation of solutions with Laravel and Bootstrap, ensuring scalability and visual consistency.",
-  },
-];
+import { useLanguage } from "@/components/LanguageProvider";
 
 const skills = [
   "HTML",
@@ -43,6 +20,32 @@ const skills = [
 ];
 
 export default function About() {
+  const { t } = useLanguage();
+
+  const timeline = [
+    {
+      type: "work",
+      title: t("timeline.frontend.title"),
+      company: t("timeline.frontend.company"),
+      period: t("timeline.frontend.period"),
+      description: t("timeline.frontend.description"),
+    },
+    {
+      type: "education",
+      title: t("timeline.psychology.title"),
+      company: t("timeline.psychology.company"),
+      period: t("timeline.psychology.period"),
+      description: t("timeline.psychology.description"),
+    },
+    {
+      type: "work",
+      title: t("timeline.junior.title"),
+      company: t("timeline.junior.company"),
+      period: t("timeline.junior.period"),
+      description: t("timeline.junior.description"),
+    },
+  ] as const;
+
   return (
     <section id="about" className="px-6 py-24 md:py-32">
       <div className="mx-auto max-w-6xl">
@@ -55,7 +58,7 @@ export default function About() {
           className="mb-16"
         >
           <h2 className="mb-4 text-4xl font-bold tracking-tight text-stone-900 dark:text-stone-100 sm:text-5xl md:text-6xl">
-            About me
+            {t("about.title")}
           </h2>
           <div className="h-1 w-16 rounded-full bg-stone-900 dark:bg-stone-100" />
         </motion.div>
@@ -71,29 +74,19 @@ export default function About() {
             className="space-y-6"
           >
             <p className="text-lg leading-relaxed text-stone-600 dark:text-stone-400">
-              Hi, I'm Lucía Quijada, a frontend and web/mobile application developer. I
-              currently apply my vision at the Bisite Research Group, exploring how
-              technology can improve the way we learn and communicate. I've always been
-              fascinated by how a single line of code can completely change the user
-              interaction, transforming ideas into experiences that work well and look
-              even better.
+              {t("about.p1")}
             </p>
             <p className="text-lg leading-relaxed text-stone-600 dark:text-stone-400">
-              What defines my profile is the blend of technical skills and the
-              humanities: while developing, I'm also studying Psychology. I strive for a
-              balance between the organized side of me—structuring work and logic—and the
-              creative side that needs space for visual improvisation. I'm convinced that
-              understanding people is just as important as understanding a good system.
+              {t("about.p2")}
             </p>
             <p className="text-lg leading-relaxed text-stone-600 dark:text-stone-400">
-              I'm naturally curious and passionate about combining creativity and technology to build
-              meaningful products that truly connect with people.
+              {t("about.p3")}
             </p>
 
             {/* Skills */}
             <div className="pt-4">
               <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-stone-400 dark:text-stone-500">
-                Technologies
+                {t("about.technologies")}
               </h3>
               <div className="flex flex-wrap gap-2">
                 {skills.map((skill, index) => (
@@ -125,7 +118,7 @@ export default function About() {
             className="space-y-6"
           >
             <h3 className="mb-6 text-sm font-semibold uppercase tracking-wider text-stone-400 dark:text-stone-500">
-              Experience & Education
+              {t("about.timelineTitle")}
             </h3>
 
             <div className="space-y-6">

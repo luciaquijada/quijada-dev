@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { LanguageProvider } from "@/components/LanguageProvider";
 import CustomCursor from "@/components/CustomCursor";
 import "./globals.css";
 
@@ -37,8 +38,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange={false}
         >
-          <CustomCursor />
-          {children}
+          <LanguageProvider>
+            <CustomCursor />
+            {children}
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

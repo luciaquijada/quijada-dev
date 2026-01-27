@@ -2,10 +2,13 @@
 
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
-
-const roles = ["Fullstack Developer", "Web & Mobile Apps", "Game Developer"];
+import { useLanguage } from "@/components/LanguageProvider";
 
 export default function Hero() {
+  const { t } = useLanguage();
+
+  const roles = [t("hero.roles.fullstack"), t("hero.roles.webMobile"), t("hero.roles.game")];
+
   return (
     <section className="relative flex min-h-screen flex-col justify-center px-4 pt-20 sm:px-6 sm:pt-24">
       <div className="mx-auto w-full max-w-6xl">
@@ -16,7 +19,7 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           className="mb-2 text-base text-stone-500 dark:text-stone-400 sm:mb-4 sm:text-lg md:text-xl"
         >
-          Hi, I'm
+          {t("hero.greeting")}
         </motion.p>
 
         {/* Name */}
@@ -38,8 +41,8 @@ export default function Hero() {
         >
           {/* Versión móvil: lista vertical compacta */}
           <div className="flex flex-col gap-1 sm:hidden">
-            <span>Fullstack Developer</span>
-            <span className="text-stone-400 dark:text-stone-500">Web & Mobile • Games</span>
+            <span>{t("hero.roles.fullstack")}</span>
+            <span className="text-stone-400 dark:text-stone-500">{t("hero.roles.mobileSecondary")}</span>
           </div>
           {/* Versión desktop: horizontal con separadores */}
           <div className="hidden sm:flex sm:flex-wrap sm:items-center sm:gap-3">
@@ -62,13 +65,10 @@ export default function Hero() {
           className="max-w-2xl text-sm leading-relaxed text-stone-500 dark:text-stone-400 sm:text-lg md:text-xl"
         >
           <span className="sm:hidden">
-            2+ years building digital solutions focused on efficiency and great user experience.
+            {t("hero.description.mobile")}
           </span>
           <span className="hidden sm:inline">
-            Specialized in building websites and mobile applications. I have 2 years of
-            experience designing, developing, and optimizing digital solutions focused on efficiency, scalability, and
-            user experience. I'm passionate about programming and problem-solving, and I aim to contribute to a
-            high-performance team, driving innovative and impactful technology projects.
+            {t("hero.description.desktop")}
           </span>
         </motion.p>
 
@@ -83,14 +83,14 @@ export default function Hero() {
             href="#projects"
             className="inline-flex items-center gap-2 rounded-full bg-stone-900 px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-stone-800 hover:shadow-lg hover:shadow-stone-900/20 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200 sm:px-8 sm:py-4 sm:text-base"
           >
-            Projects
+            {t("hero.cta.projects")}
             <ArrowDown className="h-4 w-4" />
           </a>
           <a
             href="#contact"
             className="inline-flex items-center rounded-full border border-stone-300 bg-white px-5 py-2.5 text-sm font-medium text-stone-900 transition-all hover:border-stone-400 hover:shadow-lg hover:shadow-stone-900/5 dark:border-stone-800 dark:bg-black dark:text-stone-100 dark:hover:border-stone-700 sm:px-8 sm:py-4 sm:text-base"
           >
-            Contact
+            {t("hero.cta.contact")}
           </a>
         </motion.div>
       </div>
@@ -108,7 +108,7 @@ export default function Hero() {
           className="flex flex-col items-center gap-2"
         >
           <span className="text-xs font-medium uppercase tracking-widest text-stone-400 dark:text-stone-500">
-            Scroll
+            {t("hero.scroll")}
           </span>
           <ArrowDown className="h-4 w-4 text-stone-400 dark:text-stone-500" />
         </motion.div>

@@ -2,8 +2,11 @@
 
 import { motion } from "framer-motion";
 import { Hammer } from "lucide-react";
+import { useLanguage } from "@/components/LanguageProvider";
 
 export default function Projects() {
+  const { t } = useLanguage();
+
   return (
     <section 
       id="projects" 
@@ -19,13 +22,12 @@ export default function Projects() {
           className="mb-6 sm:mb-12 md:mb-16"
         >
           <h2 className="mb-1.5 text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-100 sm:mb-4 sm:text-4xl md:text-5xl lg:text-6xl">
-            Projects
+            {t("projects.title")}
           </h2>
           <p className="text-sm text-stone-500 dark:text-stone-400 sm:max-w-2xl sm:text-lg">
-            <span className="sm:hidden">My recent work.</span>
+            <span className="sm:hidden">{t("projects.subtitle.mobile")}</span>
             <span className="hidden sm:inline">
-              A selection of my most recent work. Each project is an opportunity
-              to explore new technologies and solve problems creatively.
+              {t("projects.subtitle.desktop")}
             </span>
           </p>
         </motion.div>
@@ -42,18 +44,18 @@ export default function Projects() {
             <Hammer className="h-5 w-5 text-stone-400 dark:text-stone-500 sm:h-8 sm:w-8" />
           </div>
           <h3 className="text-sm font-medium text-stone-900 dark:text-stone-100 sm:mb-2 sm:text-xl sm:font-semibold">
-            In Build
+            {t("projects.inBuild.title")}
           </h3>
           <p className="mt-0.5 text-xs text-stone-400 dark:text-stone-500 sm:mt-0 sm:max-w-md sm:text-center sm:text-base">
-            <span className="sm:hidden">Coming soon</span>
+            <span className="sm:hidden">{t("projects.inBuild.subtitle.mobile")}</span>
             <span className="hidden sm:inline">
-              I'm currently working on some exciting projects. Check back soon!
+              {t("projects.inBuild.subtitle.desktop")}
             </span>
           </p>
           <div className="mt-3 flex items-center gap-1.5 sm:mt-6 sm:gap-2">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-amber-500 sm:h-2 sm:w-2" />
             <span className="text-[11px] font-medium text-amber-600 dark:text-amber-400 sm:text-sm">
-              Work in progress
+              {t("projects.inBuild.badge")}
             </span>
           </div>
         </motion.div>

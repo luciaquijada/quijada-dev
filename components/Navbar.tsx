@@ -4,17 +4,20 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
-
-const navItems = [
-  { name: "Home", href: "#" },
-  { name: "About", href: "#about" },
-  { name: "Projects", href: "#projects" },
-  { name: "Contact", href: "#contact" },
-];
+import LanguageToggle from "./LanguageToggle";
+import { useLanguage } from "@/components/LanguageProvider";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { t } = useLanguage();
+
+  const navItems = [
+    { name: t("nav.home"), href: "#" },
+    { name: t("nav.about"), href: "#about" },
+    { name: t("nav.projects"), href: "#projects" },
+    { name: t("nav.contact"), href: "#contact" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,7 +47,7 @@ export default function Navbar() {
           <ul className="hidden items-center gap-1 md:flex">
             {navItems.map((item, index) => (
               <motion.li
-                key={item.name}
+                key={item.href}
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
@@ -55,7 +58,7 @@ export default function Navbar() {
               >
                 <a
                   href={item.href}
-                  className="relative rounded-full px-4 py-2 text-sm font-medium text-stone-600 transition-colors hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100"
+                  className="relative whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium text-stone-600 transition-colors hover:text-stone-900 dark:text-stone-400 dark:hover:text-stone-100"
                 >
                   {item.name}
                 </a>
@@ -65,6 +68,7 @@ export default function Navbar() {
 
           {/* Theme Toggle */}
           <ThemeToggle />
+          <LanguageToggle />
 
           {/* CTA Button */}
           <motion.a
@@ -72,9 +76,9 @@ export default function Navbar() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
             href="#contact"
-            className="hidden rounded-full bg-stone-900 px-5 py-2 text-sm font-medium text-white transition-all hover:bg-stone-800 hover:shadow-lg hover:shadow-stone-900/20 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200 md:block"
+            className="hidden whitespace-nowrap rounded-full bg-stone-900 px-5 py-2 text-sm font-medium text-white transition-all hover:bg-stone-800 hover:shadow-lg hover:shadow-stone-900/20 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200 md:block"
           >
-            Let's talk
+            {t("nav.cta")}
           </motion.a>
 
           {/* Mobile Menu Button */}
@@ -107,7 +111,7 @@ export default function Navbar() {
             >
               {navItems.map((item, index) => (
                 <motion.a
-                  key={item.name}
+                  key={item.href}
                   href={item.href}
                   onClick={() => setIsMobileMenuOpen(false)}
                   initial={{ opacity: 0, y: 20 }}
@@ -126,7 +130,7 @@ export default function Navbar() {
                 transition={{ duration: 0.3, delay: 0.35 }}
                 className="mt-4 rounded-full bg-stone-900 px-8 py-3 text-lg font-medium text-white transition-all hover:bg-stone-800 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200"
               >
-                Let's talk
+                {t("nav.cta")}
               </motion.a>
             </motion.nav>
           </motion.div>
