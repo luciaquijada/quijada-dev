@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { GeistSans } from "geist/font/sans";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { LanguageProvider } from "@/components/LanguageProvider";
 import CustomCursor from "@/components/CustomCursor";
 import "./globals.css";
 
@@ -30,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={GeistSans.className} suppressHydrationWarning>
+    <html lang="es" suppressHydrationWarning>
       <body className="bg-stone-50 text-stone-900 antialiased transition-colors duration-300 dark:bg-black dark:text-stone-100">
         <ThemeProvider
           attribute="class"
@@ -38,8 +38,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange={false}
         >
-          <CustomCursor />
-          {children}
+          <LanguageProvider>
+            <CustomCursor />
+            {children}
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

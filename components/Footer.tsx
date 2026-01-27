@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Mail, ArrowUpRight, MapPin, Github, Linkedin } from "lucide-react";
+import { useLanguage } from "@/components/LanguageProvider";
 
 const socialLinks = [
   { name: "LinkedIn", href: "https://www.linkedin.com/in/luciaquijada/", icon: Linkedin },
@@ -10,6 +11,8 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer id="contact" className="px-6 py-24 md:py-32">
       <div className="mx-auto max-w-6xl">
@@ -22,13 +25,12 @@ export default function Footer() {
           className="mb-20 text-center"
         >
           <h2 className="mb-6 text-4xl font-bold tracking-tight text-stone-900 dark:text-stone-100 sm:text-5xl md:text-6xl lg:text-7xl">
-            Have a project
+            {t("footer.title.line1")}
             <br />
-            in mind?
+            {t("footer.title.line2")}
           </h2>
           <p className="mx-auto mb-10 max-w-xl text-lg text-stone-500 dark:text-stone-400">
-            I'm always open to new opportunities and interesting collaborations.
-            Feel free to reach out.
+            {t("footer.subtitle")}
           </p>
           <motion.a
             href="mailto:lquijadagordo17@gmail.com"
@@ -36,7 +38,7 @@ export default function Footer() {
             whileTap={{ scale: 0.98 }}
             className="inline-flex items-center gap-3 rounded-full bg-stone-900 px-8 py-4 text-lg font-medium text-white transition-all hover:bg-stone-800 hover:shadow-xl hover:shadow-stone-900/20 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200"
           >
-            Let's talk
+            {t("footer.cta")}
             <ArrowUpRight className="h-5 w-5" />
           </motion.a>
         </motion.div>
@@ -52,11 +54,11 @@ export default function Footer() {
           {/* Left */}
           <div className="flex flex-col items-center gap-2 md:items-start">
             <p className="text-sm text-stone-500 dark:text-stone-400">
-              © 2026 Lucía Quijada. All rights reserved.
+              © 2026 Lucía Quijada. {t("footer.rights")}
             </p>
             <div className="flex items-center gap-1 text-sm text-stone-400 dark:text-stone-500">
               <MapPin className="h-3.5 w-3.5" />
-              Salamanca, Spain
+              {t("footer.location")}
             </div>
           </div>
 
