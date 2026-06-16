@@ -41,7 +41,10 @@ export const GAME = {
   safePad: 56, // px de margen vertical seguro
 
   // Vidas / combo / juice
-  lives: 1, // vidas por defecto (Modo Asistencia = 3, futuro)
+  lives: 1, // vidas por defecto
+  assistLives: 3, // Modo Asistencia: más vidas
+  assistScrollFactor: 0.78, // Modo Asistencia: scroll más lento
+  assistDangerScale: 0.7, // Modo Asistencia: hitbox de peligro más perdonadora
   comboStep: 5, // fotones para subir un nivel de multiplicador
   invuln: 0.8, // s de invulnerabilidad tras golpe
   hitShake: 6, // px

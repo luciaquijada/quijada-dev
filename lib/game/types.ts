@@ -32,6 +32,7 @@ export type World = {
   nextPhotonAt: number; // umbral de elapsed para la próxima tanda de fotones
   nextVoidAt: number; // umbral de elapsed para el próximo vacío
   reducedMotion: boolean;
+  assist: boolean; // Modo Asistencia activo
 };
 
 export type Palette = {

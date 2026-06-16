@@ -80,6 +80,8 @@ const es = {
   "game.hint": "Pulsa para volar",
   "game.retry": "Pulsa para reintentar",
   "game.best": "Mejor",
+  "game.assist": "Asistencia",
+  "game.sound": "Sonido",
 } as const;
 
 type TranslationKey = keyof typeof es;
@@ -159,6 +161,8 @@ const en: Record<TranslationKey, string> = {
   "game.hint": "Tap to fly",
   "game.retry": "Tap to retry",
   "game.best": "Best",
+  "game.assist": "Assist",
+  "game.sound": "Sound",
 };
 
 const translations = { es, en } as const;

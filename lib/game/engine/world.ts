@@ -37,7 +37,13 @@ export function comboMult(w: World): number {
   return 1 + Math.floor(w.combo / GAME.comboStep);
 }
 
-export function createWorld(width: number, height: number, reducedMotion: boolean): World {
+export function createWorld(
+  width: number,
+  height: number,
+  reducedMotion: boolean,
+  assist: boolean,
+): World {
+  const sf = assist ? GAME.assistScrollFactor : 1;
   return {
     width,
     height,
@@ -49,11 +55,11 @@ export function createWorld(width: number, height: number, reducedMotion: boolea
     photons: [],
     voids: [],
     pops: [],
-    scrollSpeed: GAME.scrollBase,
+    scrollSpeed: GAME.scrollBase * sf,
     elapsed: 0,
     score: 0,
     combo: 0,
-    lives: GAME.lives,
+    lives: assist ? GAME.assistLives : GAME.lives,
     invuln: 0,
     shake: 0,
     freeze: 0,
@@ -61,6 +67,7 @@ export function createWorld(width: number, height: number, reducedMotion: boolea
     nextPhotonAt: 0.6,
     nextVoidAt: GAME.firstVoidDelay,
     reducedMotion,
+    assist,
   };
 }
 
@@ -121,9 +128,10 @@ export function stepWorld(w: World, dtMs: number) {
     if (s.vy > 0) s.vy = 0;
   }
 
-  // Progreso / dificultad
+  // Progreso / dificultad (Modo Asistencia ralentiza todo el ritmo)
   w.elapsed += dt;
-  w.scrollSpeed = Math.min(GAME.scrollMax, GAME.scrollBase + w.elapsed * GAME.scrollRamp);
+  const sf = w.assist ? GAME.assistScrollFactor : 1;
+  w.scrollSpeed = Math.min(GAME.scrollMax * sf, (GAME.scrollBase + w.elapsed * GAME.scrollRamp) * sf);
   if (w.invuln > 0) w.invuln = Math.max(0, w.invuln - dt);
 
   // Estela (wake que deriva a la izquierda con el mundo)

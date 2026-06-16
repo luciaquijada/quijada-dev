@@ -1,8 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { motion } from "framer-motion";
-import { X } from "lucide-react";
+import { Accessibility, Volume2, VolumeX, X } from "lucide-react";
 import { useLanguage } from "@/components/LanguageProvider";
 import Hud from "@/components/game/Hud";
 import ResultScreen from "@/components/game/ResultScreen";
@@ -10,7 +10,8 @@ import { makeClock } from "@/lib/game/engine/clock";
 import { comboMult, createWorld, pulse, resizeWorld, stepWorld } from "@/lib/game/engine/world";
 import { renderWorld } from "@/lib/game/render/draw";
 import { usePulse } from "@/lib/game/input/usePulse";
-import { loadBest, saveBest } from "@/lib/game/persistence/storage";
+import { loadBest, loadSettings, saveBest, saveSettings } from "@/lib/game/persistence/storage";
+import * as sfx from "@/lib/game/audio/sfx";
 import { GAME } from "@/lib/game/config";
 import type { Palette, Status, World } from "@/lib/game/types";
 
@@ -32,11 +33,14 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const worldRef = useRef<World | null>(null);
   const reducedRef = useRef(false);
+  const assistRef = useRef(false);
+  const mutedRef = useRef(false);
   const [hud, setHud] = useState<HudState>({ score: 0, mult: 1, lives: GAME.lives, status: "intro" });
   const [best, setBest] = useState(0);
+  const [settings, setSettings] = useState({ assist: false, muted: false });
 
   const restart = useCallback(() => {
-    const next = createWorld(window.innerWidth, window.innerHeight, reducedRef.current);
+    const next = createWorld(window.innerWidth, window.innerHeight, reducedRef.current, assistRef.current);
     worldRef.current = next;
     pulse(next); // arranca jugando con el mismo tap que reinicia
   }, []);
@@ -45,13 +49,36 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
     const w = worldRef.current;
     if (!w) return;
     if (w.status === "dead") {
-      if (w.deadFor >= GAME.restartGrace) restart();
+      if (w.deadFor >= GAME.restartGrace) {
+        restart();
+        sfx.playPulse();
+      }
       return;
     }
     pulse(w);
+    sfx.playPulse();
   }, [restart]);
 
   usePulse(doPulse);
+
+  const toggleAssist = useCallback(() => {
+    const next = !assistRef.current;
+    assistRef.current = next;
+    const s = { assist: next, muted: mutedRef.current };
+    setSettings(s);
+    saveSettings(s);
+    // No estamos jugando (chips solo en intro/dead): recrear el mundo lo aplica ya.
+    worldRef.current = createWorld(window.innerWidth, window.innerHeight, reducedRef.current, next);
+  }, []);
+
+  const toggleMute = useCallback(() => {
+    const next = !mutedRef.current;
+    mutedRef.current = next;
+    const s = { assist: assistRef.current, muted: next };
+    setSettings(s);
+    saveSettings(s);
+    sfx.setMuted(next);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -61,6 +88,12 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     reducedRef.current = reduced;
+
+    const loaded = loadSettings();
+    assistRef.current = loaded.assist;
+    mutedRef.current = loaded.muted;
+    setSettings(loaded);
+    sfx.setMuted(loaded.muted);
 
     const setSize = () => {
       const w = window.innerWidth;
@@ -74,12 +107,11 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
       if (worldRef.current) resizeWorld(worldRef.current, w, h);
     };
 
-    worldRef.current = createWorld(window.innerWidth, window.innerHeight, reduced);
+    worldRef.current = createWorld(window.innerWidth, window.innerHeight, reduced, loaded.assist);
     setSize();
 
-    const startBest = loadBest();
-    let bestVal = startBest;
-    setBest(startBest);
+    let bestVal = loadBest();
+    setBest(bestVal);
 
     // Oculta el cursor personalizado y bloquea el scroll mientras se juega.
     document.documentElement.classList.add("game-active");
@@ -91,6 +123,8 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
     });
 
     let prevStatus: Status = "intro";
+    let prevScore = 0;
+    let prevLives = worldRef.current.lives;
     let lastSync = 0;
     let raf = 0;
 
@@ -100,26 +134,32 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
         clock(now);
         renderWorld(ctx, w, palette());
 
-        // Al morir: persiste el mejor (una sola vez por muerte)
+        // Audio por diff de estado (cada frame). Reset de trackers en reinicio.
+        const sc = Math.floor(w.score);
+        if (sc < prevScore) prevScore = sc;
+        if (w.lives > prevLives) prevLives = w.lives;
+        if (sc > prevScore) sfx.playCollect(comboMult(w));
+        if (w.lives < prevLives && w.status !== "dead") sfx.playHit();
         if (w.status === "dead" && prevStatus !== "dead") {
-          const candidate = Math.floor(w.score);
-          if (candidate > bestVal) {
-            bestVal = candidate;
-            saveBest(candidate);
-            setBest(candidate);
+          sfx.playDead();
+          if (sc > bestVal) {
+            bestVal = sc;
+            saveBest(sc);
+            setBest(sc);
           }
         }
+        prevScore = sc;
+        prevLives = w.lives;
         prevStatus = w.status;
 
         // Sincroniza el HUD a ~11 Hz (no React por frame)
         if (now - lastSync > 90) {
           lastSync = now;
-          const score = Math.floor(w.score);
           const mult = comboMult(w);
           setHud((prev) =>
-            prev.score === score && prev.mult === mult && prev.lives === w.lives && prev.status === w.status
+            prev.score === sc && prev.mult === mult && prev.lives === w.lives && prev.status === w.status
               ? prev
-              : { score, mult, lives: w.lives, status: w.status },
+              : { score: sc, mult, lives: w.lives, status: w.status },
           );
         }
       }
@@ -143,6 +183,8 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
       worldRef.current = null;
     };
   }, [onExit]);
+
+  const showChips = hud.status === "intro" || hud.status === "dead";
 
   return (
     <motion.div
@@ -174,6 +216,18 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
       {/* Pantalla de resultado */}
       {hud.status === "dead" && <ResultScreen score={hud.score} best={best} />}
 
+      {/* Ajustes (asistencia + sonido): solo en intro/resultado, no durante el juego */}
+      {showChips && (
+        <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-2">
+          <Chip active={settings.assist} onClick={toggleAssist} label={t("game.assist")}>
+            <Accessibility className="h-4 w-4" />
+          </Chip>
+          <Chip active={!settings.muted} onClick={toggleMute} label={t("game.sound")}>
+            {settings.muted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
+          </Chip>
+        </div>
+      )}
+
       {/* Salir del modo en 1 gesto (Esc o este botón) */}
       <button
         data-no-pulse
@@ -185,5 +239,35 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
         <X className="h-5 w-5" />
       </button>
     </motion.div>
+  );
+}
+
+function Chip({
+  active,
+  onClick,
+  label,
+  children,
+}: {
+  active: boolean;
+  onClick: () => void;
+  label: string;
+  children: ReactNode;
+}) {
+  return (
+    <button
+      data-no-pulse
+      onClick={onClick}
+      type="button"
+      aria-pressed={active}
+      className={`flex items-center gap-1.5 rounded-full border px-3 py-2 text-xs font-medium transition-colors ${
+        active
+          ? "border-yellow-400 text-stone-900 dark:text-stone-100"
+          : "border-stone-300 text-stone-500 hover:text-stone-800 dark:border-stone-700 dark:text-stone-400 dark:hover:text-stone-100"
+      }`}
+      style={active ? { boxShadow: "0 0 0 1px rgba(250,204,21,0.4)" } : undefined}
+    >
+      {children}
+      {label}
+    </button>
   );
 }
