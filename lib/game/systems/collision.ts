@@ -1,4 +1,4 @@
-// Colisiones de la Chispa contra fotones (recogida) y vacíos (daño).
+// Colisiones de la Chispa contra fotones (recogida) y vacíos (daño + roce).
 import { GAME } from "@/lib/game/config";
 import type { World, Photon } from "@/lib/game/types";
 
@@ -26,17 +26,22 @@ export function resolveCollisions(w: World) {
     w.photons = kept;
   }
 
-  // Vacíos: círculo-rectángulo (punto más cercano). Ignora si hay invulnerabilidad.
-  // El Modo Asistencia encoge la hitbox de peligro; reduced-motion anula el shake.
+  // Vacíos: en una pasada distinguimos golpe (dentro de la hitbox) de roce
+  // (en la banda exterior). El Modo Asistencia encoge la hitbox de peligro;
+  // reduced-motion anula el shake.
   if (w.invuln <= 0) {
     const dr = r * (w.assist ? GAME.assistDangerScale : 1);
     const dr2 = dr * dr;
+    const outer = dr + GAME.nearMissBand;
+    const outer2 = outer * outer;
+    let hit = false;
     for (const v of w.voids) {
       const cx = Math.max(v.x, Math.min(s.x, v.x + v.w));
       const cy = Math.max(v.y, Math.min(s.y, v.y + v.h));
       const dx = s.x - cx;
       const dy = s.y - cy;
-      if (dx * dx + dy * dy <= dr2) {
+      const d2 = dx * dx + dy * dy;
+      if (!hit && d2 <= dr2) {
         w.lives -= 1;
         w.combo = 0;
         w.invuln = GAME.invuln;
@@ -47,7 +52,11 @@ export function resolveCollisions(w: World) {
           w.shake = w.reducedMotion ? 0 : GAME.deathShake;
           w.deadFor = 0;
         }
-        break;
+        hit = true;
+      } else if (d2 > dr2 && d2 <= outer2 && !v.grazed) {
+        v.grazed = true;
+        v.flash = 1;
+        w.nearMiss = true;
       }
     }
   }

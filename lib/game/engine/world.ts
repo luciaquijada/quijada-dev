@@ -68,6 +68,7 @@ export function createWorld(
     nextVoidAt: GAME.firstVoidDelay,
     reducedMotion,
     assist,
+    nearMiss: false,
   };
 }
 
@@ -164,7 +165,10 @@ export function stepWorld(w: World, dtMs: number) {
     if (w.photons[0] && w.photons[0].x < -12) w.photons = w.photons.filter((p) => p.x > -12);
   }
   if (w.voids.length) {
-    for (const v of w.voids) v.x -= shift;
+    for (const v of w.voids) {
+      v.x -= shift;
+      if (v.flash > 0) v.flash = Math.max(0, v.flash - dt / GAME.nearMissFlashLife);
+    }
     if (w.voids[0] && w.voids[0].x + w.voids[0].w < -12) {
       w.voids = w.voids.filter((v) => v.x + v.w > -12);
     }

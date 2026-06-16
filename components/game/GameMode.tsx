@@ -122,23 +122,54 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
       if (worldRef.current) stepWorld(worldRef.current, dt);
     });
 
+    const dilTotal = GAME.comboDilationHold + GAME.comboDilationEase;
+    const easeOut = (x: number) => 1 - Math.pow(1 - x, 3);
     let prevStatus: Status = "intro";
     let prevScore = 0;
+    let prevMult = 1;
     let prevLives = worldRef.current.lives;
     let lastSync = 0;
+    let lastNow = 0;
+    let dilation = 0; // s restantes del envelope de time-dilation
     let raf = 0;
 
     const frame = (now: number) => {
       const w = worldRef.current;
       if (w) {
-        clock(now);
+        const realDt = lastNow ? Math.min((now - lastNow) / 1000, 0.25) : 0;
+        lastNow = now;
+
+        // Time-dilation en hitos de combo (desactivada con reduced-motion)
+        if (dilation > 0) dilation = Math.max(0, dilation - realDt);
+        let scale = 1;
+        if (!reducedRef.current && dilation > 0) {
+          const into = dilTotal - dilation;
+          scale =
+            into < GAME.comboDilationHold
+              ? GAME.comboDilationScale
+              : GAME.comboDilationScale +
+                (1 - GAME.comboDilationScale) *
+                  easeOut(Math.min(1, (into - GAME.comboDilationHold) / GAME.comboDilationEase));
+        }
+        clock(now, scale);
         renderWorld(ctx, w, palette());
 
-        // Audio por diff de estado (cada frame). Reset de trackers en reinicio.
+        // Audio + feel por diff de estado (cada frame). Reset de trackers en reinicio.
         const sc = Math.floor(w.score);
+        const mult = comboMult(w);
         if (sc < prevScore) prevScore = sc;
+        if (mult < prevMult) prevMult = mult;
         if (w.lives > prevLives) prevLives = w.lives;
-        if (sc > prevScore) sfx.playCollect(comboMult(w));
+
+        if (sc > prevScore) sfx.playCollect(mult);
+        if (w.status === "playing" && mult > prevMult) {
+          dilation = dilTotal;
+          sfx.playMilestone();
+        }
+        if (w.nearMiss) {
+          sfx.playWhoosh();
+          w.nearMiss = false;
+        }
         if (w.lives < prevLives && w.status !== "dead") sfx.playHit();
         if (w.status === "dead" && prevStatus !== "dead") {
           sfx.playDead();
@@ -149,13 +180,13 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
           }
         }
         prevScore = sc;
+        prevMult = mult;
         prevLives = w.lives;
         prevStatus = w.status;
 
         // Sincroniza el HUD a ~11 Hz (no React por frame)
         if (now - lastSync > 90) {
           lastSync = now;
-          const mult = comboMult(w);
           setHud((prev) =>
             prev.score === sc && prev.mult === mult && prev.lives === w.lives && prev.status === w.status
               ? prev

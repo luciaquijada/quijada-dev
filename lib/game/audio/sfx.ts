@@ -68,3 +68,42 @@ export function playDead() {
   osc.start(t);
   osc.stop(t + 0.5);
 }
+
+// Roce (near-miss): barrido corto descendente, distinto del Pulso.
+export function playWhoosh() {
+  if (muted) return;
+  const c = ac();
+  if (!c) return;
+  const t = c.currentTime;
+  const osc = c.createOscillator();
+  const g = c.createGain();
+  osc.type = "sine";
+  osc.frequency.setValueAtTime(600, t);
+  osc.frequency.exponentialRampToValueAtTime(200, t + 0.09);
+  g.gain.setValueAtTime(0.03, t);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + 0.11);
+  osc.connect(g).connect(c.destination);
+  osc.start(t);
+  osc.stop(t + 0.12);
+}
+
+// Hito de combo (×2, ×3…): arpegio corto ascendente.
+export function playMilestone() {
+  if (muted) return;
+  const c = ac();
+  if (!c) return;
+  const t = c.currentTime;
+  [880, 1175].forEach((f, i) => {
+    const start = t + i * 0.07;
+    const osc = c.createOscillator();
+    const g = c.createGain();
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(f, start);
+    g.gain.setValueAtTime(0.0001, start);
+    g.gain.linearRampToValueAtTime(0.045, start + 0.005);
+    g.gain.exponentialRampToValueAtTime(0.0001, start + 0.12);
+    osc.connect(g).connect(c.destination);
+    osc.start(start);
+    osc.stop(start + 0.14);
+  });
+}

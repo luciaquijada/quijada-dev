@@ -20,6 +20,15 @@ function drawShard(ctx: CanvasRenderingContext2D, v: VoidShard, p: Palette) {
   ctx.lineWidth = 1.5;
   ctx.strokeStyle = p.dangerEdge;
   ctx.stroke();
+  // Destello de roce (near-miss): borde amarillo que se desvanece
+  if (v.flash > 0) {
+    ctx.save();
+    ctx.globalAlpha = Math.min(1, v.flash);
+    ctx.lineWidth = 2.5;
+    ctx.strokeStyle = p.accent;
+    ctx.stroke();
+    ctx.restore();
+  }
 }
 
 export function renderWorld(ctx: CanvasRenderingContext2D, w: World, p: Palette) {

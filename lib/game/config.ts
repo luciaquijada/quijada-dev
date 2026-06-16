@@ -53,5 +53,10 @@ export const GAME = {
   shakeDecayRate: 30, // px/s de decaimiento del shake
   popLife: 0.13, // s de vida del pop de recogida
   popMaxRadius: 22, // px del anillo de pop
+  comboDilationScale: 0.4, // velocidad mínima en el hito de combo (time-dilation)
+  comboDilationHold: 0.12, // s a velocidad mínima
+  comboDilationEase: 0.22, // s de vuelta a 1×
+  nearMissBand: 16, // px más allá de la hitbox que cuentan como "roce"
+  nearMissFlashLife: 0.18, // s de destello del borde del vacío al rozarlo
   restartGrace: 0.5, // s tras morir antes de aceptar reinicio
 } as const;

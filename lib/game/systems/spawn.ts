@@ -24,7 +24,7 @@ export function updateSpawn(w: World) {
   if (w.elapsed >= GAME.firstVoidDelay && w.elapsed >= w.nextVoidAt) {
     const h = rand(GAME.voidMinH, w.height * GAME.voidMaxHRatio);
     const y = rand(GAME.safePad, w.height - GAME.safePad - h);
-    w.voids.push({ x: w.width + GAME.spawnMargin, y, w: GAME.voidW, h });
+    w.voids.push({ x: w.width + GAME.spawnMargin, y, w: GAME.voidW, h, flash: 0, grazed: false });
     const gap = Math.max(GAME.voidGapMin, GAME.voidGapStart - w.elapsed * GAME.voidGapRamp);
     w.nextVoidAt = w.elapsed + gap;
   }

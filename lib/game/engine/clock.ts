@@ -8,9 +8,11 @@ const MAX_FRAME_MS = 250; // clamp anti "spiral of death" al volver de pestaña/
 export function makeClock(step: (dtMs: number) => void) {
   let acc = 0;
   let prev = 0;
-  return function tick(now: number) {
+  // scale < 1 ralentiza la simulación (time-dilation) consumiendo menos tiempo
+  // acumulado por frame, manteniendo el timestep fijo y la física estable.
+  return function tick(now: number, scale = 1) {
     if (prev === 0) prev = now;
-    acc += Math.min(now - prev, MAX_FRAME_MS);
+    acc += Math.min(now - prev, MAX_FRAME_MS) * scale;
     prev = now;
     while (acc >= STEP_MS) {
       step(STEP_MS);

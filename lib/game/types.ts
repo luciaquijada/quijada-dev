@@ -6,7 +6,7 @@ export type TrailPoint = { x: number; y: number; life: number };
 export type Spark = { x: number; y: number; vy: number; flash: number };
 export type BgDot = { x: number; y: number; r: number; speed: number; alpha: number };
 export type Photon = { x: number; y: number };
-export type VoidShard = { x: number; y: number; w: number; h: number };
+export type VoidShard = { x: number; y: number; w: number; h: number; flash: number; grazed: boolean };
 export type Pop = { x: number; y: number; life: number };
 
 export type World = {
@@ -33,6 +33,7 @@ export type World = {
   nextVoidAt: number; // umbral de elapsed para el próximo vacío
   reducedMotion: boolean;
   assist: boolean; // Modo Asistencia activo
+  nearMiss: boolean; // señal de roce (la consume el frame loop para el SFX)
 };
 
 export type Palette = {
