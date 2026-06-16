@@ -68,6 +68,48 @@ body {
   }
 }
 
+/* Interactive card hover */
+@layer components {
+  .hover-card {
+    transition:
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.3s ease;
+  }
+
+  .hover-card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 16px 40px -16px rgba(28, 25, 23, 0.18),
+      0 0 0 1px rgba(250, 204, 21, 0.12);
+  }
+
+  .dark .hover-card:hover {
+    box-shadow:
+      0 16px 40px -16px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(250, 204, 21, 0.18);
+  }
+
+  .hover-badge {
+    transition:
+      transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.25s ease,
+      box-shadow 0.25s ease,
+      background-color 0.25s ease;
+  }
+
+  .hover-badge:hover {
+    transform: translateY(-2px);
+    border-color: #facc15;
+    box-shadow: 0 6px 16px -6px rgba(250, 204, 21, 0.35);
+  }
+
+  .dark .hover-badge:hover {
+    border-color: #facc15;
+    box-shadow: 0 6px 16px -6px rgba(250, 204, 21, 0.2);
+  }
+}
+
 /* View Transition - Theme Toggle Effect */
 ::view-transition-group(root) {
   animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
@@ -109,7 +151,7 @@ body {
   pointer-events: none;
   z-index: 9999;
   transform: translate(-50%, -50%);
-  transition: transform 0.15s ease-out, width 0.2s ease, height 0.2s ease;
+  transition: transform 0.15s ease-out, opacity 0.2s ease;
 }
 
 .cursor-dot {
