@@ -1,31 +1,11 @@
 // Estado de la simulación y su paso de integración. Todo vive en objetos planos
 // (mutados in-place por stepWorld) para no re-renderizar React por frame.
 import { GAME } from "@/lib/game/config";
+import type { BgDot, World } from "@/lib/game/types";
+import { updateSpawn } from "@/lib/game/systems/spawn";
+import { resolveCollisions } from "@/lib/game/systems/collision";
 
-export type TrailPoint = { x: number; y: number; life: number };
-
-export type Spark = {
-  x: number;
-  y: number;
-  vy: number;
-  flash: number; // 0..GAME.pulseFlash, se consume tras un Pulso (squash/glow)
-};
-
-export type BgDot = { x: number; y: number; r: number; speed: number; alpha: number };
-
-export type World = {
-  width: number;
-  height: number;
-  spark: Spark;
-  trail: TrailPoint[];
-  trailTimer: number;
-  bg: BgDot[];
-  scrollSpeed: number;
-  elapsed: number;
-  reducedMotion: boolean;
-};
-
-// PRNG determinista (LCG) — campo de fondo reproducible sin Math.random.
+// PRNG determinista (LCG) — campo de fondo reproducible.
 function makeRng(seed: number) {
   let s = seed >>> 0;
   return () => {
@@ -52,16 +32,34 @@ function makeBg(width: number, height: number, reducedMotion: boolean): BgDot[] 
   return dots;
 }
 
+// Multiplicador de combo actual (×1, ×2, ×3… cada GAME.comboStep fotones).
+export function comboMult(w: World): number {
+  return 1 + Math.floor(w.combo / GAME.comboStep);
+}
+
 export function createWorld(width: number, height: number, reducedMotion: boolean): World {
   return {
     width,
     height,
-    spark: { x: width * GAME.sparkXRatio, y: height * 0.4, vy: 0, flash: 0 },
+    status: "intro",
+    spark: { x: width * GAME.sparkXRatio, y: height * 0.42, vy: 0, flash: 0 },
     trail: [],
     trailTimer: 0,
     bg: makeBg(width, height, reducedMotion),
+    photons: [],
+    voids: [],
+    pops: [],
     scrollSpeed: GAME.scrollBase,
     elapsed: 0,
+    score: 0,
+    combo: 0,
+    lives: GAME.lives,
+    invuln: 0,
+    shake: 0,
+    freeze: 0,
+    deadFor: 0,
+    nextPhotonAt: 0.6,
+    nextVoidAt: GAME.firstVoidDelay,
     reducedMotion,
   };
 }
@@ -74,23 +72,46 @@ export function resizeWorld(w: World, width: number, height: number) {
   w.bg = makeBg(width, height, w.reducedMotion);
 }
 
-// El único input del juego: fija la velocidad vertical hacia arriba y dispara el flash.
+// El único input: arranca la partida desde 'intro', fija la velocidad hacia
+// arriba y dispara el flash de squash/glow.
 export function pulse(w: World) {
+  if (w.status === "intro") w.status = "playing";
   w.spark.vy = GAME.pulseVy;
   w.spark.flash = GAME.pulseFlash;
 }
 
 export function stepWorld(w: World, dtMs: number) {
   const dt = dtMs / 1000;
+
+  // Decaimientos cosméticos (siempre, también en intro/dead)
+  if (w.shake > 0) w.shake = Math.max(0, w.shake - dt * GAME.shakeDecayRate);
+  if (w.freeze > 0) w.freeze = Math.max(0, w.freeze - dt);
+  if (w.pops.length) {
+    for (const p of w.pops) p.life -= dt / GAME.popLife;
+    if (w.pops[0] && w.pops[0].life <= 0) w.pops = w.pops.filter((p) => p.life > 0);
+  }
+
+  // Fuera de juego: solo deriva lenta del fondo (intro/dead)
+  if (w.status !== "playing") {
+    if (w.status === "dead") w.deadFor += dt;
+    const drift = w.scrollSpeed * GAME.introScrollFactor;
+    for (const d of w.bg) {
+      d.x -= drift * dt;
+      if (d.x < -4) d.x += w.width + 8;
+    }
+    return;
+  }
+
+  // Freeze-frame de impacto: congela el gameplay un instante
+  if (w.freeze > 0) return;
+
   const s = w.spark;
   const r = GAME.sparkRadius;
 
-  // Física de la Chispa (gravedad + clamp)
+  // Física de la Chispa
   s.vy = Math.max(-GAME.vyClamp, Math.min(GAME.vyClamp, s.vy + GAME.gravity * dt));
   s.y += s.vy * dt;
   if (s.flash > 0) s.flash = Math.max(0, s.flash - dt);
-
-  // Suelo / techo: clamp suave (sin fail state en el prototipo)
   if (s.y < r) {
     s.y = r;
     if (s.vy < 0) s.vy = 0;
@@ -100,11 +121,12 @@ export function stepWorld(w: World, dtMs: number) {
     if (s.vy > 0) s.vy = 0;
   }
 
-  // Velocidad de scroll (rampa suave con tope)
+  // Progreso / dificultad
   w.elapsed += dt;
   w.scrollSpeed = Math.min(GAME.scrollMax, GAME.scrollBase + w.elapsed * GAME.scrollRamp);
+  if (w.invuln > 0) w.invuln = Math.max(0, w.invuln - dt);
 
-  // Estela: nace en la Chispa y deriva a la izquierda con el mundo (wake)
+  // Estela (wake que deriva a la izquierda con el mundo)
   w.trailTimer += dt;
   if (w.trailTimer >= GAME.trailInterval) {
     w.trailTimer = 0;
@@ -117,7 +139,7 @@ export function stepWorld(w: World, dtMs: number) {
   }
   while (w.trail.length && w.trail[0].life <= 0) w.trail.shift();
 
-  // Campo de fondo (parallax): deriva y wrap por la derecha
+  // Fondo parallax
   for (const d of w.bg) {
     d.x -= w.scrollSpeed * d.speed * dt;
     if (d.x < -4) {
@@ -125,4 +147,20 @@ export function stepWorld(w: World, dtMs: number) {
       d.y = (d.y + 137.5) % w.height;
     }
   }
+
+  // Entidades: spawn, desplazamiento y despawn
+  updateSpawn(w);
+  const shift = w.scrollSpeed * dt;
+  if (w.photons.length) {
+    for (const p of w.photons) p.x -= shift;
+    if (w.photons[0] && w.photons[0].x < -12) w.photons = w.photons.filter((p) => p.x > -12);
+  }
+  if (w.voids.length) {
+    for (const v of w.voids) v.x -= shift;
+    if (w.voids[0] && w.voids[0].x + w.voids[0].w < -12) {
+      w.voids = w.voids.filter((v) => v.x + v.w > -12);
+    }
+  }
+
+  resolveCollisions(w);
 }

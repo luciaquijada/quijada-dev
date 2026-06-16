@@ -78,6 +78,8 @@ const es = {
   "game.toggle.enter": "Modo Juego",
   "game.toggle.exit": "Salir del Modo Juego",
   "game.hint": "Pulsa para volar",
+  "game.retry": "Pulsa para reintentar",
+  "game.best": "Mejor",
 } as const;
 
 type TranslationKey = keyof typeof es;
@@ -155,6 +157,8 @@ const en: Record<TranslationKey, string> = {
   "game.toggle.enter": "Game Mode",
   "game.toggle.exit": "Exit Game Mode",
   "game.hint": "Tap to fly",
+  "game.retry": "Tap to retry",
+  "game.best": "Best",
 };
 
 const translations = { es, en } as const;
