@@ -73,6 +73,11 @@ const es = {
   "footer.cta": "Hablemos",
   "footer.rights": "Todos los derechos reservados.",
   "footer.location": "Salamanca, España",
+
+  // Game (Modo Juego)
+  "game.toggle.enter": "Modo Juego",
+  "game.toggle.exit": "Salir del Modo Juego",
+  "game.hint": "Pulsa para volar",
 } as const;
 
 type TranslationKey = keyof typeof es;
@@ -145,6 +150,11 @@ const en: Record<TranslationKey, string> = {
   "footer.cta": "Let's talk",
   "footer.rights": "All rights reserved.",
   "footer.location": "Extremadura, Spain",
+
+  // Game (Game Mode)
+  "game.toggle.enter": "Game Mode",
+  "game.toggle.exit": "Exit Game Mode",
+  "game.hint": "Tap to fly",
 };
 
 const translations = { es, en } as const;

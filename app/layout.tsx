@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import CustomCursor from "@/components/CustomCursor";
+import { GameProvider } from "@/components/game/GameProvider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -39,8 +40,10 @@ export default function RootLayout({
           disableTransitionOnChange={false}
         >
           <LanguageProvider>
-            <CustomCursor />
-            {children}
+            <GameProvider>
+              <CustomCursor />
+              {children}
+            </GameProvider>
           </LanguageProvider>
         </ThemeProvider>
       </body>
