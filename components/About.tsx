@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Briefcase, GraduationCap, Calendar } from "lucide-react";
 import { useLanguage } from "@/components/LanguageProvider";
 
 const skills = [
@@ -29,13 +28,6 @@ export default function About() {
       company: t("timeline.frontend.company"),
       period: t("timeline.frontend.period"),
       description: t("timeline.frontend.description"),
-    },
-    {
-      type: "education",
-      title: t("timeline.psychology.title"),
-      company: t("timeline.psychology.company"),
-      period: t("timeline.psychology.period"),
-      description: t("timeline.psychology.description"),
     },
     {
       type: "work",
@@ -100,7 +92,7 @@ export default function About() {
                       delay: index * 0.05,
                       ease: [0.22, 1, 0.36, 1],
                     }}
-                    className="rounded-full border border-stone-200 bg-white px-4 py-2 text-sm font-medium text-stone-700 shadow-sm dark:border-stone-800 dark:bg-black dark:text-stone-300"
+                    className="hover-badge cursor-default rounded-full border border-stone-200 bg-white px-4 py-2 text-sm font-medium text-stone-700 shadow-sm dark:border-stone-800 dark:bg-black dark:text-stone-300 dark:hover:bg-stone-900"
                   >
                     {skill}
                   </motion.span>
@@ -133,30 +125,31 @@ export default function About() {
                     delay: index * 0.1,
                     ease: [0.22, 1, 0.36, 1],
                   }}
-                  className="group relative rounded-2xl border border-stone-200 bg-white p-6 shadow-sm transition-all hover:border-stone-300 hover:shadow-md dark:border-stone-800 dark:bg-black dark:hover:border-stone-700"
+                  className="hover-card group relative overflow-hidden rounded-2xl border border-stone-200 bg-white p-6 shadow-sm dark:border-stone-800 dark:bg-black"
                 >
-                  {/* Icon */}
-                  <div className="mb-4 flex items-center justify-between">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-stone-100 text-stone-600 transition-colors group-hover:bg-stone-900 group-hover:text-white dark:bg-stone-900 dark:text-stone-400 dark:group-hover:bg-stone-100 dark:group-hover:text-stone-900">
-                      {item.type === "work" ? (
-                        <Briefcase className="h-5 w-5" />
-                      ) : (
-                        <GraduationCap className="h-5 w-5" />
-                      )}
-                    </div>
-                    <div className="flex items-center gap-1 text-sm text-stone-400 dark:text-stone-500">
-                      <Calendar className="h-3.5 w-3.5" />
-                      {item.period}
-                    </div>
-                  </div>
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 bg-gradient-to-br from-yellow-400/0 via-yellow-400/0 to-yellow-400/0 opacity-0 transition-opacity duration-300 group-hover:from-yellow-400/[0.04] group-hover:via-transparent group-hover:to-transparent group-hover:opacity-100"
+                  />
+                  <div
+                    aria-hidden
+                    className="absolute bottom-0 left-0 top-0 w-1 origin-bottom scale-y-0 rounded-r-full bg-yellow-400 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-y-100"
+                  />
 
-                  <h4 className="mb-1 text-lg font-semibold text-stone-900 dark:text-stone-100">
-                    {item.title}
-                  </h4>
-                  <p className="mb-2 text-sm font-medium text-stone-500 dark:text-stone-400">
+                  <div className="relative mb-2 flex items-center justify-between gap-4">
+                    <h4 className="text-lg font-semibold text-stone-900 transition-colors duration-300 group-hover:text-stone-950 dark:text-stone-100">
+                      {item.title}
+                    </h4>
+                    <p className="shrink-0 text-sm text-stone-400 transition-colors duration-300 group-hover:text-stone-500 dark:text-stone-500 dark:group-hover:text-stone-400">
+                      {item.period}
+                    </p>
+                  </div>
+                  <p className="relative mb-2 text-sm font-medium text-stone-500 dark:text-stone-400">
                     {item.company}
                   </p>
-                  <p className="text-sm text-stone-500 dark:text-stone-400">{item.description}</p>
+                  <p className="relative text-sm text-stone-500 transition-colors duration-300 group-hover:text-stone-600 dark:text-stone-400 dark:group-hover:text-stone-300">
+                    {item.description}
+                  </p>
                 </motion.div>
               ))}
             </div>

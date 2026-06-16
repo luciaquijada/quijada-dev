@@ -57,10 +57,13 @@ const es = {
   "projects.subtitle.mobile": "Mi trabajo reciente.",
   "projects.subtitle.desktop":
     "Una selección de mi trabajo más reciente. Cada proyecto es una oportunidad para explorar nuevas tecnologías y resolver problemas de forma creativa.",
-  "projects.inBuild.title": "En construcción",
-  "projects.inBuild.subtitle.mobile": "Próximamente",
-  "projects.inBuild.subtitle.desktop": "Estoy trabajando en proyectos muy interesantes. ¡Vuelve pronto!",
-  "projects.inBuild.badge": "En progreso",
+  "projects.still.name": "Still",
+  "projects.still.category": "Productividad personal",
+  "projects.still.description.mobile":
+    "App web que unifica tareas, ideas, objetivos, hábitos, notas, estudio y finanzas en un solo espacio.",
+  "projects.still.description.desktop":
+    "Aplicación web de organización personal que reúne en un solo lugar tareas, proyectos, ideas, objetivos, hábitos, notas, calendario, estudio y finanzas. Incluye inbox para captura rápida, vistas de «Tu día» y objetivos que conectan tareas, proyectos y hábitos. Desarrollada como PWA bilingüe (ES/EN).",
+  "projects.still.visit": "Ver proyecto",
 
   // Footer
   "footer.title.line1": "¿Tienes un proyecto",
@@ -112,7 +115,7 @@ const en: Record<TranslationKey, string> = {
   "timeline.frontend.period": "2024 - Present",
   "timeline.frontend.description":
     "Development of dynamic, responsive, and optimized web interfaces with Vue.js, TypeScript, and Bootstrap. API integration and continuous learning in AI and dataspaces.",
-  "timeline.psychology.title": "Psychology Degree",
+  "timeline.psychology.title": "Bachelor's in Psychology",
   "timeline.psychology.company": "University of La Rioja",
   "timeline.psychology.period": "2025 - Present",
   "timeline.psychology.description": "Studies focused on understanding human behavior.",
@@ -127,10 +130,13 @@ const en: Record<TranslationKey, string> = {
   "projects.subtitle.mobile": "My recent work.",
   "projects.subtitle.desktop":
     "A selection of my most recent work. Each project is an opportunity to explore new technologies and solve problems creatively.",
-  "projects.inBuild.title": "In Build",
-  "projects.inBuild.subtitle.mobile": "Coming soon",
-  "projects.inBuild.subtitle.desktop": "I'm currently working on some exciting projects. Check back soon!",
-  "projects.inBuild.badge": "Work in progress",
+  "projects.still.name": "Still",
+  "projects.still.category": "Personal productivity",
+  "projects.still.description.mobile":
+    "A web app that unifies tasks, ideas, goals, habits, notes, study, and finances in one place.",
+  "projects.still.description.desktop":
+    "A personal organization web app that brings together tasks, projects, ideas, goals, habits, notes, calendar, study, and finances in one place. Features a quick-capture inbox, “Your Day” views, and goals that connect tasks, projects, and habits. Built as a bilingual (ES/EN) PWA.",
+  "projects.still.visit": "View project",
 
   // Footer
   "footer.title.line1": "Have a project",
@@ -138,7 +144,7 @@ const en: Record<TranslationKey, string> = {
   "footer.subtitle": "I'm always open to new opportunities and interesting collaborations. Feel free to reach out.",
   "footer.cta": "Let's talk",
   "footer.rights": "All rights reserved.",
-  "footer.location": "Salamanca, Spain",
+  "footer.location": "Extremadura, Spain",
 };
 
 const translations = { es, en } as const;
