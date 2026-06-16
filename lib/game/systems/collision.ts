@@ -2,6 +2,21 @@
 import { GAME } from "@/lib/game/config";
 import type { World, Photon } from "@/lib/game/types";
 
+// Aplica un golpe (vacío o borde): resta vida, rompe combo, activa invulnerabilidad
+// y shake; si se queda sin vidas, dispara muerte + freeze-frame.
+export function applyHit(w: World) {
+  w.lives -= 1;
+  w.combo = 0;
+  w.invuln = GAME.invuln;
+  w.shake = w.reducedMotion ? 0 : GAME.hitShake;
+  if (w.lives <= 0) {
+    w.status = "dead";
+    w.freeze = GAME.deathFreeze;
+    w.shake = w.reducedMotion ? 0 : GAME.deathShake;
+    w.deadFor = 0;
+  }
+}
+
 export function resolveCollisions(w: World) {
   const s = w.spark;
   const r = GAME.sparkRadius;
@@ -42,16 +57,7 @@ export function resolveCollisions(w: World) {
       const dy = s.y - cy;
       const d2 = dx * dx + dy * dy;
       if (!hit && d2 <= dr2) {
-        w.lives -= 1;
-        w.combo = 0;
-        w.invuln = GAME.invuln;
-        w.shake = w.reducedMotion ? 0 : GAME.hitShake;
-        if (w.lives <= 0) {
-          w.status = "dead";
-          w.freeze = GAME.deathFreeze;
-          w.shake = w.reducedMotion ? 0 : GAME.deathShake;
-          w.deadFor = 0;
-        }
+        applyHit(w);
         hit = true;
       } else if (d2 > dr2 && d2 <= outer2 && !v.grazed) {
         v.grazed = true;

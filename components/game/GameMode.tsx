@@ -61,6 +61,15 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
 
   usePulse(doPulse);
 
+  // El cursor solo se oculta mientras se vuela; en intro/resultado vuelve a verse
+  // para poder apuntar a los chips y a la X.
+  useEffect(() => {
+    const el = document.documentElement;
+    if (hud.status === "playing") el.classList.add("game-playing");
+    else el.classList.remove("game-playing");
+    return () => el.classList.remove("game-playing");
+  }, [hud.status]);
+
   const toggleAssist = useCallback(() => {
     const next = !assistRef.current;
     assistRef.current = next;
@@ -113,10 +122,13 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
     let bestVal = loadBest();
     setBest(bestVal);
 
-    // Oculta el cursor personalizado y bloquea el scroll mientras se juega.
+    // Marca el modo activo y bloquea el scroll de la página de detrás (html + body)
+    // para que no se puedan tocar/desplazar los bordes superior ni inferior.
     document.documentElement.classList.add("game-active");
-    const prevOverflow = document.body.style.overflow;
+    const prevBodyOverflow = document.body.style.overflow;
+    const prevHtmlOverflow = document.documentElement.style.overflow;
     document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
 
     const clock = makeClock((dt) => {
       if (worldRef.current) stepWorld(worldRef.current, dt);
@@ -210,7 +222,9 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
       window.removeEventListener("resize", onResize);
       window.removeEventListener("keydown", onKey);
       document.documentElement.classList.remove("game-active");
-      document.body.style.overflow = prevOverflow;
+      document.documentElement.classList.remove("game-playing");
+      document.body.style.overflow = prevBodyOverflow;
+      document.documentElement.style.overflow = prevHtmlOverflow;
       worldRef.current = null;
     };
   }, [onExit]);

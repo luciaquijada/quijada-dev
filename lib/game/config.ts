@@ -45,6 +45,7 @@ export const GAME = {
   assistLives: 3, // Modo Asistencia: más vidas
   assistScrollFactor: 0.78, // Modo Asistencia: scroll más lento
   assistDangerScale: 0.7, // Modo Asistencia: hitbox de peligro más perdonadora
+  borderBounce: 360, // px/s — rebote al sobrevivir a un golpe contra techo/suelo
   comboStep: 5, // fotones para subir un nivel de multiplicador
   invuln: 0.8, // s de invulnerabilidad tras golpe
   hitShake: 6, // px

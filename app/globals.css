@@ -165,8 +165,16 @@ body {
   transform: translate(-50%, -50%);
 }
 
-/* Hide the custom cursor while Game Mode is active (the Chispa is the avatar) */
-.game-active .cursor,
-.game-active .cursor-dot {
+/* Hide the custom cursor only while actively flying (the Chispa is the avatar).
+   In intro/result the cursor stays visible so the chips & exit are aimable. */
+.game-playing .cursor,
+.game-playing .cursor-dot {
   opacity: 0 !important;
+}
+
+/* While flying, the custom cursor is hidden — give interactive controls a native
+   pointer so the exit button stays clickable (no double cursor in intro/result,
+   where the custom cursor already serves as the pointer). */
+.game-playing [data-no-pulse] {
+  cursor: pointer !important;
 }

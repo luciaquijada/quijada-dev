@@ -3,7 +3,7 @@
 import { GAME } from "@/lib/game/config";
 import type { BgDot, World } from "@/lib/game/types";
 import { updateSpawn } from "@/lib/game/systems/spawn";
-import { resolveCollisions } from "@/lib/game/systems/collision";
+import { applyHit, resolveCollisions } from "@/lib/game/systems/collision";
 
 // PRNG determinista (LCG) — campo de fondo reproducible.
 function makeRng(seed: number) {
@@ -120,14 +120,29 @@ export function stepWorld(w: World, dtMs: number) {
   s.vy = Math.max(-GAME.vyClamp, Math.min(GAME.vyClamp, s.vy + GAME.gravity * dt));
   s.y += s.vy * dt;
   if (s.flash > 0) s.flash = Math.max(0, s.flash - dt);
-  if (s.y < r) {
+
+  // Tocar el techo o el suelo cuesta una vida (consecuencia arcade). Durante la
+  // invulnerabilidad solo se frena (sin daño) para no encadenar golpes en el borde.
+  if (s.y <= r) {
     s.y = r;
-    if (s.vy < 0) s.vy = 0;
-  }
-  if (s.y > w.height - r) {
+    if (w.invuln <= 0) {
+      applyHit(w);
+      s.vy = GAME.borderBounce; // rebote hacia abajo (al sobrevivir en Asistencia)
+    } else if (s.vy < 0) {
+      s.vy = 0;
+    }
+  } else if (s.y >= w.height - r) {
     s.y = w.height - r;
-    if (s.vy > 0) s.vy = 0;
+    if (w.invuln <= 0) {
+      applyHit(w);
+      s.vy = -GAME.borderBounce; // rebote hacia arriba
+    } else if (s.vy > 0) {
+      s.vy = 0;
+    }
   }
+
+  // Si el golpe contra el borde ha sido letal, no seguimos simulando este frame.
+  if (w.status !== "playing") return;
 
   // Progreso / dificultad (Modo Asistencia ralentiza todo el ritmo)
   w.elapsed += dt;
