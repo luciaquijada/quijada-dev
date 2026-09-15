@@ -68,6 +68,48 @@ body {
   }
 }
 
+/* Interactive card hover */
+@layer components {
+  .hover-card {
+    transition:
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.3s ease;
+  }
+
+  .hover-card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 16px 40px -16px rgba(28, 25, 23, 0.18),
+      0 0 0 1px rgba(250, 204, 21, 0.12);
+  }
+
+  .dark .hover-card:hover {
+    box-shadow:
+      0 16px 40px -16px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(250, 204, 21, 0.18);
+  }
+
+  .hover-badge {
+    transition:
+      transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.25s ease,
+      box-shadow 0.25s ease,
+      background-color 0.25s ease;
+  }
+
+  .hover-badge:hover {
+    transform: translateY(-2px);
+    border-color: #facc15;
+    box-shadow: 0 6px 16px -6px rgba(250, 204, 21, 0.35);
+  }
+
+  .dark .hover-badge:hover {
+    border-color: #facc15;
+    box-shadow: 0 6px 16px -6px rgba(250, 204, 21, 0.2);
+  }
+}
+
 /* View Transition - Theme Toggle Effect */
 ::view-transition-group(root) {
   animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
@@ -96,20 +138,21 @@ body {
 }
 
 /* Custom Yellow Cursor */
-* {
-  cursor: none !important;
-}
+@media (hover: hover) and (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
 
-.cursor {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: #facc15;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: transform 0.15s ease-out, width 0.2s ease, height 0.2s ease;
+  input,
+  textarea,
+  [contenteditable="true"],
+  [contenteditable=""] {
+    cursor: text !important;
+  }
+
+  select {
+    cursor: default !important;
+  }
 }
 
 .cursor-dot {
@@ -117,8 +160,40 @@ body {
   height: 8px;
   border-radius: 50%;
   background-color: #facc15;
+  box-shadow:
+    0 0 0 1px rgba(28, 25, 23, 0.12),
+    0 0 8px rgba(250, 204, 21, 0.5);
   position: fixed;
+  top: 0;
+  left: 0;
   pointer-events: none;
   z-index: 10000;
-  transform: translate(-50%, -50%);
+  opacity: 0;
+  will-change: transform;
+  transition:
+    width 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.2s ease;
+}
+
+.dark .cursor-dot {
+  box-shadow:
+    0 0 0 1px rgba(250, 250, 249, 0.18),
+    0 0 10px rgba(250, 204, 21, 0.55);
+}
+
+.cursor-dot.is-hovering {
+  width: 12px;
+  height: 12px;
+}
+
+.cursor-dot.is-pressed {
+  width: 6px;
+  height: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-dot {
+    transition: opacity 0.15s ease;
+  }
 }

@@ -14,10 +14,11 @@ const es = {
 
   // Hero
   "hero.greeting": "Hola, soy",
-  "hero.roles.fullstack": "Desarrolladora Fullstack",
+  "hero.roles.fullstack": "Desarrolladora Frontend",
   "hero.roles.webMobile": "Apps Web y Móvil",
   "hero.roles.game": "Desarrolladora de Juegos",
   "hero.roles.mobileSecondary": "Web y móvil • Juegos",
+  "hero.roles.ai": "Analista de datos",
   "hero.description.mobile": "Más de 2 años creando soluciones digitales centradas en la eficiencia y una gran experiencia de usuario.",
   "hero.description.desktop":
     "Especializada en crear sitios web y aplicaciones móviles. Tengo 2 años de experiencia diseñando, desarrollando y optimizando soluciones digitales enfocadas en eficiencia, escalabilidad y experiencia de usuario. Me apasiona programar y resolver problemas, y busco aportar a un equipo de alto rendimiento, impulsando proyectos tecnológicos innovadores y con impacto.",
@@ -34,7 +35,7 @@ const es = {
   "about.p3":
     "Soy naturalmente curiosa y me apasiona combinar creatividad y tecnología para construir productos con sentido que conecten de verdad con las personas.",
   "about.technologies": "Tecnologías",
-  "about.timelineTitle": "Experiencia y formación",
+  "about.timelineTitle": "Experiencia",
 
   // Timeline items
   "timeline.frontend.title": "Desarrolladora Frontend",
@@ -42,10 +43,6 @@ const es = {
   "timeline.frontend.period": "2024 - Actualidad",
   "timeline.frontend.description":
     "Desarrollo de interfaces web dinámicas, responsive y optimizadas con Vue.js, TypeScript y Bootstrap. Integración de APIs y aprendizaje continuo en IA y dataspaces.",
-  "timeline.psychology.title": "Grado en Psicología",
-  "timeline.psychology.company": "Universidad de La Rioja",
-  "timeline.psychology.period": "2025 - Actualidad",
-  "timeline.psychology.description": "Estudios centrados en comprender el comportamiento humano.",
   "timeline.junior.title": "Desarrolladora Web Junior",
   "timeline.junior.company": "FGUSAL",
   "timeline.junior.period": "2023 - 2023",
@@ -57,10 +54,13 @@ const es = {
   "projects.subtitle.mobile": "Mi trabajo reciente.",
   "projects.subtitle.desktop":
     "Una selección de mi trabajo más reciente. Cada proyecto es una oportunidad para explorar nuevas tecnologías y resolver problemas de forma creativa.",
-  "projects.inBuild.title": "En construcción",
-  "projects.inBuild.subtitle.mobile": "Próximamente",
-  "projects.inBuild.subtitle.desktop": "Estoy trabajando en proyectos muy interesantes. ¡Vuelve pronto!",
-  "projects.inBuild.badge": "En progreso",
+  "projects.still.name": "Still",
+  "projects.still.category": "Productividad personal",
+  "projects.still.description.mobile":
+    "App web que unifica tareas, ideas, objetivos, hábitos, notas, estudio y finanzas en un solo espacio.",
+  "projects.still.description.desktop":
+    "Aplicación web de organización personal que reúne en un solo lugar tareas, proyectos, ideas, objetivos, hábitos, notas, calendario, estudio y finanzas. Incluye inbox para captura rápida, vistas de «Tu día» y objetivos que conectan tareas, proyectos y hábitos. Desarrollada como PWA bilingüe (ES/EN).",
+  "projects.still.visit": "Ver proyecto",
 
   // Footer
   "footer.title.line1": "¿Tienes un proyecto",
@@ -69,7 +69,7 @@ const es = {
     "Siempre estoy abierta a nuevas oportunidades y colaboraciones interesantes. Escríbeme sin problema.",
   "footer.cta": "Hablemos",
   "footer.rights": "Todos los derechos reservados.",
-  "footer.location": "Salamanca, España",
+  "footer.location": "Extremadura, España",
 } as const;
 
 type TranslationKey = keyof typeof es;
@@ -88,6 +88,7 @@ const en: Record<TranslationKey, string> = {
   "hero.roles.webMobile": "Web & Mobile Apps",
   "hero.roles.game": "Game Developer",
   "hero.roles.mobileSecondary": "Web & Mobile • Games",
+  "hero.roles.ai": "Data Analyst",
   "hero.description.mobile": "2+ years building digital solutions focused on efficiency and great user experience.",
   "hero.description.desktop":
     "Specialized in building websites and mobile applications. I have 2 years of experience designing, developing, and optimizing digital solutions focused on efficiency, scalability, and user experience. I'm passionate about programming and problem-solving, and I aim to contribute to a high-performance team, driving innovative and impactful technology projects.",
@@ -104,7 +105,7 @@ const en: Record<TranslationKey, string> = {
   "about.p3":
     "I'm naturally curious and passionate about combining creativity and technology to build meaningful products that truly connect with people.",
   "about.technologies": "Technologies",
-  "about.timelineTitle": "Experience & Education",
+  "about.timelineTitle": "Experience",
 
   // Timeline items
   "timeline.frontend.title": "Frontend Developer",
@@ -112,10 +113,6 @@ const en: Record<TranslationKey, string> = {
   "timeline.frontend.period": "2024 - Present",
   "timeline.frontend.description":
     "Development of dynamic, responsive, and optimized web interfaces with Vue.js, TypeScript, and Bootstrap. API integration and continuous learning in AI and dataspaces.",
-  "timeline.psychology.title": "Psychology Degree",
-  "timeline.psychology.company": "University of La Rioja",
-  "timeline.psychology.period": "2025 - Present",
-  "timeline.psychology.description": "Studies focused on understanding human behavior.",
   "timeline.junior.title": "Junior Web Developer",
   "timeline.junior.company": "FGUSAL",
   "timeline.junior.period": "2023 - 2023",
@@ -127,10 +124,13 @@ const en: Record<TranslationKey, string> = {
   "projects.subtitle.mobile": "My recent work.",
   "projects.subtitle.desktop":
     "A selection of my most recent work. Each project is an opportunity to explore new technologies and solve problems creatively.",
-  "projects.inBuild.title": "In Build",
-  "projects.inBuild.subtitle.mobile": "Coming soon",
-  "projects.inBuild.subtitle.desktop": "I'm currently working on some exciting projects. Check back soon!",
-  "projects.inBuild.badge": "Work in progress",
+  "projects.still.name": "Still",
+  "projects.still.category": "Personal productivity",
+  "projects.still.description.mobile":
+    "A web app that unifies tasks, ideas, goals, habits, notes, study, and finances in one place.",
+  "projects.still.description.desktop":
+    "A personal organization web app that brings together tasks, projects, ideas, goals, habits, notes, calendar, study, and finances in one place. Features a quick-capture inbox, “Your Day” views, and goals that connect tasks, projects, and habits. Built as a bilingual (ES/EN) PWA.",
+  "projects.still.visit": "View project",
 
   // Footer
   "footer.title.line1": "Have a project",
@@ -138,7 +138,7 @@ const en: Record<TranslationKey, string> = {
   "footer.subtitle": "I'm always open to new opportunities and interesting collaborations. Feel free to reach out.",
   "footer.cta": "Let's talk",
   "footer.rights": "All rights reserved.",
-  "footer.location": "Salamanca, Spain",
+  "footer.location": "Extremadura, Spain",
 };
 
 const translations = { es, en } as const;
