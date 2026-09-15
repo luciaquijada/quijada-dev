@@ -82,7 +82,7 @@ export default function Projects() {
                       />
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-stone-900 transition-colors duration-300 group-hover:text-stone-950 dark:text-stone-100 sm:text-2xl">
+                      <h3 className="text-lg font-semibold text-stone-900 transition-colors duration-300 group-hover:text-stone-950 dark:text-stone-100 dark:group-hover:text-white sm:text-2xl">
                         {t(`projects.${project.id}.name`)}
                       </h3>
                       <p className="mt-0.5 text-xs font-medium uppercase tracking-wider text-stone-400 transition-colors duration-300 group-hover:text-yellow-600 dark:text-stone-500 dark:group-hover:text-yellow-400 sm:text-sm">

@@ -14,10 +14,11 @@ const es = {
 
   // Hero
   "hero.greeting": "Hola, soy",
-  "hero.roles.fullstack": "Desarrolladora Fullstack",
+  "hero.roles.fullstack": "Desarrolladora Frontend",
   "hero.roles.webMobile": "Apps Web y Móvil",
   "hero.roles.game": "Desarrolladora de Juegos",
   "hero.roles.mobileSecondary": "Web y móvil • Juegos",
+  "hero.roles.ai": "Analista de datos",
   "hero.description.mobile": "Más de 2 años creando soluciones digitales centradas en la eficiencia y una gran experiencia de usuario.",
   "hero.description.desktop":
     "Especializada en crear sitios web y aplicaciones móviles. Tengo 2 años de experiencia diseñando, desarrollando y optimizando soluciones digitales enfocadas en eficiencia, escalabilidad y experiencia de usuario. Me apasiona programar y resolver problemas, y busco aportar a un equipo de alto rendimiento, impulsando proyectos tecnológicos innovadores y con impacto.",
@@ -68,7 +69,7 @@ const es = {
     "Siempre estoy abierta a nuevas oportunidades y colaboraciones interesantes. Escríbeme sin problema.",
   "footer.cta": "Hablemos",
   "footer.rights": "Todos los derechos reservados.",
-  "footer.location": "Salamanca, España",
+  "footer.location": "Extremadura, España",
 } as const;
 
 type TranslationKey = keyof typeof es;
@@ -87,6 +88,7 @@ const en: Record<TranslationKey, string> = {
   "hero.roles.webMobile": "Web & Mobile Apps",
   "hero.roles.game": "Game Developer",
   "hero.roles.mobileSecondary": "Web & Mobile • Games",
+  "hero.roles.ai": "Data Analyst",
   "hero.description.mobile": "2+ years building digital solutions focused on efficiency and great user experience.",
   "hero.description.desktop":
     "Specialized in building websites and mobile applications. I have 2 years of experience designing, developing, and optimizing digital solutions focused on efficiency, scalability, and user experience. I'm passionate about programming and problem-solving, and I aim to contribute to a high-performance team, driving innovative and impactful technology projects.",

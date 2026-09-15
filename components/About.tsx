@@ -135,7 +135,7 @@ export default function About() {
                   />
 
                   <div className="relative mb-2 flex items-center justify-between gap-4">
-                    <h4 className="text-lg font-semibold text-stone-900 transition-colors duration-300 group-hover:text-stone-950 dark:text-stone-100">
+                    <h4 className="text-lg font-semibold text-stone-900 transition-colors duration-300 group-hover:text-stone-950 dark:text-stone-100 dark:group-hover:text-white">
                       {item.title}
                     </h4>
                     <p className="shrink-0 text-sm text-stone-400 transition-colors duration-300 group-hover:text-stone-500 dark:text-stone-500 dark:group-hover:text-stone-400">
