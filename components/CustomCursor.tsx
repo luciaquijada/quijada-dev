@@ -58,8 +58,8 @@ export default function CustomCursor() {
     };
 
     const render = () => {
+      rafId = 0;
       dot.style.transform = `translate3d(${mouse.x}px, ${mouse.y}px, 0) translate(-50%, -50%)`;
-      rafId = requestAnimationFrame(render);
     };
 
     const handleMouseMove = (event: MouseEvent) => {
@@ -69,6 +69,10 @@ export default function CustomCursor() {
       if (!visible) {
         visible = true;
         applyVisibility();
+      }
+
+      if (!rafId) {
+        rafId = requestAnimationFrame(render);
       }
     };
 
@@ -111,8 +115,6 @@ export default function CustomCursor() {
     document.addEventListener("mouseup", handleMouseUp);
     document.addEventListener("mouseenter", handleMouseEnter);
     document.addEventListener("mouseleave", handleMouseLeave);
-
-    rafId = requestAnimationFrame(render);
 
     return () => {
       cancelAnimationFrame(rafId);
