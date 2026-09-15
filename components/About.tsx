@@ -23,14 +23,12 @@ export default function About() {
 
   const timeline = [
     {
-      type: "work",
       title: t("timeline.frontend.title"),
       company: t("timeline.frontend.company"),
       period: t("timeline.frontend.period"),
       description: t("timeline.frontend.description"),
     },
     {
-      type: "work",
       title: t("timeline.junior.title"),
       company: t("timeline.junior.company"),
       period: t("timeline.junior.period"),

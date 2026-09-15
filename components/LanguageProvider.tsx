@@ -34,7 +34,7 @@ const es = {
   "about.p3":
     "Soy naturalmente curiosa y me apasiona combinar creatividad y tecnología para construir productos con sentido que conecten de verdad con las personas.",
   "about.technologies": "Tecnologías",
-  "about.timelineTitle": "Experiencia y formación",
+  "about.timelineTitle": "Experiencia",
 
   // Timeline items
   "timeline.frontend.title": "Desarrolladora Frontend",
@@ -42,10 +42,6 @@ const es = {
   "timeline.frontend.period": "2024 - Actualidad",
   "timeline.frontend.description":
     "Desarrollo de interfaces web dinámicas, responsive y optimizadas con Vue.js, TypeScript y Bootstrap. Integración de APIs y aprendizaje continuo en IA y dataspaces.",
-  "timeline.psychology.title": "Grado en Psicología",
-  "timeline.psychology.company": "Universidad de La Rioja",
-  "timeline.psychology.period": "2025 - Actualidad",
-  "timeline.psychology.description": "Estudios centrados en comprender el comportamiento humano.",
   "timeline.junior.title": "Desarrolladora Web Junior",
   "timeline.junior.company": "FGUSAL",
   "timeline.junior.period": "2023 - 2023",
@@ -107,7 +103,7 @@ const en: Record<TranslationKey, string> = {
   "about.p3":
     "I'm naturally curious and passionate about combining creativity and technology to build meaningful products that truly connect with people.",
   "about.technologies": "Technologies",
-  "about.timelineTitle": "Experience & Education",
+  "about.timelineTitle": "Experience",
 
   // Timeline items
   "timeline.frontend.title": "Frontend Developer",
@@ -115,10 +111,6 @@ const en: Record<TranslationKey, string> = {
   "timeline.frontend.period": "2024 - Present",
   "timeline.frontend.description":
     "Development of dynamic, responsive, and optimized web interfaces with Vue.js, TypeScript, and Bootstrap. API integration and continuous learning in AI and dataspaces.",
-  "timeline.psychology.title": "Bachelor's in Psychology",
-  "timeline.psychology.company": "University of La Rioja",
-  "timeline.psychology.period": "2025 - Present",
-  "timeline.psychology.description": "Studies focused on understanding human behavior.",
   "timeline.junior.title": "Junior Web Developer",
   "timeline.junior.company": "FGUSAL",
   "timeline.junior.period": "2023 - 2023",
