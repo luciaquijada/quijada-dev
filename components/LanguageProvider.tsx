@@ -11,6 +11,52 @@ const es = {
   "nav.projects": "Proyectos",
   "nav.contact": "Contacto",
   "nav.cta": "Hablemos",
+  "nav.ariaLabel": "Principal",
+  "nav.menuOpen": "Abrir menú",
+  "nav.menuClose": "Cerrar menú",
+  "nav.menuLabel": "Menú de navegación",
+  "theme.switch": "Modo oscuro",
+  "a11y.skip": "Saltar al contenido principal",
+  "a11y.link": "Accesibilidad",
+  "a11y.newWindow": "se abre en una pestaña nueva",
+  "a11y.docTitle": "Declaración de accesibilidad | Lucía Quijada",
+  "a11y.back": "Volver al inicio",
+  "a11y.title": "Declaración de accesibilidad",
+  "a11y.intro":
+    "Lucía Quijada se compromete a que este portafolio sea accesible para el mayor número de personas posible, incluidas las que usan teclado, lectores de pantalla, ampliación de texto o modos de alto contraste.",
+  "a11y.conformanceTitle": "Conformidad WCAG 2.1 AA",
+  "a11y.conformanceBody":
+    "Este sitio aspira a cumplir las Pautas de Accesibilidad para el Contenido Web (WCAG) 2.1, nivel AA. La última revisión de accesibilidad se realizó el 17 de septiembre de 2026.",
+  "a11y.measuresTitle": "Medidas adoptadas",
+  "a11y.measure.semantic":
+    "Estructura semántica con landmarks (cabecera, navegación, contenido principal y pie), encabezados jerárquicos y listas.",
+  "a11y.measure.skip": "Enlace para saltar al contenido principal y orden de foco coherente.",
+  "a11y.measure.keyboard": "Toda la funcionalidad está disponible con teclado y el foco es visible.",
+  "a11y.measure.menu":
+    "El menú móvil se comporta como un diálogo: Escape lo cierra, el foco queda atrapado entre la barra y el menú, y se restaura al botón.",
+  "a11y.measure.contrast":
+    "Contraste de texto de al menos 4,5:1 y de componentes de interfaz de al menos 3:1.",
+  "a11y.measure.lang":
+    "Idioma de la página indicado en el atributo lang y actualizado al cambiar entre español e inglés.",
+  "a11y.measure.motion":
+    "Las animaciones respetan prefers-reduced-motion y el cursor personalizado se desactiva en ese caso, en punteros táctiles y en modo de contraste forzado.",
+  "a11y.measure.external": "Los enlaces externos indican que se abren en una pestaña nueva.",
+  "a11y.limitationsTitle": "Limitaciones conocidas",
+  "a11y.limitationsIntro": "Pueden persistir las siguientes limitaciones:",
+  "a11y.limitation.thirdParty":
+    "Los sitios de terceros enlazados (por ejemplo Still, LinkedIn o GitHub) tienen su propia accesibilidad, fuera del control de este portafolio.",
+  "a11y.limitation.cursor":
+    "El cursor personalizado es un refuerzo visual opcional para punteros precisos; el cursor nativo permanece disponible cuando el movimiento reducido, el contraste forzado o un puntero grueso están activos.",
+  "a11y.compatTitle": "Compatibilidad",
+  "a11y.compatBody":
+    "El sitio está pensado para la última versión estable de Chrome, Firefox, Safari y Edge, junto con VoiceOver, NVDA o JAWS. Si encuentras un obstáculo en otro entorno, avísame.",
+  "a11y.contactTitle": "Contacto sobre accesibilidad",
+  "a11y.contactBody":
+    "Si detectas una barrera, un error o necesitas el contenido en otro formato, escríbeme. Responderé lo antes posible.",
+  "a11y.contactCta": "Enviar un correo sobre accesibilidad",
+  "a11y.reviewTitle": "Fecha de revisión",
+  "a11y.reviewBody":
+    "Esta declaración se revisó el 17 de septiembre de 2026 y se actualizará cuando cambie el contenido o se identifiquen nuevas incidencias.",
 
   // Hero
   "hero.greeting": "Hola, soy",
@@ -18,7 +64,6 @@ const es = {
   "hero.roles.webMobile": "Apps Web y Móvil",
   "hero.roles.game": "Desarrolladora de Juegos",
   "hero.roles.mobileSecondary": "Web y móvil • Juegos",
-  "hero.roles.ai": "Analista de datos",
   "hero.description.mobile": "Más de 2 años creando soluciones digitales centradas en la eficiencia y una gran experiencia de usuario.",
   "hero.description.desktop":
     "Especializada en crear sitios web y aplicaciones móviles. Tengo 2 años de experiencia diseñando, desarrollando y optimizando soluciones digitales enfocadas en eficiencia, escalabilidad y experiencia de usuario. Me apasiona programar y resolver problemas, y busco aportar a un equipo de alto rendimiento, impulsando proyectos tecnológicos innovadores y con impacto.",
@@ -72,7 +117,7 @@ const es = {
   "footer.location": "Extremadura, España",
 } as const;
 
-type TranslationKey = keyof typeof es;
+export type TranslationKey = keyof typeof es;
 
 const en: Record<TranslationKey, string> = {
   // Navbar
@@ -81,14 +126,59 @@ const en: Record<TranslationKey, string> = {
   "nav.projects": "Projects",
   "nav.contact": "Contact",
   "nav.cta": "Let's talk",
+  "nav.ariaLabel": "Main",
+  "nav.menuOpen": "Open menu",
+  "nav.menuClose": "Close menu",
+  "nav.menuLabel": "Navigation menu",
+  "theme.switch": "Dark mode",
+  "a11y.skip": "Skip to main content",
+  "a11y.link": "Accessibility",
+  "a11y.newWindow": "opens in a new tab",
+  "a11y.docTitle": "Accessibility statement | Lucía Quijada",
+  "a11y.back": "Back to home",
+  "a11y.title": "Accessibility statement",
+  "a11y.intro":
+    "Lucía Quijada is committed to making this portfolio usable by as many people as possible, including people who use a keyboard, a screen reader, text zoom, or high-contrast modes.",
+  "a11y.conformanceTitle": "WCAG 2.1 AA conformance",
+  "a11y.conformanceBody":
+    "This site is designed to conform to the Web Content Accessibility Guidelines (WCAG) 2.1, Level AA. The latest accessibility review was completed on 17 September 2026.",
+  "a11y.measuresTitle": "Accessibility measures",
+  "a11y.measure.semantic":
+    "Semantic structure with landmarks (banner, navigation, main, contentinfo), heading hierarchy, and lists.",
+  "a11y.measure.skip": "A skip link to the main content and a logical focus order.",
+  "a11y.measure.keyboard": "All functionality is available from the keyboard, with a visible focus indicator.",
+  "a11y.measure.menu":
+    "The mobile menu behaves as a dialog: Escape closes it, focus is trapped between the bar and the menu, and focus returns to the toggle.",
+  "a11y.measure.contrast":
+    "Text contrast of at least 4.5:1 and user-interface contrast of at least 3:1.",
+  "a11y.measure.lang":
+    "The page language is set on the lang attribute and updates when switching between Spanish and English.",
+  "a11y.measure.motion":
+    "Animations respect prefers-reduced-motion. The custom cursor is disabled in that case, on touch pointers, and in forced-colors mode.",
+  "a11y.measure.external": "External links announce that they open in a new tab.",
+  "a11y.limitationsTitle": "Known limitations",
+  "a11y.limitationsIntro": "The following limitations may remain:",
+  "a11y.limitation.thirdParty":
+    "Third-party sites linked from this portfolio (such as Still, LinkedIn, or GitHub) have their own accessibility, which is outside this site’s control.",
+  "a11y.limitation.cursor":
+    "The custom cursor is an optional visual enhancement for fine pointers. The native cursor remains available when reduced motion, forced colors, or a coarse pointer is active.",
+  "a11y.compatTitle": "Compatibility",
+  "a11y.compatBody":
+    "The site is intended to work with the latest stable versions of Chrome, Firefox, Safari, and Edge, together with VoiceOver, NVDA, or JAWS. If you hit a barrier in another environment, please let me know.",
+  "a11y.contactTitle": "Accessibility contact",
+  "a11y.contactBody":
+    "If you find a barrier, a bug, or need the content in another format, email me. I will reply as soon as I can.",
+  "a11y.contactCta": "Email about accessibility",
+  "a11y.reviewTitle": "Review date",
+  "a11y.reviewBody":
+    "This statement was reviewed on 17 September 2026 and will be updated when the content changes or new issues are identified.",
 
   // Hero
   "hero.greeting": "Hi, I'm",
-  "hero.roles.fullstack": "Fullstack Developer",
+  "hero.roles.fullstack": "Frontend Developer",
   "hero.roles.webMobile": "Web & Mobile Apps",
   "hero.roles.game": "Game Developer",
   "hero.roles.mobileSecondary": "Web & Mobile • Games",
-  "hero.roles.ai": "Data Analyst",
   "hero.description.mobile": "2+ years building digital solutions focused on efficiency and great user experience.",
   "hero.description.desktop":
     "Specialized in building websites and mobile applications. I have 2 years of experience designing, developing, and optimizing digital solutions focused on efficiency, scalability, and user experience. I'm passionate about programming and problem-solving, and I aim to contribute to a high-performance team, driving innovative and impactful technology projects.",
@@ -156,6 +246,7 @@ const STORAGE_KEY = "language";
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguage] = useState<Language>("es");
+  const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     try {
@@ -164,16 +255,18 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     } catch {
       // ignore
     }
+    setHydrated(true);
   }, []);
 
   useEffect(() => {
+    if (!hydrated) return;
     try {
       localStorage.setItem(STORAGE_KEY, language);
     } catch {
       // ignore
     }
     document.documentElement.lang = language;
-  }, [language]);
+  }, [hydrated, language]);
 
   const value = useMemo<LanguageContextValue>(() => {
     return {

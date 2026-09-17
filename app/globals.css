@@ -1,5 +1,3 @@
-@import url('https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400,300&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -68,6 +66,77 @@ body {
   }
 }
 
+#main-content,
+#about,
+#projects,
+#contact,
+#top {
+  scroll-margin-top: 6rem;
+}
+
+/* Skip link (2.4.1) — fixed so it stays in the viewport after scroll */
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 10002;
+  overflow: hidden;
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  white-space: nowrap;
+  border: 0;
+  background-color: #1c1917;
+  color: #fafaf9;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 9999px;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  clip-path: none;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  white-space: nowrap;
+  padding: 0.75rem 1.25rem;
+  outline: 2px solid #facc15;
+  outline-offset: 3px;
+}
+
+.dark .skip-link {
+  background-color: #fafaf9;
+  color: #1c1917;
+}
+
+.dark .skip-link:focus,
+.dark .skip-link:focus-visible {
+  outline-color: #ca8a04;
+}
+
+/* Visible focus indicator (2.4.7) — offset sits on the page background */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid #1c1917;
+  outline-offset: 3px;
+}
+
+.dark :focus-visible {
+  outline-color: #fafaf9;
+}
+
+/* Skip target is a large landmark; don't draw a page-sized ring */
+#main-content:focus,
+#main-content:focus-visible {
+  outline: none;
+}
+
 /* Interactive card hover */
 @layer components {
   .hover-card {
@@ -77,14 +146,16 @@ body {
       border-color 0.3s ease;
   }
 
-  .hover-card:hover {
+  .hover-card:hover,
+  .hover-card:focus-within {
     transform: translateY(-4px);
     box-shadow:
       0 16px 40px -16px rgba(28, 25, 23, 0.18),
       0 0 0 1px rgba(250, 204, 21, 0.12);
   }
 
-  .dark .hover-card:hover {
+  .dark .hover-card:hover,
+  .dark .hover-card:focus-within {
     box-shadow:
       0 16px 40px -16px rgba(0, 0, 0, 0.5),
       0 0 0 1px rgba(250, 204, 21, 0.18);
@@ -137,20 +208,21 @@ body {
   }
 }
 
-/* Custom Yellow Cursor */
+/* Custom Yellow Cursor — only when JS enables it */
 @media (hover: hover) and (pointer: fine) {
-  * {
+  html.has-custom-cursor,
+  html.has-custom-cursor * {
     cursor: none !important;
   }
 
-  input,
-  textarea,
-  [contenteditable="true"],
-  [contenteditable=""] {
+  html.has-custom-cursor input,
+  html.has-custom-cursor textarea,
+  html.has-custom-cursor [contenteditable="true"],
+  html.has-custom-cursor [contenteditable=""] {
     cursor: text !important;
   }
 
-  select {
+  html.has-custom-cursor select {
     cursor: default !important;
   }
 }
@@ -160,8 +232,9 @@ body {
   height: 8px;
   border-radius: 50%;
   background-color: #facc15;
+  /* Dark ring so the cursor meets 3:1 non-text contrast on light backgrounds */
   box-shadow:
-    0 0 0 1px rgba(28, 25, 23, 0.12),
+    0 0 0 2px #1c1917,
     0 0 8px rgba(250, 204, 21, 0.5);
   position: fixed;
   top: 0;
@@ -178,7 +251,7 @@ body {
 
 .dark .cursor-dot {
   box-shadow:
-    0 0 0 1px rgba(250, 250, 249, 0.18),
+    0 0 0 2px #fafaf9,
     0 0 10px rgba(250, 204, 21, 0.55);
 }
 
@@ -193,7 +266,54 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  body {
+    transition: none;
+  }
+
+  .skip-link {
+    transition: none;
+  }
+
+  .hover-card,
+  .hover-badge {
+    transition: none;
+  }
+
+  .hover-card:hover,
+  .hover-card:focus-within,
+  .hover-badge:hover {
+    transform: none;
+  }
+
   .cursor-dot {
     transition: opacity 0.15s ease;
+  }
+
+  ::view-transition-group(root),
+  ::view-transition-new(root),
+  ::view-transition-old(root),
+  .dark::view-transition-old(root) {
+    animation: none !important;
+  }
+}
+
+@media (forced-colors: active) {
+  html.has-custom-cursor,
+  html.has-custom-cursor * {
+    cursor: auto !important;
+  }
+
+  .cursor-dot {
+    display: none;
+  }
+
+  .skip-link,
+  :focus-visible {
+    outline: 3px solid CanvasText;
+    outline-offset: 3px;
   }
 }
