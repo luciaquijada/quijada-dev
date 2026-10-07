@@ -23,7 +23,13 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
     const run = () => setActive(true);
     // Reutiliza el efecto View Transitions del toggle de tema para el "easter egg".
     if (typeof document !== "undefined" && document.startViewTransition) {
-      document.startViewTransition(run);
+      // La transición se aborta si la pestaña está oculta o el documento cambia a
+      // mitad: el estado ya se aplica igual, así que los rechazos se ignoran para no
+      // lanzar "Uncaught (in promise) InvalidStateError" en consola.
+      const vt = document.startViewTransition(run);
+      vt.ready.catch(() => {});
+      vt.finished.catch(() => {});
+      vt.updateCallbackDone.catch(() => {});
     } else {
       run();
     }

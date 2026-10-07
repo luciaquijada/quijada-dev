@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Accessibility, Volume2, VolumeX, X } from "lucide-react";
 import { useLanguage } from "@/components/LanguageProvider";
 import HudHost, { type HudData } from "@/components/game/HudHost";
@@ -277,7 +277,7 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
   const showChips = status === "intro" || status === "dead";
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -293,14 +293,14 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
 
       {/* Hint de onboarding (show-don't-tell): solo antes del primer Pulso */}
       {status === "intro" && (
-        <motion.p
+        <m.p
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center text-lg font-medium tracking-wide text-stone-500 dark:text-stone-400"
         >
           {t("game.hint")}
-        </motion.p>
+        </m.p>
       )}
 
       {/* Pantalla de resultado */}
@@ -328,7 +328,7 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
       >
         <X className="h-5 w-5" />
       </button>
-    </motion.div>
+    </m.div>
   );
 }
 

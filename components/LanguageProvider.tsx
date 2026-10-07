@@ -65,7 +65,6 @@ const es = {
   "hero.roles.game": "Desarrolladora de Juegos",
   "hero.roles.mobileSecondary": "Web y móvil",
   "hero.roles.mobileGame": "Juegos",
-  "hero.roles.mobileSecondary": "Apps Web y Móvil",
   "hero.description.mobile": "Más de 2 años creando soluciones digitales centradas en la eficiencia y una gran experiencia de usuario.",
   "hero.description.desktop":
     "Especializada en crear sitios web y aplicaciones móviles. Tengo 2 años de experiencia diseñando, desarrollando y optimizando soluciones digitales enfocadas en eficiencia, escalabilidad y experiencia de usuario. Me apasiona programar y resolver problemas, y busco aportar a un equipo de alto rendimiento, impulsando proyectos tecnológicos innovadores y con impacto.",
@@ -133,7 +132,6 @@ const es = {
   "game.star": "Superestrella",
   "game.assist": "Asistencia",
   "game.sound": "Sonido",
-  "footer.location": "Extremadura, España",
 } as const;
 
 export type TranslationKey = keyof typeof es;

@@ -50,12 +50,10 @@ export default function RootLayout({
         >
           <LanguageProvider>
             <GameProvider>
+              <SkipLink />
               <CustomCursor />
               {children}
             </GameProvider>
-            <SkipLink />
-            <CustomCursor />
-            {children}
           </LanguageProvider>
         </ThemeProvider>
       </body>

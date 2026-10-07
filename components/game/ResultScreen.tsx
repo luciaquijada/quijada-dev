@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useLanguage } from "@/components/LanguageProvider";
 
 // Pantalla de resultado tras morir. pointer-events-none a propósito: el tap que
@@ -8,13 +8,13 @@ import { useLanguage } from "@/components/LanguageProvider";
 export default function ResultScreen({ score, best }: { score: number; best: number }) {
   const { t } = useLanguage();
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
       className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center bg-stone-50/40 backdrop-blur-[2px] dark:bg-black/40"
     >
-      <motion.div
+      <m.div
         initial={{ scale: 0.9, y: 10 }}
         animate={{ scale: 1, y: 0 }}
         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
@@ -32,7 +32,7 @@ export default function ResultScreen({ score, best }: { score: number; best: num
         <div className="mt-8 text-base font-medium text-stone-600 dark:text-stone-300">
           {t("game.retry")}
         </div>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 }
