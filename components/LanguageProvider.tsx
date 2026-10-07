@@ -44,7 +44,7 @@ const es = {
   "a11y.limitationsTitle": "Limitaciones conocidas",
   "a11y.limitationsIntro": "Pueden persistir las siguientes limitaciones:",
   "a11y.limitation.thirdParty":
-    "Los sitios de terceros enlazados (por ejemplo Still, LinkedIn o GitHub) tienen su propia accesibilidad, fuera del control de este portafolio.",
+    "Los sitios de terceros enlazados (por ejemplo Sharks, LinkedIn o GitHub) tienen su propia accesibilidad, fuera del control de este portafolio.",
   "a11y.limitation.cursor":
     "El cursor personalizado es un refuerzo visual opcional para punteros precisos; el cursor nativo permanece disponible cuando el movimiento reducido, el contraste forzado o un puntero grueso están activos.",
   "a11y.compatTitle": "Compatibilidad",
@@ -62,8 +62,7 @@ const es = {
   "hero.greeting": "Hola, soy",
   "hero.roles.fullstack": "Desarrolladora Frontend",
   "hero.roles.webMobile": "Apps Web y Móvil",
-  "hero.roles.game": "Desarrolladora de Juegos",
-  "hero.roles.mobileSecondary": "Web y móvil • Juegos",
+  "hero.roles.mobileSecondary": "Apps Web y Móvil",
   "hero.description.mobile": "Más de 2 años creando soluciones digitales centradas en la eficiencia y una gran experiencia de usuario.",
   "hero.description.desktop":
     "Especializada en crear sitios web y aplicaciones móviles. Tengo 2 años de experiencia diseñando, desarrollando y optimizando soluciones digitales enfocadas en eficiencia, escalabilidad y experiencia de usuario. Me apasiona programar y resolver problemas, y busco aportar a un equipo de alto rendimiento, impulsando proyectos tecnológicos innovadores y con impacto.",
@@ -99,13 +98,17 @@ const es = {
   "projects.subtitle.mobile": "Mi trabajo reciente.",
   "projects.subtitle.desktop":
     "Una selección de mi trabajo más reciente. Cada proyecto es una oportunidad para explorar nuevas tecnologías y resolver problemas de forma creativa.",
-  "projects.still.name": "Still",
-  "projects.still.category": "Productividad personal",
-  "projects.still.description.mobile":
-    "App web que unifica tareas, ideas, objetivos, hábitos, notas, estudio y finanzas en un solo espacio.",
-  "projects.still.description.desktop":
-    "Aplicación web de organización personal que reúne en un solo lugar tareas, proyectos, ideas, objetivos, hábitos, notas, calendario, estudio y finanzas. Incluye inbox para captura rápida, vistas de «Tu día» y objetivos que conectan tareas, proyectos y hábitos. Desarrollada como PWA bilingüe (ES/EN).",
-  "projects.still.visit": "Ver proyecto",
+  "projects.sharks.name": "Sharks",
+  "projects.sharks.category": "Un tiburón para todo tu océano",
+  "projects.sharks.description.mobile":
+    "Todo lo que abres cada mañana, en una ventana: tus proyectos, terminales, horas y focus, sin configurar nada. Un clic y a seguir nadando.",
+  "projects.sharks.description.desktop":
+    "Todo lo que abres cada mañana, en una sola ventana. Sharks reúne tus proyectos, terminales, horas y focus sin configurar nada: encuentra solo cómo arrancar cada proyecto, abre una terminal por servicio, cuenta las horas sin cronómetro y trae un pomodoro integrado. Tus datos no salen de tu equipo. Próximamente para Windows y macOS.",
+  "projects.sharks.tag.terminals": "Una terminal por servicio",
+  "projects.sharks.tag.time": "Horas contadas solas",
+  "projects.sharks.tag.focus": "Pomodoro",
+  "projects.sharks.tag.local": "100 % local",
+  "projects.sharks.visit": "Ver proyecto",
 
   // Footer
   "footer.title.line1": "¿Tienes un proyecto",
@@ -159,7 +162,7 @@ const en: Record<TranslationKey, string> = {
   "a11y.limitationsTitle": "Known limitations",
   "a11y.limitationsIntro": "The following limitations may remain:",
   "a11y.limitation.thirdParty":
-    "Third-party sites linked from this portfolio (such as Still, LinkedIn, or GitHub) have their own accessibility, which is outside this site’s control.",
+    "Third-party sites linked from this portfolio (such as Sharks, LinkedIn, or GitHub) have their own accessibility, which is outside this site’s control.",
   "a11y.limitation.cursor":
     "The custom cursor is an optional visual enhancement for fine pointers. The native cursor remains available when reduced motion, forced colors, or a coarse pointer is active.",
   "a11y.compatTitle": "Compatibility",
@@ -177,8 +180,7 @@ const en: Record<TranslationKey, string> = {
   "hero.greeting": "Hi, I'm",
   "hero.roles.fullstack": "Frontend Developer",
   "hero.roles.webMobile": "Web & Mobile Apps",
-  "hero.roles.game": "Game Developer",
-  "hero.roles.mobileSecondary": "Web & Mobile • Games",
+  "hero.roles.mobileSecondary": "Web & Mobile Apps",
   "hero.description.mobile": "2+ years building digital solutions focused on efficiency and great user experience.",
   "hero.description.desktop":
     "Specialized in building websites and mobile applications. I have 2 years of experience designing, developing, and optimizing digital solutions focused on efficiency, scalability, and user experience. I'm passionate about programming and problem-solving, and I aim to contribute to a high-performance team, driving innovative and impactful technology projects.",
@@ -214,13 +216,17 @@ const en: Record<TranslationKey, string> = {
   "projects.subtitle.mobile": "My recent work.",
   "projects.subtitle.desktop":
     "A selection of my most recent work. Each project is an opportunity to explore new technologies and solve problems creatively.",
-  "projects.still.name": "Still",
-  "projects.still.category": "Personal productivity",
-  "projects.still.description.mobile":
-    "A web app that unifies tasks, ideas, goals, habits, notes, study, and finances in one place.",
-  "projects.still.description.desktop":
-    "A personal organization web app that brings together tasks, projects, ideas, goals, habits, notes, calendar, study, and finances in one place. Features a quick-capture inbox, “Your Day” views, and goals that connect tasks, projects, and habits. Built as a bilingual (ES/EN) PWA.",
-  "projects.still.visit": "View project",
+  "projects.sharks.name": "Sharks",
+  "projects.sharks.category": "One shark for your whole ocean",
+  "projects.sharks.description.mobile":
+    "Everything you open every morning, in one window: your projects, terminals, hours and focus, with zero setup. One click and keep swimming.",
+  "projects.sharks.description.desktop":
+    "Everything you open every morning, in a single window. Sharks brings together your projects, terminals, hours and focus with zero setup: it finds how to start each project on its own, opens one terminal per service, tracks your hours without a stopwatch and includes a built-in pomodoro. Your data never leaves your machine. Coming soon for Windows and macOS.",
+  "projects.sharks.tag.terminals": "One terminal per service",
+  "projects.sharks.tag.time": "Automatic time tracking",
+  "projects.sharks.tag.focus": "Pomodoro",
+  "projects.sharks.tag.local": "100% local",
+  "projects.sharks.visit": "View project",
 
   // Footer
   "footer.title.line1": "Have a project",

@@ -7,7 +7,7 @@ import { useLanguage } from "@/components/LanguageProvider";
 export default function Hero() {
   const { t } = useLanguage();
 
-  const roles = [t("hero.roles.fullstack"), t("hero.roles.webMobile"), t("hero.roles.game")];
+  const roles = [t("hero.roles.fullstack"), t("hero.roles.webMobile")];
 
   return (
     <section className="relative flex min-h-screen flex-col justify-center px-4 pt-20 sm:px-6 sm:pt-24" aria-labelledby="hero-heading">

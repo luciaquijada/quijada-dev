@@ -6,13 +6,10 @@ import { useLanguage } from "@/components/LanguageProvider";
 
 const projects = [
   {
-    id: "still",
-    url: "https://www.stillspace.es/",
-    tags: ["React", "TypeScript", "Supabase", "PWA"],
-    icon: {
-      light: "/assets/still-icon-light.png",
-      dark: "/assets/still-icon-dark.png",
-    },
+    id: "sharks",
+    url: "https://www.sharks-app.es",
+    tags: ["terminals", "time", "focus", "local"],
+    icon: "/assets/sharks-logo.png",
   },
 ] as const;
 
@@ -72,24 +69,15 @@ export default function Projects() {
               <div className="relative flex flex-col gap-4 sm:gap-6">
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex items-start gap-3 sm:gap-4">
-                    <div className="h-10 w-10 shrink-0 overflow-hidden rounded-xl transition-transform duration-300 group-hover:scale-110 sm:h-12 sm:w-12">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-stone-200 bg-white dark:border-stone-700 transition-transform duration-300 group-hover:scale-110 sm:h-12 sm:w-12">
                       <img
-                        src={project.icon.light}
+                        src={project.icon}
                         alt=""
                         width={48}
                         height={48}
                         decoding="async"
                         loading="lazy"
-                        className="h-full w-full object-cover dark:hidden"
-                      />
-                      <img
-                        src={project.icon.dark}
-                        alt=""
-                        width={48}
-                        height={48}
-                        decoding="async"
-                        loading="lazy"
-                        className="hidden h-full w-full object-cover dark:block"
+                        className="h-full w-full object-contain p-1"
                       />
                     </div>
                     <div>
@@ -129,7 +117,7 @@ export default function Projects() {
                       key={tag}
                       className="rounded-full border border-stone-300 bg-stone-50 px-3 py-1 text-xs font-medium text-stone-700 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-300 sm:text-sm"
                     >
-                      {tag}
+                      {t(`projects.${project.id}.tag.${tag}`)}
                     </li>
                   ))}
                 </ul>
