@@ -36,6 +36,32 @@ export const GAME = {
   voidGapMin: 1.0, // tope inferior
   voidGapRamp: 0.02, // reducción de gap por segundo (dificultad)
 
+  // Obstáculos avanzados (se desbloquean por nivel)
+  drifterMinAmp: 36, // px de oscilación vertical
+  drifterMaxAmp: 140,
+  drifterMinFreq: 1.4, // rad/s
+  drifterMaxFreq: 2.6,
+  gateW: 28,
+  gateGapStart: 280, // px de hueco al aparecer la primera puerta
+  gateGapMin: 176, // px — nunca menos (la Chispa sube ~87 px por Pulso)
+  gateGapRamp: 0.8, // px menos de hueco por segundo
+  gateSpacing: 1.35, // multiplicador del gap hasta el siguiente vacío
+
+  // Niveles: al llegar a cada puntuación cambia el fondo (y se desbloquean obstáculos).
+  // Pasado el último umbral, sube un nivel cada stageRepeat puntos (los estilos ciclan).
+  stageScores: [0, 200, 550, 1100, 1800],
+  stageRepeat: 800,
+  stageWipe: 0.9, // s de la transición radial de color
+
+  // Superestrella: invencibilidad temporal (los vacíos se rompen al tocarlos)
+  starDuration: 15, // s
+  starWarn: 3, // s finales en los que el efecto parpadea
+  starRadius: 11,
+  starFirstAt: 14, // s hasta la primera superestrella
+  starGapMin: 28, // s entre superestrellas
+  starGapMax: 42,
+  starSmashPoints: 25, // puntos por vacío roto (× multiplicador de combo)
+
   // Spawn
   spawnMargin: 40, // px fuera del borde derecho
   safePad: 56, // px de margen vertical seguro

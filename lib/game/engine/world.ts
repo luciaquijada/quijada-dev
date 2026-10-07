@@ -55,6 +55,9 @@ export function createWorld(
     photons: [],
     voids: [],
     pops: [],
+    stars: [],
+    star: 0,
+    nextStarAt: GAME.starFirstAt,
     scrollSpeed: GAME.scrollBase * sf,
     elapsed: 0,
     score: 0,
@@ -69,6 +72,13 @@ export function createWorld(
     reducedMotion,
     assist,
     nearMiss: false,
+    starPicked: false,
+    smashed: false,
+    bgTime: 0,
+    scrollX: 0,
+    stage: 0,
+    prevStage: 0,
+    stageT: 1,
   };
 }
 
@@ -92,6 +102,8 @@ export function stepWorld(w: World, dtMs: number) {
   const dt = dtMs / 1000;
 
   // Decaimientos cosméticos (siempre, también en intro/dead)
+  w.bgTime += dt;
+  if (w.stageT < 1) w.stageT = Math.min(1, w.stageT + dt / GAME.stageWipe);
   if (w.shake > 0) w.shake = Math.max(0, w.shake - dt * GAME.shakeDecayRate);
   if (w.freeze > 0) w.freeze = Math.max(0, w.freeze - dt);
   if (w.pops.length) {
@@ -103,6 +115,7 @@ export function stepWorld(w: World, dtMs: number) {
   if (w.status !== "playing") {
     if (w.status === "dead") w.deadFor += dt;
     const drift = w.scrollSpeed * GAME.introScrollFactor;
+    w.scrollX += drift * dt;
     for (const d of w.bg) {
       d.x -= drift * dt;
       if (d.x < -4) d.x += w.width + 8;
@@ -125,7 +138,9 @@ export function stepWorld(w: World, dtMs: number) {
   // invulnerabilidad solo se frena (sin daño) para no encadenar golpes en el borde.
   if (s.y <= r) {
     s.y = r;
-    if (w.invuln <= 0) {
+    if (w.star > 0) {
+      s.vy = GAME.borderBounce; // invencible: solo rebota
+    } else if (w.invuln <= 0) {
       applyHit(w);
       s.vy = GAME.borderBounce; // rebote hacia abajo (al sobrevivir en Asistencia)
     } else if (s.vy < 0) {
@@ -133,7 +148,9 @@ export function stepWorld(w: World, dtMs: number) {
     }
   } else if (s.y >= w.height - r) {
     s.y = w.height - r;
-    if (w.invuln <= 0) {
+    if (w.star > 0) {
+      s.vy = -GAME.borderBounce;
+    } else if (w.invuln <= 0) {
       applyHit(w);
       s.vy = -GAME.borderBounce; // rebote hacia arriba
     } else if (s.vy > 0) {
@@ -149,6 +166,7 @@ export function stepWorld(w: World, dtMs: number) {
   const sf = w.assist ? GAME.assistScrollFactor : 1;
   w.scrollSpeed = Math.min(GAME.scrollMax * sf, (GAME.scrollBase + w.elapsed * GAME.scrollRamp) * sf);
   if (w.invuln > 0) w.invuln = Math.max(0, w.invuln - dt);
+  if (w.star > 0) w.star = Math.max(0, w.star - dt);
 
   // Estela (wake que deriva a la izquierda con el mundo)
   w.trailTimer += dt;
@@ -164,6 +182,7 @@ export function stepWorld(w: World, dtMs: number) {
   while (w.trail.length && w.trail[0].life <= 0) w.trail.shift();
 
   // Fondo parallax
+  w.scrollX += w.scrollSpeed * dt;
   for (const d of w.bg) {
     d.x -= w.scrollSpeed * d.speed * dt;
     if (d.x < -4) {
@@ -177,16 +196,19 @@ export function stepWorld(w: World, dtMs: number) {
   const shift = w.scrollSpeed * dt;
   if (w.photons.length) {
     for (const p of w.photons) p.x -= shift;
-    if (w.photons[0] && w.photons[0].x < -12) w.photons = w.photons.filter((p) => p.x > -12);
+    while (w.photons.length && w.photons[0].x < -12) w.photons.shift();
+  }
+  if (w.stars.length) {
+    for (const st of w.stars) st.x -= shift;
+    while (w.stars.length && w.stars[0].x < -20) w.stars.shift();
   }
   if (w.voids.length) {
     for (const v of w.voids) {
       v.x -= shift;
+      if (v.kind === "drifter") v.y = v.baseY + Math.sin(w.elapsed * v.freq + v.phase) * v.amp;
       if (v.flash > 0) v.flash = Math.max(0, v.flash - dt / GAME.nearMissFlashLife);
     }
-    if (w.voids[0] && w.voids[0].x + w.voids[0].w < -12) {
-      w.voids = w.voids.filter((v) => v.x + v.w > -12);
-    }
+    while (w.voids.length && w.voids[0].x + w.voids[0].w < -12) w.voids.shift();
   }
 
   resolveCollisions(w);

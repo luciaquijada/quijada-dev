@@ -17,7 +17,8 @@ const es = {
   "hero.roles.fullstack": "Desarrolladora Fullstack",
   "hero.roles.webMobile": "Apps Web y Móvil",
   "hero.roles.game": "Desarrolladora de Juegos",
-  "hero.roles.mobileSecondary": "Web y móvil • Juegos",
+  "hero.roles.mobileSecondary": "Web y móvil",
+  "hero.roles.mobileGame": "Juegos",
   "hero.description.mobile": "Más de 2 años creando soluciones digitales centradas en la eficiencia y una gran experiencia de usuario.",
   "hero.description.desktop":
     "Especializada en crear sitios web y aplicaciones móviles. Tengo 2 años de experiencia diseñando, desarrollando y optimizando soluciones digitales enfocadas en eficiencia, escalabilidad y experiencia de usuario. Me apasiona programar y resolver problemas, y busco aportar a un equipo de alto rendimiento, impulsando proyectos tecnológicos innovadores y con impacto.",
@@ -80,6 +81,8 @@ const es = {
   "game.hint": "Pulsa para volar",
   "game.retry": "Pulsa para reintentar",
   "game.best": "Mejor",
+  "game.level": "Nivel",
+  "game.star": "Superestrella",
   "game.assist": "Asistencia",
   "game.sound": "Sonido",
 } as const;
@@ -99,7 +102,8 @@ const en: Record<TranslationKey, string> = {
   "hero.roles.fullstack": "Fullstack Developer",
   "hero.roles.webMobile": "Web & Mobile Apps",
   "hero.roles.game": "Game Developer",
-  "hero.roles.mobileSecondary": "Web & Mobile • Games",
+  "hero.roles.mobileSecondary": "Web & Mobile",
+  "hero.roles.mobileGame": "Games",
   "hero.description.mobile": "2+ years building digital solutions focused on efficiency and great user experience.",
   "hero.description.desktop":
     "Specialized in building websites and mobile applications. I have 2 years of experience designing, developing, and optimizing digital solutions focused on efficiency, scalability, and user experience. I'm passionate about programming and problem-solving, and I aim to contribute to a high-performance team, driving innovative and impactful technology projects.",
@@ -161,6 +165,8 @@ const en: Record<TranslationKey, string> = {
   "game.hint": "Tap to fly",
   "game.retry": "Tap to retry",
   "game.best": "Best",
+  "game.level": "Level",
+  "game.star": "Super star",
   "game.assist": "Assist",
   "game.sound": "Sound",
 };

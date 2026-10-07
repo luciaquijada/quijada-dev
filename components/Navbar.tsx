@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 import LanguageToggle from "./LanguageToggle";
-import GameToggle from "./game/GameToggle";
 import { useLanguage } from "@/components/LanguageProvider";
 
 export default function Navbar() {
@@ -70,7 +69,6 @@ export default function Navbar() {
           {/* Theme Toggle */}
           <ThemeToggle />
           <LanguageToggle />
-          <GameToggle />
 
           {/* CTA Button */}
           <motion.a

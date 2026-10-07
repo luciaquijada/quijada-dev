@@ -107,3 +107,29 @@ export function playMilestone() {
     osc.stop(start + 0.14);
   });
 }
+
+// Superestrella: arpegio ascendente brillante.
+export function playStar() {
+  if (muted) return;
+  const c = ac();
+  if (!c) return;
+  const t = c.currentTime;
+  [523, 659, 784, 1047, 1319].forEach((f, i) => {
+    const start = t + i * 0.055;
+    const osc = c.createOscillator();
+    const g = c.createGain();
+    osc.type = "square";
+    osc.frequency.setValueAtTime(f, start);
+    g.gain.setValueAtTime(0.0001, start);
+    g.gain.linearRampToValueAtTime(0.03, start + 0.005);
+    g.gain.exponentialRampToValueAtTime(0.0001, start + 0.1);
+    osc.connect(g).connect(c.destination);
+    osc.start(start);
+    osc.stop(start + 0.12);
+  });
+}
+
+// Vacío roto con la estrella: chasquido corto y grave.
+export function playSmash() {
+  blip(260, 0.09, "square", 0.04);
+}

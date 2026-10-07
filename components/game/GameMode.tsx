@@ -13,20 +13,9 @@ import { usePulse } from "@/lib/game/input/usePulse";
 import { loadBest, loadSettings, saveBest, saveSettings } from "@/lib/game/persistence/storage";
 import * as sfx from "@/lib/game/audio/sfx";
 import { GAME } from "@/lib/game/config";
-import type { Palette, Status, World } from "@/lib/game/types";
+import type { Status, World } from "@/lib/game/types";
 
-const ACCENT = "#facc15";
-
-// Paleta derivada del tema activo (claro/oscuro) — se lee por frame para que
-// cambiar de tema durante el juego se refleje al instante.
-function palette(): Palette {
-  const dark = document.documentElement.classList.contains("dark");
-  return dark
-    ? { bg: "#000000", accent: ACCENT, dot: "#a8a29e", danger: "#141414", dangerEdge: "#57534e" }
-    : { bg: "#fafaf9", accent: ACCENT, dot: "#78716c", danger: "#1c1917", dangerEdge: "#1c1917" };
-}
-
-type HudState = { score: number; mult: number; lives: number; status: Status };
+type HudState = { score: number; mult: number; lives: number; stage: number; star: number; status: Status };
 
 export default function GameMode({ onExit }: { onExit: () => void }) {
   const { t } = useLanguage();
@@ -35,7 +24,7 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
   const reducedRef = useRef(false);
   const assistRef = useRef(false);
   const mutedRef = useRef(false);
-  const [hud, setHud] = useState<HudState>({ score: 0, mult: 1, lives: GAME.lives, status: "intro" });
+  const [hud, setHud] = useState<HudState>({ score: 0, mult: 1, lives: GAME.lives, stage: 0, star: 0, status: "intro" });
   const [best, setBest] = useState(0);
   const [settings, setSettings] = useState({ assist: false, muted: false });
 
@@ -92,7 +81,7 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { alpha: false });
     if (!ctx) return;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -134,12 +123,14 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
       if (worldRef.current) stepWorld(worldRef.current, dt);
     });
 
+    const root = document.documentElement;
     const dilTotal = GAME.comboDilationHold + GAME.comboDilationEase;
     const easeOut = (x: number) => 1 - Math.pow(1 - x, 3);
     let prevStatus: Status = "intro";
     let prevScore = 0;
     let prevMult = 1;
     let prevLives = worldRef.current.lives;
+    let prevStage = 0;
     let lastSync = 0;
     let lastNow = 0;
     let dilation = 0; // s restantes del envelope de time-dilation
@@ -164,7 +155,7 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
                   easeOut(Math.min(1, (into - GAME.comboDilationHold) / GAME.comboDilationEase));
         }
         clock(now, scale);
-        renderWorld(ctx, w, palette());
+        renderWorld(ctx, w, root.classList.contains("dark"));
 
         // Audio + feel por diff de estado (cada frame). Reset de trackers en reinicio.
         const sc = Math.floor(w.score);
@@ -177,6 +168,18 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
         if (w.status === "playing" && mult > prevMult) {
           dilation = dilTotal;
           sfx.playMilestone();
+        }
+        if (w.stage !== prevStage) {
+          if (w.stage > prevStage && w.status === "playing") sfx.playMilestone();
+          prevStage = w.stage;
+        }
+        if (w.starPicked) {
+          sfx.playStar();
+          w.starPicked = false;
+        }
+        if (w.smashed) {
+          sfx.playSmash();
+          w.smashed = false;
         }
         if (w.nearMiss) {
           sfx.playWhoosh();
@@ -199,10 +202,16 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
         // Sincroniza el HUD a ~11 Hz (no React por frame)
         if (now - lastSync > 90) {
           lastSync = now;
+          const starSec = Math.ceil(w.star * 10) / 10;
           setHud((prev) =>
-            prev.score === sc && prev.mult === mult && prev.lives === w.lives && prev.status === w.status
+            prev.score === sc &&
+            prev.mult === mult &&
+            prev.lives === w.lives &&
+            prev.stage === w.stage &&
+            prev.star === starSec &&
+            prev.status === w.status
               ? prev
-              : { score: sc, mult, lives: w.lives, status: w.status },
+              : { score: sc, mult, lives: w.lives, stage: w.stage, star: starSec, status: w.status },
           );
         }
       }
@@ -244,7 +253,7 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
       <canvas ref={canvasRef} className="block h-full w-full" />
 
       {/* HUD durante el juego */}
-      {hud.status === "playing" && <Hud score={hud.score} mult={hud.mult} lives={hud.lives} />}
+      {hud.status === "playing" && <Hud score={hud.score} mult={hud.mult} lives={hud.lives} stage={hud.stage} star={hud.star} />}
 
       {/* Hint de onboarding (show-don't-tell): solo antes del primer Pulso */}
       {hud.status === "intro" && (
