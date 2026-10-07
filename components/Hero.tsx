@@ -1,79 +1,92 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { useLanguage } from "@/components/LanguageProvider";
+import { useGame } from "@/components/game/GameProvider";
 
 export default function Hero() {
   const { t } = useLanguage();
+  const { enter } = useGame();
 
-  const roles = [t("hero.roles.fullstack"), t("hero.roles.webMobile"), t("hero.roles.ai")];
+  const roles = [t("hero.roles.fullstack"), t("hero.roles.webMobile"), t("hero.roles.game")];
+  const gameRole = roles[roles.length - 1];
+
+  // Easter egg: el rol "Game Developer" abre el Modo Juego. Es un botón real
+  // (teclado y lectores de pantalla), pero se ve igual que el resto del texto.
+  const eggClass =
+    "cursor-pointer rounded-sm transition-colors hover:text-yellow-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-500";
 
   return (
-    <section className="relative flex min-h-screen flex-col justify-center px-4 pt-20 sm:px-6 sm:pt-24">
+    <section className="relative flex min-h-screen flex-col justify-center px-4 pt-20 sm:px-6 sm:pt-24" aria-labelledby="hero-heading">
       <div className="mx-auto w-full max-w-6xl">
-        {/* Greeting */}
-        <motion.p
+        <m.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-2 text-base text-stone-500 dark:text-stone-400 sm:mb-4 sm:text-lg md:text-xl"
+          className="mb-2 text-base text-stone-600 dark:text-stone-300 sm:mb-4 sm:text-lg md:text-xl"
         >
           {t("hero.greeting")}
-        </motion.p>
+        </m.p>
 
-        {/* Name */}
-        <motion.h1
+        <m.h1
+          id="hero-heading"
+          tabIndex={-1}
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           className="mb-4 text-4xl font-bold tracking-tight text-stone-900 dark:text-stone-100 sm:mb-6 sm:text-6xl md:text-7xl lg:text-8xl"
         >
           Lucía Quijada
-        </motion.h1>
+        </m.h1>
 
-        {/* Roles - Simplificado en móvil */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-6 text-sm text-stone-500 dark:text-stone-400 sm:mb-8 sm:text-lg md:text-xl"
+          className="mb-6 text-sm text-stone-600 dark:text-stone-300 sm:mb-8 sm:text-lg md:text-xl"
         >
-          {/* Versión móvil: lista vertical compacta */}
           <div className="flex flex-col gap-1 sm:hidden">
             <span>{t("hero.roles.fullstack")}</span>
-            <span className="text-stone-400 dark:text-stone-500">{t("hero.roles.mobileSecondary")}</span>
+            <span className="text-stone-400 dark:text-stone-500">
+              {t("hero.roles.mobileSecondary")} •{" "}
+              <button type="button" onClick={enter} className={eggClass}>
+                {t("hero.roles.mobileGame")}
+              </button>
+            </span>
           </div>
-          {/* Versión desktop: horizontal con separadores */}
           <div className="hidden sm:flex sm:flex-wrap sm:items-center sm:gap-3">
             {roles.map((role, index) => (
               <span key={role} className="flex items-center gap-3">
-                <span>{role}</span>
+                {role === gameRole ? (
+                  <button type="button" onClick={enter} className={eggClass}>
+                    {role}
+                  </button>
+                ) : (
+                  <span>{role}</span>
+                )}
                 {index < roles.length - 1 && (
-                  <span className="h-1.5 w-1.5 rounded-full bg-stone-300 dark:bg-stone-600" />
+                  <span
+                    className="h-1.5 w-1.5 rounded-full bg-stone-500 dark:bg-stone-400"
+                    aria-hidden="true"
+                  />
                 )}
               </span>
             ))}
           </div>
-        </motion.div>
+        </m.div>
 
-        {/* Description - Sintetizado en móvil */}
-        <motion.p
+        <m.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="max-w-2xl text-sm leading-relaxed text-stone-500 dark:text-stone-400 sm:text-lg md:text-xl"
+          className="max-w-2xl text-sm leading-relaxed text-stone-600 dark:text-stone-300 sm:text-lg md:text-xl"
         >
-          <span className="sm:hidden">
-            {t("hero.description.mobile")}
-          </span>
-          <span className="hidden sm:inline">
-            {t("hero.description.desktop")}
-          </span>
-        </motion.p>
+          <span className="sm:hidden">{t("hero.description.mobile")}</span>
+          <span className="hidden sm:inline">{t("hero.description.desktop")}</span>
+        </m.p>
 
-        {/* CTA Buttons */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
@@ -81,41 +94,40 @@ export default function Hero() {
         >
           <a
             href="#projects"
-            className="inline-flex items-center gap-2 rounded-full bg-stone-900 px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-stone-800 hover:shadow-lg hover:shadow-stone-900/20 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200 sm:px-8 sm:py-4 sm:text-base"
+            className="inline-flex min-h-11 items-center gap-2 rounded-full bg-stone-900 px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-stone-800 hover:shadow-lg hover:shadow-stone-900/20 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200 sm:px-8 sm:py-4 sm:text-base"
           >
             {t("hero.cta.projects")}
-            <ArrowDown className="h-4 w-4" />
+            <ArrowDown className="h-4 w-4" aria-hidden="true" />
           </a>
           <a
             href="#contact"
-            className="inline-flex items-center rounded-full border border-stone-300 bg-white px-5 py-2.5 text-sm font-medium text-stone-900 transition-all hover:border-stone-400 hover:shadow-lg hover:shadow-stone-900/5 dark:border-stone-800 dark:bg-black dark:text-stone-100 dark:hover:border-stone-700 sm:px-8 sm:py-4 sm:text-base"
+            className="inline-flex min-h-11 items-center rounded-full border border-stone-400 bg-white px-5 py-2.5 text-sm font-medium text-stone-900 transition-all hover:border-stone-500 hover:shadow-lg hover:shadow-stone-900/5 dark:border-stone-600 dark:bg-black dark:text-stone-100 dark:hover:border-stone-500 sm:px-8 sm:py-4 sm:text-base"
           >
             {t("hero.cta.contact")}
           </a>
-        </motion.div>
+        </m.div>
       </div>
 
-      {/* Scroll Indicator */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1.2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 sm:bottom-10"
+        className="pointer-events-none absolute bottom-8 left-1/2 hidden -translate-x-1/2 sm:bottom-10 md:block"
+        aria-hidden="true"
       >
-        <motion.div
+        <m.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
           className="flex flex-col items-center gap-2"
         >
-          <span className="text-xs font-medium uppercase tracking-widest text-stone-400 dark:text-stone-500">
+          <span className="text-xs font-medium uppercase tracking-widest text-stone-600 dark:text-stone-400">
             {t("hero.scroll")}
           </span>
-          <ArrowDown className="h-4 w-4 text-stone-400 dark:text-stone-500" />
-        </motion.div>
-      </motion.div>
+          <ArrowDown className="h-4 w-4 text-stone-600 dark:text-stone-400" />
+        </m.div>
+      </m.div>
 
-      {/* Background Gradient - Reducido en móvil */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
+      <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
         <div className="absolute right-0 top-0 h-[300px] w-[300px] rounded-full bg-gradient-to-br from-stone-100 to-stone-200/50 blur-3xl dark:from-stone-900 dark:to-stone-900/50 sm:h-[500px] sm:w-[500px]" />
         <div className="absolute bottom-0 left-0 h-[200px] w-[200px] rounded-full bg-gradient-to-tr from-stone-200/30 to-transparent blur-3xl dark:from-stone-900/30 sm:h-[400px] sm:w-[400px]" />
       </div>

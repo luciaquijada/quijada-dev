@@ -2,11 +2,12 @@
 
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import { Sun, Moon } from "lucide-react";
+import { useLanguage } from "@/components/LanguageProvider";
 
 export default function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
+  const { t } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -14,10 +15,12 @@ export default function ThemeToggle() {
   }, []);
 
   const toggleTheme = () => {
-    const newTheme = theme === "dark" ? "light" : "dark";
-    
-    // Check if View Transitions API is supported
-    if (document.startViewTransition) {
+    const newTheme = resolvedTheme === "dark" ? "light" : "dark";
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (!prefersReducedMotion && document.startViewTransition) {
       document.startViewTransition(() => {
         setTheme(newTheme);
       });
@@ -27,27 +30,25 @@ export default function ThemeToggle() {
   };
 
   if (!mounted) {
-    return (
-      <div className="flex h-10 w-10 items-center justify-center rounded-full">
-        <div className="h-5 w-5" />
-      </div>
-    );
+    return <span className="inline-flex h-11 w-11" aria-hidden="true" />;
   }
 
+  const isDark = resolvedTheme === "dark";
+
   return (
-    <motion.button
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.3 }}
+    <button
       onClick={toggleTheme}
-      className="flex h-10 w-10 items-center justify-center rounded-full text-stone-600 transition-colors hover:bg-stone-100 hover:text-stone-900 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-100"
-      aria-label={theme === "dark" ? "Activar modo claro" : "Activar modo oscuro"}
+      type="button"
+      className="flex h-11 w-11 items-center justify-center rounded-full text-stone-700 transition-colors hover:bg-stone-100 hover:text-stone-900 dark:text-stone-300 dark:hover:bg-stone-800 dark:hover:text-stone-100"
+      role="switch"
+      aria-checked={isDark}
+      aria-label={t("theme.switch")}
     >
-      {theme === "dark" ? (
-        <Sun className="h-5 w-5" />
+      {isDark ? (
+        <Sun className="h-5 w-5" aria-hidden="true" />
       ) : (
-        <Moon className="h-5 w-5" />
+        <Moon className="h-5 w-5" aria-hidden="true" />
       )}
-    </motion.button>
+    </button>
   );
 }

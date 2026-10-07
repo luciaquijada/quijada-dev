@@ -11,14 +11,60 @@ const es = {
   "nav.projects": "Proyectos",
   "nav.contact": "Contacto",
   "nav.cta": "Hablemos",
+  "nav.ariaLabel": "Principal",
+  "nav.menuOpen": "Abrir menú",
+  "nav.menuClose": "Cerrar menú",
+  "nav.menuLabel": "Menú de navegación",
+  "theme.switch": "Modo oscuro",
+  "a11y.skip": "Saltar al contenido principal",
+  "a11y.link": "Accesibilidad",
+  "a11y.newWindow": "se abre en una pestaña nueva",
+  "a11y.docTitle": "Declaración de accesibilidad | Lucía Quijada",
+  "a11y.back": "Volver al inicio",
+  "a11y.title": "Declaración de accesibilidad",
+  "a11y.intro":
+    "Lucía Quijada se compromete a que este portafolio sea accesible para el mayor número de personas posible, incluidas las que usan teclado, lectores de pantalla, ampliación de texto o modos de alto contraste.",
+  "a11y.conformanceTitle": "Conformidad WCAG 2.1 AA",
+  "a11y.conformanceBody":
+    "Este sitio aspira a cumplir las Pautas de Accesibilidad para el Contenido Web (WCAG) 2.1, nivel AA. La última revisión de accesibilidad se realizó el 17 de septiembre de 2026.",
+  "a11y.measuresTitle": "Medidas adoptadas",
+  "a11y.measure.semantic":
+    "Estructura semántica con landmarks (cabecera, navegación, contenido principal y pie), encabezados jerárquicos y listas.",
+  "a11y.measure.skip": "Enlace para saltar al contenido principal y orden de foco coherente.",
+  "a11y.measure.keyboard": "Toda la funcionalidad está disponible con teclado y el foco es visible.",
+  "a11y.measure.menu":
+    "El menú móvil se comporta como un diálogo: Escape lo cierra, el foco queda atrapado entre la barra y el menú, y se restaura al botón.",
+  "a11y.measure.contrast":
+    "Contraste de texto de al menos 4,5:1 y de componentes de interfaz de al menos 3:1.",
+  "a11y.measure.lang":
+    "Idioma de la página indicado en el atributo lang y actualizado al cambiar entre español e inglés.",
+  "a11y.measure.motion":
+    "Las animaciones respetan prefers-reduced-motion y el cursor personalizado se desactiva en ese caso, en punteros táctiles y en modo de contraste forzado.",
+  "a11y.measure.external": "Los enlaces externos indican que se abren en una pestaña nueva.",
+  "a11y.limitationsTitle": "Limitaciones conocidas",
+  "a11y.limitationsIntro": "Pueden persistir las siguientes limitaciones:",
+  "a11y.limitation.thirdParty":
+    "Los sitios de terceros enlazados (por ejemplo Sharks, LinkedIn o GitHub) tienen su propia accesibilidad, fuera del control de este portafolio.",
+  "a11y.limitation.cursor":
+    "El cursor personalizado es un refuerzo visual opcional para punteros precisos; el cursor nativo permanece disponible cuando el movimiento reducido, el contraste forzado o un puntero grueso están activos.",
+  "a11y.compatTitle": "Compatibilidad",
+  "a11y.compatBody":
+    "El sitio está pensado para la última versión estable de Chrome, Firefox, Safari y Edge, junto con VoiceOver, NVDA o JAWS. Si encuentras un obstáculo en otro entorno, avísame.",
+  "a11y.contactTitle": "Contacto sobre accesibilidad",
+  "a11y.contactBody":
+    "Si detectas una barrera, un error o necesitas el contenido en otro formato, escríbeme. Responderé lo antes posible.",
+  "a11y.contactCta": "Enviar un correo sobre accesibilidad",
+  "a11y.reviewTitle": "Fecha de revisión",
+  "a11y.reviewBody":
+    "Esta declaración se revisó el 17 de septiembre de 2026 y se actualizará cuando cambie el contenido o se identifiquen nuevas incidencias.",
 
   // Hero
   "hero.greeting": "Hola, soy",
   "hero.roles.fullstack": "Desarrolladora Frontend",
   "hero.roles.webMobile": "Apps Web y Móvil",
   "hero.roles.game": "Desarrolladora de Juegos",
-  "hero.roles.mobileSecondary": "Web y móvil • Juegos",
-  "hero.roles.ai": "Analista de datos",
+  "hero.roles.mobileSecondary": "Web y móvil",
+  "hero.roles.mobileGame": "Juegos",
   "hero.description.mobile": "Más de 2 años creando soluciones digitales centradas en la eficiencia y una gran experiencia de usuario.",
   "hero.description.desktop":
     "Especializada en crear sitios web y aplicaciones móviles. Tengo 2 años de experiencia diseñando, desarrollando y optimizando soluciones digitales enfocadas en eficiencia, escalabilidad y experiencia de usuario. Me apasiona programar y resolver problemas, y busco aportar a un equipo de alto rendimiento, impulsando proyectos tecnológicos innovadores y con impacto.",
@@ -54,13 +100,18 @@ const es = {
   "projects.subtitle.mobile": "Mi trabajo reciente.",
   "projects.subtitle.desktop":
     "Una selección de mi trabajo más reciente. Cada proyecto es una oportunidad para explorar nuevas tecnologías y resolver problemas de forma creativa.",
-  "projects.still.name": "Still",
-  "projects.still.category": "Productividad personal",
-  "projects.still.description.mobile":
-    "App web que unifica tareas, ideas, objetivos, hábitos, notas, estudio y finanzas en un solo espacio.",
-  "projects.still.description.desktop":
-    "Aplicación web de organización personal que reúne en un solo lugar tareas, proyectos, ideas, objetivos, hábitos, notas, calendario, estudio y finanzas. Incluye inbox para captura rápida, vistas de «Tu día» y objetivos que conectan tareas, proyectos y hábitos. Desarrollada como PWA bilingüe (ES/EN).",
-  "projects.still.visit": "Ver proyecto",
+  "projects.sharks.name": "Sharks",
+  "projects.sharks.category": "Un tiburón para todo tu océano",
+  "projects.sharks.description.mobile":
+    "Todo lo que abres cada mañana, en una ventana: tus proyectos, terminales, horas y focus, sin configurar nada. Un clic y a seguir nadando.",
+  "projects.sharks.description.desktop":
+    "Todo lo que abres cada mañana, en una sola ventana. Sharks reúne tus proyectos, terminales, horas y focus sin configurar nada: encuentra solo cómo arrancar cada proyecto, abre una terminal por servicio, cuenta las horas sin cronómetro y trae un pomodoro integrado. Tus datos no salen de tu equipo. Próximamente para Windows y macOS.",
+  "projects.sharks.tag.terminals": "Multi-terminal",
+  "projects.sharks.tag.time": "Time tracking automático",
+  "projects.sharks.tag.focus": "Modo focus · Pomodoro",
+  "projects.sharks.tag.local": "Local-first",
+  "projects.sharks.tag.vault": "Bóveda cifrada AES-256",
+  "projects.sharks.visit": "Ver proyecto",
 
   // Footer
   "footer.title.line1": "¿Tienes un proyecto",
@@ -69,10 +120,21 @@ const es = {
     "Siempre estoy abierta a nuevas oportunidades y colaboraciones interesantes. Escríbeme sin problema.",
   "footer.cta": "Hablemos",
   "footer.rights": "Todos los derechos reservados.",
-  "footer.location": "Extremadura, España",
+  "footer.location": "Salamanca, España",
+
+  // Game (Modo Juego)
+  "game.toggle.enter": "Modo Juego",
+  "game.toggle.exit": "Salir del Modo Juego",
+  "game.hint": "Pulsa para volar",
+  "game.retry": "Pulsa para reintentar",
+  "game.best": "Mejor",
+  "game.level": "Nivel",
+  "game.star": "Superestrella",
+  "game.assist": "Asistencia",
+  "game.sound": "Sonido",
 } as const;
 
-type TranslationKey = keyof typeof es;
+export type TranslationKey = keyof typeof es;
 
 const en: Record<TranslationKey, string> = {
   // Navbar
@@ -81,14 +143,60 @@ const en: Record<TranslationKey, string> = {
   "nav.projects": "Projects",
   "nav.contact": "Contact",
   "nav.cta": "Let's talk",
+  "nav.ariaLabel": "Main",
+  "nav.menuOpen": "Open menu",
+  "nav.menuClose": "Close menu",
+  "nav.menuLabel": "Navigation menu",
+  "theme.switch": "Dark mode",
+  "a11y.skip": "Skip to main content",
+  "a11y.link": "Accessibility",
+  "a11y.newWindow": "opens in a new tab",
+  "a11y.docTitle": "Accessibility statement | Lucía Quijada",
+  "a11y.back": "Back to home",
+  "a11y.title": "Accessibility statement",
+  "a11y.intro":
+    "Lucía Quijada is committed to making this portfolio usable by as many people as possible, including people who use a keyboard, a screen reader, text zoom, or high-contrast modes.",
+  "a11y.conformanceTitle": "WCAG 2.1 AA conformance",
+  "a11y.conformanceBody":
+    "This site is designed to conform to the Web Content Accessibility Guidelines (WCAG) 2.1, Level AA. The latest accessibility review was completed on 17 September 2026.",
+  "a11y.measuresTitle": "Accessibility measures",
+  "a11y.measure.semantic":
+    "Semantic structure with landmarks (banner, navigation, main, contentinfo), heading hierarchy, and lists.",
+  "a11y.measure.skip": "A skip link to the main content and a logical focus order.",
+  "a11y.measure.keyboard": "All functionality is available from the keyboard, with a visible focus indicator.",
+  "a11y.measure.menu":
+    "The mobile menu behaves as a dialog: Escape closes it, focus is trapped between the bar and the menu, and focus returns to the toggle.",
+  "a11y.measure.contrast":
+    "Text contrast of at least 4.5:1 and user-interface contrast of at least 3:1.",
+  "a11y.measure.lang":
+    "The page language is set on the lang attribute and updates when switching between Spanish and English.",
+  "a11y.measure.motion":
+    "Animations respect prefers-reduced-motion. The custom cursor is disabled in that case, on touch pointers, and in forced-colors mode.",
+  "a11y.measure.external": "External links announce that they open in a new tab.",
+  "a11y.limitationsTitle": "Known limitations",
+  "a11y.limitationsIntro": "The following limitations may remain:",
+  "a11y.limitation.thirdParty":
+    "Third-party sites linked from this portfolio (such as Sharks, LinkedIn, or GitHub) have their own accessibility, which is outside this site’s control.",
+  "a11y.limitation.cursor":
+    "The custom cursor is an optional visual enhancement for fine pointers. The native cursor remains available when reduced motion, forced colors, or a coarse pointer is active.",
+  "a11y.compatTitle": "Compatibility",
+  "a11y.compatBody":
+    "The site is intended to work with the latest stable versions of Chrome, Firefox, Safari, and Edge, together with VoiceOver, NVDA, or JAWS. If you hit a barrier in another environment, please let me know.",
+  "a11y.contactTitle": "Accessibility contact",
+  "a11y.contactBody":
+    "If you find a barrier, a bug, or need the content in another format, email me. I will reply as soon as I can.",
+  "a11y.contactCta": "Email about accessibility",
+  "a11y.reviewTitle": "Review date",
+  "a11y.reviewBody":
+    "This statement was reviewed on 17 September 2026 and will be updated when the content changes or new issues are identified.",
 
   // Hero
   "hero.greeting": "Hi, I'm",
-  "hero.roles.fullstack": "Fullstack Developer",
+  "hero.roles.fullstack": "Frontend Developer",
   "hero.roles.webMobile": "Web & Mobile Apps",
   "hero.roles.game": "Game Developer",
-  "hero.roles.mobileSecondary": "Web & Mobile • Games",
-  "hero.roles.ai": "Data Analyst",
+  "hero.roles.mobileSecondary": "Web & Mobile",
+  "hero.roles.mobileGame": "Games",
   "hero.description.mobile": "2+ years building digital solutions focused on efficiency and great user experience.",
   "hero.description.desktop":
     "Specialized in building websites and mobile applications. I have 2 years of experience designing, developing, and optimizing digital solutions focused on efficiency, scalability, and user experience. I'm passionate about programming and problem-solving, and I aim to contribute to a high-performance team, driving innovative and impactful technology projects.",
@@ -124,13 +232,18 @@ const en: Record<TranslationKey, string> = {
   "projects.subtitle.mobile": "My recent work.",
   "projects.subtitle.desktop":
     "A selection of my most recent work. Each project is an opportunity to explore new technologies and solve problems creatively.",
-  "projects.still.name": "Still",
-  "projects.still.category": "Personal productivity",
-  "projects.still.description.mobile":
-    "A web app that unifies tasks, ideas, goals, habits, notes, study, and finances in one place.",
-  "projects.still.description.desktop":
-    "A personal organization web app that brings together tasks, projects, ideas, goals, habits, notes, calendar, study, and finances in one place. Features a quick-capture inbox, “Your Day” views, and goals that connect tasks, projects, and habits. Built as a bilingual (ES/EN) PWA.",
-  "projects.still.visit": "View project",
+  "projects.sharks.name": "Sharks",
+  "projects.sharks.category": "One shark for your whole ocean",
+  "projects.sharks.description.mobile":
+    "Everything you open every morning, in one window: your projects, terminals, hours and focus, with zero setup. One click and keep swimming.",
+  "projects.sharks.description.desktop":
+    "Everything you open every morning, in a single window. Sharks brings together your projects, terminals, hours and focus with zero setup: it finds how to start each project on its own, opens one terminal per service, tracks your hours without a stopwatch and includes a built-in pomodoro. Your data never leaves your machine. Coming soon for Windows and macOS.",
+  "projects.sharks.tag.terminals": "Multi-terminal",
+  "projects.sharks.tag.time": "Automatic time tracking",
+  "projects.sharks.tag.focus": "Focus mode · Pomodoro",
+  "projects.sharks.tag.local": "Local-first",
+  "projects.sharks.tag.vault": "AES-256 encrypted vault",
+  "projects.sharks.visit": "View project",
 
   // Footer
   "footer.title.line1": "Have a project",
@@ -139,6 +252,17 @@ const en: Record<TranslationKey, string> = {
   "footer.cta": "Let's talk",
   "footer.rights": "All rights reserved.",
   "footer.location": "Extremadura, Spain",
+
+  // Game (Game Mode)
+  "game.toggle.enter": "Game Mode",
+  "game.toggle.exit": "Exit Game Mode",
+  "game.hint": "Tap to fly",
+  "game.retry": "Tap to retry",
+  "game.best": "Best",
+  "game.level": "Level",
+  "game.star": "Super star",
+  "game.assist": "Assist",
+  "game.sound": "Sound",
 };
 
 const translations = { es, en } as const;
@@ -156,6 +280,7 @@ const STORAGE_KEY = "language";
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguage] = useState<Language>("es");
+  const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     try {
@@ -164,16 +289,18 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     } catch {
       // ignore
     }
+    setHydrated(true);
   }, []);
 
   useEffect(() => {
+    if (!hydrated) return;
     try {
       localStorage.setItem(STORAGE_KEY, language);
     } catch {
       // ignore
     }
     document.documentElement.lang = language;
-  }, [language]);
+  }, [hydrated, language]);
 
   const value = useMemo<LanguageContextValue>(() => {
     return {

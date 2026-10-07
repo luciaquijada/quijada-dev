@@ -24,19 +24,41 @@ export default function CustomCursor() {
     const pointerQuery = window.matchMedia(
       "(hover: hover) and (pointer: fine)"
     );
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const forcedQuery = window.matchMedia("(forced-colors: active)");
 
-    const syncEnabled = () => setEnabled(pointerQuery.matches);
+    const syncEnabled = () => {
+      setEnabled(
+        pointerQuery.matches && !motionQuery.matches && !forcedQuery.matches
+      );
+    };
+
     syncEnabled();
     pointerQuery.addEventListener("change", syncEnabled);
+    motionQuery.addEventListener("change", syncEnabled);
+    forcedQuery.addEventListener("change", syncEnabled);
 
-    return () => pointerQuery.removeEventListener("change", syncEnabled);
+    return () => {
+      pointerQuery.removeEventListener("change", syncEnabled);
+      motionQuery.removeEventListener("change", syncEnabled);
+      forcedQuery.removeEventListener("change", syncEnabled);
+    };
   }, []);
 
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled) {
+      document.documentElement.classList.remove("has-custom-cursor");
+      return;
+    }
+
+    document.documentElement.classList.add("has-custom-cursor");
 
     const dot = dotRef.current;
-    if (!dot) return;
+    if (!dot) {
+      return () => {
+        document.documentElement.classList.remove("has-custom-cursor");
+      };
+    }
 
     const mouse = { x: 0, y: 0 };
     let visible = false;
@@ -117,6 +139,7 @@ export default function CustomCursor() {
     document.addEventListener("mouseleave", handleMouseLeave);
 
     return () => {
+      document.documentElement.classList.remove("has-custom-cursor");
       cancelAnimationFrame(rafId);
       document.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseover", handleMouseOver);

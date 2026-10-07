@@ -1,17 +1,21 @@
+import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Projects from "@/components/Projects";
-import Footer from "@/components/Footer";
+
+const About = dynamic(() => import("@/components/About"));
+const Projects = dynamic(() => import("@/components/Projects"));
+const Footer = dynamic(() => import("@/components/Footer"));
 
 export default function Home() {
   return (
-    <main className="relative">
+    <>
       <Navbar />
-      <Hero />
-      <About />
-      <Projects />
+      <main id="main-content" tabIndex={-1} className="relative">
+        <Hero />
+        <About />
+        <Projects />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }

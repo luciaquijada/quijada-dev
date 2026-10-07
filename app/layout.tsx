@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
+import Script from "next/script";
+import { GeistSans } from "geist/font/sans";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import CustomCursor from "@/components/CustomCursor";
+import { GameProvider } from "@/components/game/GameProvider";
+import SkipLink from "@/components/SkipLink";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -30,8 +34,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" suppressHydrationWarning>
-      <body className="bg-stone-50 text-stone-900 antialiased transition-colors duration-300 dark:bg-black dark:text-stone-100">
+    <html lang="es" className={`${GeistSans.variable} ${GeistSans.className}`} suppressHydrationWarning>
+      <body
+        id="top"
+        className="bg-stone-50 text-stone-900 antialiased transition-colors duration-300 dark:bg-black dark:text-stone-100"
+      >
+        <Script id="html-lang" strategy="beforeInteractive">
+          {`try{var l=localStorage.getItem("language");if(l==="es"||l==="en")document.documentElement.lang=l}catch(e){}`}
+        </Script>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -39,8 +49,11 @@ export default function RootLayout({
           disableTransitionOnChange={false}
         >
           <LanguageProvider>
-            <CustomCursor />
-            {children}
+            <GameProvider>
+              <SkipLink />
+              <CustomCursor />
+              {children}
+            </GameProvider>
           </LanguageProvider>
         </ThemeProvider>
       </body>
