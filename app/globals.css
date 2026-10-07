@@ -178,3 +178,9 @@ body {
 .game-playing [data-no-pulse] {
   cursor: pointer !important;
 }
+
+/* Game Mode: la página de detrás no necesita pintarse mientras se juega. visibility
+   (no display ni content-visibility) conserva el layout y, con él, la posición de scroll. */
+html.game-active body > *:not([role="application"]):not(.cursor):not(.cursor-dot) {
+  visibility: hidden;
+}

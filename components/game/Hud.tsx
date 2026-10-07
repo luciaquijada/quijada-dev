@@ -83,7 +83,7 @@ export default function Hud({
         </motion.div>
       )}
 
-      {lives > 1 && (
+      {lives > 0 && (
         <div className="pointer-events-none absolute left-4 top-6 flex gap-1.5">
           {Array.from({ length: lives }).map((_, i) => (
             <span

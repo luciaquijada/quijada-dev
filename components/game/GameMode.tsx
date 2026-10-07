@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState, type ReactNode } from "react"
 import { motion } from "framer-motion";
 import { Accessibility, Volume2, VolumeX, X } from "lucide-react";
 import { useLanguage } from "@/components/LanguageProvider";
-import Hud from "@/components/game/Hud";
+import HudHost, { type HudData } from "@/components/game/HudHost";
 import ResultScreen from "@/components/game/ResultScreen";
 import { makeClock } from "@/lib/game/engine/clock";
 import { comboMult, createWorld, pulse, resizeWorld, stepWorld } from "@/lib/game/engine/world";
@@ -15,7 +15,6 @@ import * as sfx from "@/lib/game/audio/sfx";
 import { GAME } from "@/lib/game/config";
 import type { Status, World } from "@/lib/game/types";
 
-type HudState = { score: number; mult: number; lives: number; stage: number; star: number; status: Status };
 
 export default function GameMode({ onExit }: { onExit: () => void }) {
   const { t } = useLanguage();
@@ -24,13 +23,24 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
   const reducedRef = useRef(false);
   const assistRef = useRef(false);
   const mutedRef = useRef(false);
-  const [hud, setHud] = useState<HudState>({ score: 0, mult: 1, lives: GAME.lives, stage: 0, star: 0, status: "intro" });
+  // Solo cambia en transiciones (intro → playing → dead). El HUD con la puntuación
+  // vive en HudHost y se actualiza por su cuenta, sin re-renderizar todo GameMode.
+  const [status, setStatus] = useState<Status>("intro");
+  const [finalScore, setFinalScore] = useState(0);
+  const hudSetRef = useRef<(d: HudData) => void>(() => {});
+  const hudLatest = useRef<HudData>({ score: 0, mult: 1, lives: GAME.lives, stage: 0, star: 0 });
+  const registerHud = useCallback((fn: (d: HudData) => void) => {
+    hudSetRef.current = fn;
+  }, []);
   const [best, setBest] = useState(0);
   const [settings, setSettings] = useState({ assist: false, muted: false });
 
   const restart = useCallback(() => {
     const next = createWorld(window.innerWidth, window.innerHeight, reducedRef.current, assistRef.current);
     worldRef.current = next;
+    // El HUD se vuelve a montar con estos valores: sin esto arrancaba la nueva partida
+    // mostrando los de la anterior (0 vidas, puntuación vieja) hasta la siguiente sincronización.
+    Object.assign(hudLatest.current, { score: 0, mult: 1, lives: next.lives, stage: 0, star: 0 });
     pulse(next); // arranca jugando con el mismo tap que reinicia
   }, []);
 
@@ -54,10 +64,10 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
   // para poder apuntar a los chips y a la X.
   useEffect(() => {
     const el = document.documentElement;
-    if (hud.status === "playing") el.classList.add("game-playing");
+    if (status === "playing") el.classList.add("game-playing");
     else el.classList.remove("game-playing");
     return () => el.classList.remove("game-playing");
-  }, [hud.status]);
+  }, [status]);
 
   const toggleAssist = useCallback(() => {
     const next = !assistRef.current;
@@ -93,10 +103,17 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
     setSettings(loaded);
     sfx.setMuted(loaded.muted);
 
+    // Resolución dinámica: si el frame time se mantiene alto (GPU/pantalla 4K justa),
+    // el canvas baja su resolución interna (hasta 55 %) y vuelve a subir si hay margen.
+    let resScale = 1;
+    let frameEma = 1 / 60;
+    let lastResChange = 0;
+    let lastDownAt = 0;
+
     const setSize = () => {
       const w = window.innerWidth;
       const h = window.innerHeight;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, 2) * resScale;
       canvas.width = Math.floor(w * dpr);
       canvas.height = Math.floor(h * dpr);
       canvas.style.width = `${w}px`;
@@ -127,7 +144,6 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
     const dilTotal = GAME.comboDilationHold + GAME.comboDilationEase;
     const easeOut = (x: number) => 1 - Math.pow(1 - x, 3);
     let prevStatus: Status = "intro";
-    let prevScore = 0;
     let prevMult = 1;
     let prevLives = worldRef.current.lives;
     let prevStage = 0;
@@ -141,6 +157,21 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
       if (w) {
         const realDt = lastNow ? Math.min((now - lastNow) / 1000, 0.25) : 0;
         lastNow = now;
+
+        if (realDt > 0 && realDt < 0.1) {
+          frameEma += (realDt - frameEma) * 0.08;
+          if (now - lastResChange > 2000) {
+            if (frameEma > 0.021 && resScale > 0.55) {
+              resScale = Math.max(0.55, resScale - 0.15);
+              lastResChange = lastDownAt = now;
+              setSize();
+            } else if (frameEma < 0.0125 && resScale < 1 && now - lastDownAt > 10000) {
+              resScale = Math.min(1, resScale + 0.15);
+              lastResChange = now;
+              setSize();
+            }
+          }
+        }
 
         // Time-dilation en hitos de combo (desactivada con reduced-motion)
         if (dilation > 0) dilation = Math.max(0, dilation - realDt);
@@ -160,11 +191,15 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
         // Audio + feel por diff de estado (cada frame). Reset de trackers en reinicio.
         const sc = Math.floor(w.score);
         const mult = comboMult(w);
-        if (sc < prevScore) prevScore = sc;
         if (mult < prevMult) prevMult = mult;
         if (w.lives > prevLives) prevLives = w.lives;
 
-        if (sc > prevScore) sfx.playCollect(mult);
+        // La recogida suena solo por fotones: los vacíos rotos (que también suman
+        // puntos) tienen su propio sonido y no deben apilar otro "collect".
+        if (w.photonCollected) {
+          sfx.playCollect(mult);
+          w.photonCollected = false;
+        }
         if (w.status === "playing" && mult > prevMult) {
           dilation = dilTotal;
           sfx.playMilestone();
@@ -194,7 +229,11 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
             setBest(sc);
           }
         }
-        prevScore = sc;
+        if (w.status !== prevStatus) {
+          if (w.status === "dead") setFinalScore(sc);
+          setStatus(w.status);
+          lastSync = 0; // refresca el HUD en este mismo frame, sin esperar a los 90 ms
+        }
         prevMult = mult;
         prevLives = w.lives;
         prevStatus = w.status;
@@ -202,17 +241,13 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
         // Sincroniza el HUD a ~11 Hz (no React por frame)
         if (now - lastSync > 90) {
           lastSync = now;
-          const starSec = Math.ceil(w.star * 10) / 10;
-          setHud((prev) =>
-            prev.score === sc &&
-            prev.mult === mult &&
-            prev.lives === w.lives &&
-            prev.stage === w.stage &&
-            prev.star === starSec &&
-            prev.status === w.status
-              ? prev
-              : { score: sc, mult, lives: w.lives, stage: w.stage, star: starSec, status: w.status },
-          );
+          const d = hudLatest.current;
+          d.score = sc;
+          d.mult = mult;
+          d.lives = w.lives;
+          d.stage = w.stage;
+          d.star = Math.ceil(w.star * 10) / 10;
+          hudSetRef.current({ ...d });
         }
       }
       raf = requestAnimationFrame(frame);
@@ -230,6 +265,7 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", onResize);
       window.removeEventListener("keydown", onKey);
+      sfx.suspend();
       document.documentElement.classList.remove("game-active");
       document.documentElement.classList.remove("game-playing");
       document.body.style.overflow = prevBodyOverflow;
@@ -238,7 +274,7 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
     };
   }, [onExit]);
 
-  const showChips = hud.status === "intro" || hud.status === "dead";
+  const showChips = status === "intro" || status === "dead";
 
   return (
     <motion.div
@@ -253,10 +289,10 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
       <canvas ref={canvasRef} className="block h-full w-full" />
 
       {/* HUD durante el juego */}
-      {hud.status === "playing" && <Hud score={hud.score} mult={hud.mult} lives={hud.lives} stage={hud.stage} star={hud.star} />}
+      {status === "playing" && <HudHost initial={hudLatest.current} register={registerHud} />}
 
       {/* Hint de onboarding (show-don't-tell): solo antes del primer Pulso */}
-      {hud.status === "intro" && (
+      {status === "intro" && (
         <motion.p
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -268,7 +304,7 @@ export default function GameMode({ onExit }: { onExit: () => void }) {
       )}
 
       {/* Pantalla de resultado */}
-      {hud.status === "dead" && <ResultScreen score={hud.score} best={best} />}
+      {status === "dead" && <ResultScreen score={finalScore} best={best} />}
 
       {/* Ajustes (asistencia + sonido): solo en intro/resultado, no durante el juego */}
       {showChips && (

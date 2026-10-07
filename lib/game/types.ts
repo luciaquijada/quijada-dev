@@ -52,6 +52,7 @@ export type World = {
   nextVoidAt: number; // umbral de elapsed para el próximo vacío
   reducedMotion: boolean;
   assist: boolean; // Modo Asistencia activo
+  photonCollected: boolean; // se recogió un fotón este frame (SFX de recogida)
   starPicked: boolean; // señales para el SFX (las consume el frame loop)
   smashed: boolean;
   nearMiss: boolean; // señal de roce (la consume el frame loop para el SFX)

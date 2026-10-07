@@ -31,7 +31,11 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
 
   // En la salida dejamos que AnimatePresence anime el fundido (no usamos View
   // Transitions aquí para no solapar dos animaciones sobre el mismo unmount).
-  const exit = useCallback(() => setActive(false), []);
+  const exit = useCallback(() => {
+    // Revela la página de detrás (se oculta mientras se juega) antes del fundido.
+    document.documentElement.classList.remove("game-active");
+    setActive(false);
+  }, []);
 
   return (
     <GameContext.Provider value={{ active, enter, exit }}>

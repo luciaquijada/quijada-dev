@@ -53,6 +53,7 @@ export function resolveCollisions(w: World) {
         const mult = 1 + Math.floor(w.combo / GAME.comboStep);
         w.score += GAME.photonBase * mult;
         w.pops.push({ x: p.x, y: p.y, life: 1 });
+        w.photonCollected = true;
       } else {
         list[kept++] = p;
       }

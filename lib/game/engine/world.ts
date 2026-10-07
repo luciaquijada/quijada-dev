@@ -72,6 +72,7 @@ export function createWorld(
     reducedMotion,
     assist,
     nearMiss: false,
+    photonCollected: false,
     starPicked: false,
     smashed: false,
     bgTime: 0,
