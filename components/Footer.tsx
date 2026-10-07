@@ -1,13 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Mail, ArrowUpRight, MapPin, Github, Linkedin } from "lucide-react";
 import { useLanguage } from "@/components/LanguageProvider";
 
 const socialLinks = [
-  { name: "LinkedIn", href: "https://www.linkedin.com/in/luciaquijada/", icon: Linkedin },
-  { name: "GitHub", href: "https://github.com/luciaquijada", icon: Github },
-  { name: "Email", href: "mailto:lquijadagordo17@gmail.com", icon: Mail },
+  { name: "LinkedIn", href: "https://www.linkedin.com/in/luciaquijada/", icon: Linkedin, external: true },
+  { name: "GitHub", href: "https://github.com/luciaquijada", icon: Github, external: true },
+  { name: "Email", href: "mailto:lquijadagordo17@gmail.com", icon: Mail, external: false },
 ];
 
 export default function Footer() {
@@ -16,66 +16,78 @@ export default function Footer() {
   return (
     <footer id="contact" className="px-6 py-24 md:py-32">
       <div className="mx-auto max-w-6xl">
-        {/* CTA Section */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="mb-20 text-center"
         >
-          <h2 className="mb-6 text-4xl font-bold tracking-tight text-stone-900 dark:text-stone-100 sm:text-5xl md:text-6xl lg:text-7xl">
+          <h2
+            id="contact-heading"
+            tabIndex={-1}
+            className="mb-6 text-4xl font-bold tracking-tight text-stone-900 dark:text-stone-100 sm:text-5xl md:text-6xl lg:text-7xl"
+          >
             {t("footer.title.line1")}
             <br />
             {t("footer.title.line2")}
           </h2>
-          <p className="mx-auto mb-10 max-w-xl text-lg text-stone-500 dark:text-stone-400">
+          <p className="mx-auto mb-10 max-w-xl text-lg text-stone-600 dark:text-stone-300">
             {t("footer.subtitle")}
           </p>
-          <motion.a
+          <m.a
             href="mailto:lquijadagordo17@gmail.com"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="inline-flex items-center gap-3 rounded-full bg-stone-900 px-8 py-4 text-lg font-medium text-white transition-all hover:bg-stone-800 hover:shadow-xl hover:shadow-stone-900/20 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200"
+            className="inline-flex min-h-11 items-center gap-3 rounded-full bg-stone-900 px-8 py-4 text-lg font-medium text-white transition-all hover:bg-stone-800 hover:shadow-xl hover:shadow-stone-900/20 dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-stone-200"
           >
             {t("footer.cta")}
-            <ArrowUpRight className="h-5 w-5" />
-          </motion.a>
-        </motion.div>
+            <ArrowUpRight className="h-5 w-5" aria-hidden="true" />
+          </m.a>
+        </m.div>
 
-        {/* Footer Bottom */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="flex flex-col items-center justify-between gap-8 border-t border-stone-200 pt-12 dark:border-stone-800 md:flex-row"
         >
-          {/* Left */}
           <div className="flex flex-col items-center gap-2 md:items-start">
-            <p className="text-sm text-stone-500 dark:text-stone-400">
+            <p className="text-sm text-stone-600 dark:text-stone-400">
               © 2026 Lucía Quijada. {t("footer.rights")}
             </p>
-            <div className="flex items-center gap-1 text-sm text-stone-400 dark:text-stone-500">
-              <MapPin className="h-3.5 w-3.5" />
+            <p className="flex items-center gap-1 text-sm text-stone-600 dark:text-stone-400">
+              <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
               {t("footer.location")}
-            </div>
+            </p>
+            <a
+              href="/accessibility-statement"
+              className="text-sm font-medium text-stone-800 underline decoration-stone-400 underline-offset-4 transition-colors hover:text-stone-950 hover:decoration-stone-800 dark:text-stone-200 dark:decoration-stone-500 dark:hover:text-white dark:hover:decoration-stone-200"
+            >
+              {t("a11y.link")}
+            </a>
           </div>
 
-          {/* Social Links */}
-          <div className="flex items-center gap-3">
+          <ul className="flex items-center gap-3">
             {socialLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-stone-200 bg-white text-stone-500 transition-all hover:border-stone-300 hover:text-stone-900 dark:border-stone-800 dark:bg-black dark:text-stone-400 dark:hover:border-stone-700 dark:hover:text-stone-100"
-                aria-label={link.name}
-              >
-                <link.icon className="h-4 w-4" />
-              </a>
+              <li key={link.name}>
+                <a
+                  href={link.href}
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-stone-300 bg-white text-stone-700 transition-all hover:border-stone-400 hover:text-stone-900 dark:border-stone-700 dark:bg-black dark:text-stone-300 dark:hover:border-stone-500 dark:hover:text-stone-100"
+                  aria-label={
+                    link.external ? `${link.name} (${t("a11y.newWindow")})` : link.name
+                  }
+                  {...(link.external
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
+                >
+                  <link.icon className="h-4 w-4" aria-hidden="true" />
+                </a>
+              </li>
             ))}
-          </div>
-        </motion.div>
+          </ul>
+        </m.div>
       </div>
     </footer>
   );
