@@ -4,6 +4,7 @@ import { GeistSans } from "geist/font/sans";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import CustomCursor from "@/components/CustomCursor";
+import { GameProvider } from "@/components/game/GameProvider";
 import SkipLink from "@/components/SkipLink";
 import "./globals.css";
 
@@ -48,9 +49,11 @@ export default function RootLayout({
           disableTransitionOnChange={false}
         >
           <LanguageProvider>
-            <SkipLink />
-            <CustomCursor />
-            {children}
+            <GameProvider>
+              <SkipLink />
+              <CustomCursor />
+              {children}
+            </GameProvider>
           </LanguageProvider>
         </ThemeProvider>
       </body>

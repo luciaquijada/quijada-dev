@@ -3,11 +3,19 @@
 import { m } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { useLanguage } from "@/components/LanguageProvider";
+import { useGame } from "@/components/game/GameProvider";
 
 export default function Hero() {
   const { t } = useLanguage();
+  const { enter } = useGame();
 
-  const roles = [t("hero.roles.fullstack"), t("hero.roles.webMobile")];
+  const roles = [t("hero.roles.fullstack"), t("hero.roles.webMobile"), t("hero.roles.game")];
+  const gameRole = roles[roles.length - 1];
+
+  // Easter egg: el rol "Game Developer" abre el Modo Juego. Es un botón real
+  // (teclado y lectores de pantalla), pero se ve igual que el resto del texto.
+  const eggClass =
+    "cursor-pointer rounded-sm transition-colors hover:text-yellow-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-500";
 
   return (
     <section className="relative flex min-h-screen flex-col justify-center px-4 pt-20 sm:px-6 sm:pt-24" aria-labelledby="hero-heading">
@@ -40,12 +48,23 @@ export default function Hero() {
         >
           <div className="flex flex-col gap-1 sm:hidden">
             <span>{t("hero.roles.fullstack")}</span>
-            <span>{t("hero.roles.mobileSecondary")}</span>
+            <span className="text-stone-400 dark:text-stone-500">
+              {t("hero.roles.mobileSecondary")} •{" "}
+              <button type="button" onClick={enter} className={eggClass}>
+                {t("hero.roles.mobileGame")}
+              </button>
+            </span>
           </div>
           <div className="hidden sm:flex sm:flex-wrap sm:items-center sm:gap-3">
             {roles.map((role, index) => (
               <span key={role} className="flex items-center gap-3">
-                <span>{role}</span>
+                {role === gameRole ? (
+                  <button type="button" onClick={enter} className={eggClass}>
+                    {role}
+                  </button>
+                ) : (
+                  <span>{role}</span>
+                )}
                 {index < roles.length - 1 && (
                   <span
                     className="h-1.5 w-1.5 rounded-full bg-stone-500 dark:bg-stone-400"

@@ -62,7 +62,9 @@ const es = {
   "hero.greeting": "Hola, soy",
   "hero.roles.fullstack": "Desarrolladora Frontend",
   "hero.roles.webMobile": "Apps Web y Móvil",
-  "hero.roles.mobileSecondary": "Apps Web y Móvil",
+  "hero.roles.game": "Desarrolladora de Juegos",
+  "hero.roles.mobileSecondary": "Web y móvil",
+  "hero.roles.mobileGame": "Juegos",
   "hero.description.mobile": "Más de 2 años creando soluciones digitales centradas en la eficiencia y una gran experiencia de usuario.",
   "hero.description.desktop":
     "Especializada en crear sitios web y aplicaciones móviles. Tengo 2 años de experiencia diseñando, desarrollando y optimizando soluciones digitales enfocadas en eficiencia, escalabilidad y experiencia de usuario. Me apasiona programar y resolver problemas, y busco aportar a un equipo de alto rendimiento, impulsando proyectos tecnológicos innovadores y con impacto.",
@@ -118,7 +120,18 @@ const es = {
     "Siempre estoy abierta a nuevas oportunidades y colaboraciones interesantes. Escríbeme sin problema.",
   "footer.cta": "Hablemos",
   "footer.rights": "Todos los derechos reservados.",
-  "footer.location": "Extremadura, España",
+  "footer.location": "Salamanca, España",
+
+  // Game (Modo Juego)
+  "game.toggle.enter": "Modo Juego",
+  "game.toggle.exit": "Salir del Modo Juego",
+  "game.hint": "Pulsa para volar",
+  "game.retry": "Pulsa para reintentar",
+  "game.best": "Mejor",
+  "game.level": "Nivel",
+  "game.star": "Superestrella",
+  "game.assist": "Asistencia",
+  "game.sound": "Sonido",
 } as const;
 
 export type TranslationKey = keyof typeof es;
@@ -181,7 +194,9 @@ const en: Record<TranslationKey, string> = {
   "hero.greeting": "Hi, I'm",
   "hero.roles.fullstack": "Frontend Developer",
   "hero.roles.webMobile": "Web & Mobile Apps",
-  "hero.roles.mobileSecondary": "Web & Mobile Apps",
+  "hero.roles.game": "Game Developer",
+  "hero.roles.mobileSecondary": "Web & Mobile",
+  "hero.roles.mobileGame": "Games",
   "hero.description.mobile": "2+ years building digital solutions focused on efficiency and great user experience.",
   "hero.description.desktop":
     "Specialized in building websites and mobile applications. I have 2 years of experience designing, developing, and optimizing digital solutions focused on efficiency, scalability, and user experience. I'm passionate about programming and problem-solving, and I aim to contribute to a high-performance team, driving innovative and impactful technology projects.",
@@ -237,6 +252,17 @@ const en: Record<TranslationKey, string> = {
   "footer.cta": "Let's talk",
   "footer.rights": "All rights reserved.",
   "footer.location": "Extremadura, Spain",
+
+  // Game (Game Mode)
+  "game.toggle.enter": "Game Mode",
+  "game.toggle.exit": "Exit Game Mode",
+  "game.hint": "Tap to fly",
+  "game.retry": "Tap to retry",
+  "game.best": "Best",
+  "game.level": "Level",
+  "game.star": "Super star",
+  "game.assist": "Assist",
+  "game.sound": "Sound",
 };
 
 const translations = { es, en } as const;
