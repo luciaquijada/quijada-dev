@@ -104,10 +104,11 @@ const es = {
     "Todo lo que abres cada mañana, en una ventana: tus proyectos, terminales, horas y focus, sin configurar nada. Un clic y a seguir nadando.",
   "projects.sharks.description.desktop":
     "Todo lo que abres cada mañana, en una sola ventana. Sharks reúne tus proyectos, terminales, horas y focus sin configurar nada: encuentra solo cómo arrancar cada proyecto, abre una terminal por servicio, cuenta las horas sin cronómetro y trae un pomodoro integrado. Tus datos no salen de tu equipo. Próximamente para Windows y macOS.",
-  "projects.sharks.tag.terminals": "Una terminal por servicio",
-  "projects.sharks.tag.time": "Horas contadas solas",
-  "projects.sharks.tag.focus": "Pomodoro",
-  "projects.sharks.tag.local": "100 % local",
+  "projects.sharks.tag.terminals": "Multi-terminal",
+  "projects.sharks.tag.time": "Time tracking automático",
+  "projects.sharks.tag.focus": "Modo focus · Pomodoro",
+  "projects.sharks.tag.local": "Local-first",
+  "projects.sharks.tag.vault": "Bóveda cifrada AES-256",
   "projects.sharks.visit": "Ver proyecto",
 
   // Footer
@@ -222,10 +223,11 @@ const en: Record<TranslationKey, string> = {
     "Everything you open every morning, in one window: your projects, terminals, hours and focus, with zero setup. One click and keep swimming.",
   "projects.sharks.description.desktop":
     "Everything you open every morning, in a single window. Sharks brings together your projects, terminals, hours and focus with zero setup: it finds how to start each project on its own, opens one terminal per service, tracks your hours without a stopwatch and includes a built-in pomodoro. Your data never leaves your machine. Coming soon for Windows and macOS.",
-  "projects.sharks.tag.terminals": "One terminal per service",
+  "projects.sharks.tag.terminals": "Multi-terminal",
   "projects.sharks.tag.time": "Automatic time tracking",
-  "projects.sharks.tag.focus": "Pomodoro",
-  "projects.sharks.tag.local": "100% local",
+  "projects.sharks.tag.focus": "Focus mode · Pomodoro",
+  "projects.sharks.tag.local": "Local-first",
+  "projects.sharks.tag.vault": "AES-256 encrypted vault",
   "projects.sharks.visit": "View project",
 
   // Footer

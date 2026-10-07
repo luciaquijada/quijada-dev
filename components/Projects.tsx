@@ -8,7 +8,7 @@ const projects = [
   {
     id: "sharks",
     url: "https://www.sharks-app.es",
-    tags: ["terminals", "time", "focus", "local"],
+    tags: ["terminals", "time", "focus", "local", "vault"],
     icon: "/assets/sharks-logo.png",
   },
 ] as const;
